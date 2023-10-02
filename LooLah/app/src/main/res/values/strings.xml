@@ -8,6 +8,7 @@
     <string name="login_page">Login</string>
     <string name="login_username_email_hint">Username/Email</string>
     <string name="login_password_hint">Password</string>
+    <string name="login_toggle_password">Toggle Password Visibility</string>
     <string name="login_forgot_password">Forgot Password?</string>
     <string name="login_login_btn">Login</string>
     <string name="login_divider">OR</string>
@@ -18,7 +19,9 @@
     <string name="register_email_hint">Email</string>
     <string name="register_username_hint">Username</string>
     <string name="register_password_hint">Password</string>
+    <string name="register_toggle_password">Toggle Password Visibility</string>
     <string name="register_confirm_password_hint">Confirm Password</string>
+    <string name="register_toggle_confirm_password">Toggle Confirm Password Visibility</string>
     <string name="register_register_btn">Register</string>
     <string name="register_account_exist">Already have an account? Login here</string>
 </resources>
