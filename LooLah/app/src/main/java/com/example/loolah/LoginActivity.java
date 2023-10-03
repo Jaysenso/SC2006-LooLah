@@ -18,9 +18,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Button btn_login = findViewById(R.id.btn_login_login);
         Button btn_sign_up = findViewById(R.id.btn_login_sign_up);
         ImageButton btn_toggle_password = findViewById(R.id.btn_login_toggle_password);
         EditText et_password = findViewById(R.id.et_login_password);
+
+        btn_login.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        });
 
         btn_sign_up.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));

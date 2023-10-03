@@ -24,4 +24,11 @@
     <string name="register_toggle_confirm_password">Toggle Confirm Password Visibility</string>
     <string name="register_register_btn">Register</string>
     <string name="register_account_exist">Already have an account? Login here</string>
+
+    <!-- Navigation Bar -->
+    <string name="navbar_home">Home</string>
+    <string name="navbar_maps">Map</string>
+    <string name="navbar_review">Add Review</string>
+    <string name="navbar_favorites">Favorites</string>
+    <string name="navbar_profile">Profile</string>
 </resources>
