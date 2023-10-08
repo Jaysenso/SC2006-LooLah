@@ -4,9 +4,10 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary</item>
+        <item name="android:windowBackground">#F5F5F5</item>
 
-        <!-- Status bar color. -->
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="Theme.LooLah" parent="Base.Theme.LooLah" />

@@ -31,4 +31,23 @@
     <string name="navbar_review">Add Review</string>
     <string name="navbar_favorites">Favorites</string>
     <string name="navbar_profile">Profile</string>
+
+    <!-- Home -->
+    <string name="home_search_hint">Search...</string>
+    <string name="home_search_btn">Search</string>
+    <string-array name="home_dropdown_type">
+        <item>Bus Interchange</item>
+        <item>Food Court</item>
+        <item>Club</item>
+        <item>Park</item>
+    </string-array>
+
+    <string name="home_toilet">Toilet</string>
+    <string name="home_toilet_name">Toilet Name</string>
+    <string name="home_toilet_distance">Toilet Distance</string>
+    <string name="home_toilet_verified">Verified</string>
+    <string name="home_toilet_type">Toilet Type</string>
+    <string name="home_toilet_district">Toilet District</string>
+    <string name="home_toilet_rating">Toilet Rating</string>
+    <string name="home_toilet_rating_count">Toilet Rating Count</string>
 </resources>

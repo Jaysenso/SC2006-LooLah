@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rtl_home_toilet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="5dp"
+    android:background="@drawable/bg_borderless"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_home_toilet_logo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/home_toilet"
+            android:src="@drawable/ic_toilet"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_home_toilet_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/tertiary" />
+
+        <TextView
+            android:id="@+id/tv_home_toilet_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/home_toilet_name"
+            android:fontFamily="sans-serif-medium"
+            android:text="AMK Bus Interchange"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:typeface="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_home_toilet_verified"
+            app:layout_constraintStart_toEndOf="@id/iv_home_toilet_logo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_home_toilet_verified"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/home_toilet_verified"
+            android:src="@drawable/ic_toilet_verified"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_home_toilet_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/success" />
+
+        <TextView
+            android:id="@+id/tv_home_toilet_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/home_toilet_distance"
+            android:fontFamily="sans-serif-medium"
+            android:text="19.9m"
+            android:textColor="@color/muted"
+            android:textSize="16sp"
+            android:typeface="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/tv_home_toilet_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_pill"
+            android:backgroundTint="@color/secondary"
+            android:contentDescription="@string/home_toilet_type"
+            android:fontFamily="sans-serif-medium"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="2dp"
+            android:text="Bus Interchange"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:typeface="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_home_toilet_district"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_home_toilet_district"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/bg_pill"
+            android:backgroundTint="@color/primary"
+            android:contentDescription="@string/home_toilet_district"
+            android:fontFamily="sans-serif-medium"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="2dp"
+            android:text="Central"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:typeface="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_home_toilet_type"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/lnl_home_toilet_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_home_toilet_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/home_toilet_rating"
+                android:fontFamily="sans-serif-medium"
+                android:text="4.5"
+                android:textColor="@color/muted"
+                android:textSize="12sp"
+                android:typeface="normal" />
+
+            <ImageView
+                android:id="@+id/iv_home_toilet_rating"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="2dp"
+                android:contentDescription="@string/home_toilet_rating"
+                android:src="@drawable/ic_toilet_rating"
+                app:tint="@color/muted" />
+
+            <TextView
+                android:id="@+id/tv_home_toilet_rating_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/home_toilet_rating_count"
+                android:fontFamily="sans-serif-medium"
+                android:text="(4)"
+                android:textColor="@color/muted"
+                android:textSize="12sp"
+                android:typeface="normal" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
