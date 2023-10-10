@@ -35,14 +35,11 @@
     <!-- Home -->
     <string name="home_search_hint">Search…</string>
     <string name="home_search_btn">Search</string>
-    <string name="home_toilet">Toilet</string>
-    <string name="home_toilet_name">Toilet Name</string>
-    <string name="home_toilet_distance">Toilet Distance</string>
-    <string name="home_toilet_verified">Verified</string>
-    <string name="home_toilet_type">Toilet Type</string>
-    <string name="home_toilet_district">Toilet District</string>
-    <string name="home_toilet_rating">Toilet Rating</string>
-    <string name="home_toilet_rating_count">Toilet Rating Count</string>
+
+    <!-- Toilet Row -->
+    <string name="toilet_icon">Toilet Icon</string>
+    <string name="toilet_verified">Verified</string>
+    <string name="toilet_rating">Toilet Rating</string>
 
     <!-- Profile -->
     <string name="profile_background">Profile Background</string>
@@ -56,6 +53,12 @@
     <string name="profile_review_toilet_rating">Toilet Rating</string>
 
     <!-- Example Text (To be deleted) -->
+    <string name="example_toilet_name">AMK Bus Interchange</string>
+    <string name="example_toilet_distance">19.9m</string>
+    <string name="example_toilet_type">Bus Interchange</string>
+    <string name="example_toilet_district">Central</string>
+    <string name="example_toilet_rating">4.5</string>
+    <string name="example_toilet_rating_count">(4)</string>
     <string name="example_profile_username">\@example.123</string>
     <string name="example_profile_rank">Veteran</string>
     <string name="example_profile_statistics_photos">149</string>
