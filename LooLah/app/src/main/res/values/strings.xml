@@ -33,15 +33,8 @@
     <string name="navbar_profile">Profile</string>
 
     <!-- Home -->
-    <string name="home_search_hint">Search...</string>
+    <string name="home_search_hint">Search…</string>
     <string name="home_search_btn">Search</string>
-    <string-array name="home_dropdown_type">
-        <item>Bus Interchange</item>
-        <item>Food Court</item>
-        <item>Club</item>
-        <item>Park</item>
-    </string-array>
-
     <string name="home_toilet">Toilet</string>
     <string name="home_toilet_name">Toilet Name</string>
     <string name="home_toilet_distance">Toilet Distance</string>
@@ -50,4 +43,25 @@
     <string name="home_toilet_district">Toilet District</string>
     <string name="home_toilet_rating">Toilet Rating</string>
     <string name="home_toilet_rating_count">Toilet Rating Count</string>
+
+    <!-- Profile -->
+    <string name="profile_background">Profile Background</string>
+    <string name="profile_settings">Profile Settings</string>
+    <string name="profile_rank">Profile Rank</string>
+    <string name="profile_statistics_photos">Photos</string>
+    <string name="profile_statistics_reviews">Reviews</string>
+    <string name="profile_statistics_likes">Likes</string>
+    <string name="profile_latest_reviews">Latest Reviews</string>
+    <string name="profile_review_toilet_verified">Verified</string>
+    <string name="profile_review_toilet_rating">Toilet Rating</string>
+
+    <!-- Example Text (To be deleted) -->
+    <string name="example_profile_username">\@example.123</string>
+    <string name="example_profile_rank">Veteran</string>
+    <string name="example_profile_statistics_photos">149</string>
+    <string name="example_profile_statistics_reviews">149</string>
+    <string name="example_profile_statistics_likes">149</string>
+    <string name="example_profile_review_toilet_name">AMK Bus Interchange</string>
+    <string name="example_profile_review_toilet_rating">5</string>
+    <string name="example_profile_review_toilet_review">Fairly acceptable. A bit dirty but not the worst. Could be better.</string>
 </resources>

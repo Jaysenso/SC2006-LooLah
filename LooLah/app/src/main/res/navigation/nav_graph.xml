@@ -10,4 +10,10 @@
         android:label="HomeFragment">
     </fragment>
 
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.loolah.ProfileFragment"
+        android:label="ProfileFragment">
+    </fragment>
+
 </navigation>

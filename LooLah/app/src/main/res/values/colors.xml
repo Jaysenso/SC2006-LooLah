@@ -8,4 +8,6 @@
     <color name="tertiary">#455391</color>
     <color name="muted">#A7A7A7</color>
     <color name="success">#4BB543</color>
+
+    <color name="gold">#FFD700</color>
 </resources>
