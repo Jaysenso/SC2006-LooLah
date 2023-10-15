@@ -54,9 +54,18 @@
 
     <!-- Setting -->
     <string name="setting_background">Setting Background</string>
+    <string name="setting_back_btn">Back</string>
     <string name="setting_edit_profile_btn">\tEdit Profile</string>
     <string name="setting_change_password_btn">\tChange Password</string>
     <string name="setting_sign_out_btn">Sign Out</string>
+
+    <!-- Change Password -->
+    <string name="change_password_background">Change Password Background</string>
+    <string name="change_password_back_btn">Back</string>
+    <string name="change_password_current">Current Password</string>
+    <string name="change_password_new">New Password</string>
+    <string name="change_password_confirm">Confirm Password</string>
+    <string name="change_password_save_btn">Save</string>
 
     <!-- Example Text (To be deleted) -->
     <string name="example_toilet_name">AMK Bus Interchange</string>

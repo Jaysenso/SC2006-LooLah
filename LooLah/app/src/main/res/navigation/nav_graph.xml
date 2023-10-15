@@ -21,6 +21,19 @@
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.loolah.SettingFragment"
-        android:label="SettingFragment"></fragment>
+        android:label="SettingFragment">
+        <action
+            android:id="@+id/action_settingFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.loolah.ChangePasswordFragment"
+        android:label="ChangePasswordFragment">
+        <action
+            android:id="@+id/action_changePasswordFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 
 </navigation>
