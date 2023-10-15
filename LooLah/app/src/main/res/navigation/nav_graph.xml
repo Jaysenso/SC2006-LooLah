@@ -7,13 +7,20 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.loolah.HomeFragment"
-        android:label="HomeFragment">
-    </fragment>
+        android:label="HomeFragment"></fragment>
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.loolah.ProfileFragment"
         android:label="ProfileFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.loolah.SettingFragment"
+        android:label="SettingFragment"></fragment>
 
 </navigation>

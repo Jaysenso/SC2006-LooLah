@@ -52,6 +52,12 @@
     <string name="profile_review_toilet_verified">Verified</string>
     <string name="profile_review_toilet_rating">Toilet Rating</string>
 
+    <!-- Setting -->
+    <string name="setting_background">Setting Background</string>
+    <string name="setting_edit_profile_btn">\tEdit Profile</string>
+    <string name="setting_change_password_btn">\tChange Password</string>
+    <string name="setting_sign_out_btn">Sign Out</string>
+
     <!-- Example Text (To be deleted) -->
     <string name="example_toilet_name">AMK Bus Interchange</string>
     <string name="example_toilet_distance">19.9m</string>
