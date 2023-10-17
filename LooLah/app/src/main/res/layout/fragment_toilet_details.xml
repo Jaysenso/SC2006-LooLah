@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_toilet_details_background"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:contentDescription="@string/toilet_details_background"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_toilet_details"
+        android:tintMode="src_atop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#66000000" />
+
+    <ImageButton
+        android:id="@+id/ib_toilet_details_back"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/ic_arrow_back"
+        android:contentDescription="@string/toilet_details_back_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_toilet_details_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/example_toilet_name"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="@id/iv_toilet_details_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_toilet_details_verified"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:contentDescription="@string/toilet_details_verified"
+        android:src="@drawable/ic_toilet_verified"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_toilet_details_background">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ctl_toilet_details_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/lnl_toilet_details_availability"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_toilet_details_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pill"
+                    android:backgroundTint="@color/secondary"
+                    android:fontFamily="sans-serif-medium"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="2dp"
+                    android:text="@string/example_toilet_type"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:typeface="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_toilet_details_district"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_toilet_details_district"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/bg_pill"
+                    android:backgroundTint="@color/primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="2dp"
+                    android:text="@string/example_toilet_district"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:typeface="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_toilet_details_type"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/lnl_toilet_details_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_toilet_details_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/example_toilet_rating"
+                        android:textColor="@color/muted"
+                        android:textSize="12sp"
+                        android:typeface="normal" />
+
+                    <ImageView
+                        android:id="@+id/iv_toilet_details_rating"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="2dp"
+                        android:contentDescription="@string/toilet_rating"
+                        android:src="@drawable/ic_toilet_rating"
+                        app:tint="@color/muted" />
+
+                    <TextView
+                        android:id="@+id/tv_toilet_details_rating_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/example_toilet_rating_count"
+                        android:textColor="@color/muted"
+                        android:textSize="12sp"
+                        android:typeface="normal" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/lnl_toilet_details_availability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/tv_toilet_details_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ctl_toilet_details_info">
+
+                <TextView
+                    android:id="@+id/tv_toilet_details_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/example_toilet_details_availability"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:typeface="normal"
+                    app:drawableStartCompat="@drawable/ic_toilet_details_female" />
+
+                <TextView
+                    android:id="@+id/tv_toilet_details_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/example_toilet_details_availability"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:typeface="normal"
+                    app:drawableStartCompat="@drawable/ic_toilet_details_male" />
+
+                <TextView
+                    android:id="@+id/tv_toilet_details_handicap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/example_toilet_details_availability"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:typeface="normal"
+                    app:drawableStartCompat="@drawable/ic_toilet_details_handicap" />
+
+                <TextView
+                    android:id="@+id/tv_toilet_details_child"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/example_toilet_details_availability"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:typeface="normal"
+                    app:drawableStartCompat="@drawable/ic_toilet_details_child" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_toilet_details_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
+                android:text="@string/example_toilet_details_address"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:typeface="normal"
+                app:drawableStartCompat="@drawable/ic_toilet_details_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lnl_toilet_details_availability" />
+
+            <TextView
+                android:id="@+id/tv_toilet_details_crowd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
+                android:text="@string/example_toilet_details_crowd"
+                android:textColor="@color/success"
+                android:textSize="12sp"
+                android:typeface="normal"
+                app:drawableEndCompat="@drawable/ic_toilet_details_crowd_not"
+                app:drawableStartCompat="@drawable/ic_toilet_details_crowd"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_toilet_details_address" />
+
+            <LinearLayout
+                android:id="@+id/lnl_toilet_details_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_toilet_details_crowd">
+
+                <TextView
+                    android:id="@+id/tv_toilet_details_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/toilet_details_review"
+                    android:textColor="@color/secondary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/tv_toilet_details_review_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/example_toilet_rating_count"
+                    android:textColor="@color/secondary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/lnl_toilet_details_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/ib_toilet_details_favorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_borderless"
+            android:backgroundTint="@color/secondary"
+            android:contentDescription="@string/toilet_details_favorite_btn"
+            android:src="@drawable/ic_toilet_details_favorite" />
+
+        <Button
+            android:id="@+id/btn_toilet_details_review"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_borderless"
+            android:backgroundTint="@color/secondary"
+            android:text="@string/toilet_details_review_btn"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:typeface="normal" />
+
+        <ImageButton
+            android:id="@+id/ib_toilet_details_gallery"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_borderless"
+            android:backgroundTint="@color/secondary"
+            android:contentDescription="@string/toilet_details_gallery_btn"
+            android:src="@drawable/ic_toilet_details_gallery" />
+
+        <ImageButton
+            android:id="@+id/ib_toilet_details_direction"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_borderless"
+            android:backgroundTint="@color/secondary"
+            android:contentDescription="@string/toilet_details_direction_btn"
+            android:src="@drawable/ic_toilet_details_direction" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

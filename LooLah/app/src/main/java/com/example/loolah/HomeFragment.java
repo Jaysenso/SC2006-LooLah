@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 public class HomeFragment extends Fragment {
     @Override
@@ -33,6 +35,11 @@ public class HomeFragment extends Fragment {
         adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, toilet_rating);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ((Spinner) home_fragment.findViewById(R.id.sp_home_filter_rating)).setAdapter(adapter);
+
+        LinearLayout row_toilet = home_fragment.findViewById(R.id.lnl_toilet);
+        row_toilet.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_toiletDetailsFragment);
+        });
 
         return home_fragment;
     }

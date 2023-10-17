@@ -1,6 +1,5 @@
 package com.example.loolah;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ public class ProfileFragment extends Fragment {
 
         ImageButton btn_setting = profile_fragment.findViewById(R.id.ib_profile_settings);
         btn_setting.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_settingFragment);
+            Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_settingFragment);
         });
 
         return profile_fragment;

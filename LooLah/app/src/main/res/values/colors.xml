@@ -9,5 +9,10 @@
     <color name="muted">#A7A7A7</color>
     <color name="success">#4BB543</color>
 
+    <color name="not_crowded">#4BB543</color>
+    <color name="some_crowd">#FDCC0D</color>
+    <color name="crowded">#F36747</color>
+    <color name="very_crowded">#FF0000</color>
+
     <color name="gold">#FFD700</color>
 </resources>

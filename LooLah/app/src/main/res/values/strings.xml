@@ -41,6 +41,16 @@
     <string name="toilet_verified">Verified</string>
     <string name="toilet_rating">Toilet Rating</string>
 
+    <!-- Toilet Details -->
+    <string name="toilet_details_background">Toilet Background</string>
+    <string name="toilet_details_back_btn">Back</string>
+    <string name="toilet_details_verified">Verified</string>
+    <string name="toilet_details_review">Reviews</string>
+    <string name="toilet_details_favorite_btn">Favorite</string>
+    <string name="toilet_details_review_btn">Review</string>
+    <string name="toilet_details_gallery_btn">Gallery</string>
+    <string name="toilet_details_direction_btn">Direction</string>
+
     <!-- Profile -->
     <string name="profile_background">Profile Background</string>
     <string name="profile_settings">Profile Settings</string>
@@ -74,6 +84,9 @@
     <string name="example_toilet_district">Central</string>
     <string name="example_toilet_rating">4.5</string>
     <string name="example_toilet_rating_count">(4)</string>
+    <string name="example_toilet_details_availability">Yes</string>
+    <string name="example_toilet_details_address">53 Ang Mo Kio Avenue 3, S(569933)</string>
+    <string name="example_toilet_details_crowd">Not Crowded</string>
     <string name="example_profile_username">\@example.123</string>
     <string name="example_profile_rank">Veteran</string>
     <string name="example_profile_statistics_photos">149</string>

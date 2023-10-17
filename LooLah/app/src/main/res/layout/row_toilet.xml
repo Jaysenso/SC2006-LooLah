@@ -53,8 +53,7 @@
             android:src="@drawable/ic_toilet_verified"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_toilet_name"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/success" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_toilet_distance"

@@ -55,8 +55,7 @@
                 android:src="@drawable/ic_toilet_verified"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_profile_review_toilet_name"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/success" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/lnl_profile_review_toilet_rating"
