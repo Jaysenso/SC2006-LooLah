@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId = "com.example.loolah"
         minSdk = 28
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -49,5 +49,7 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.google.android.gms:play-services-maps:18.2.0")
+
 
 }
