@@ -61,6 +61,8 @@
         android:layout_height="0dp"
         android:paddingHorizontal="20dp"
         android:paddingTop="15dp"
+        android:paddingBottom="70dp"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -292,6 +294,36 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:typeface="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lnl_toilet_details_review">
+
+                <include
+                    android:id="@+id/lnl_toilet_review_row_1"
+                    layout="@layout/row_toilet_review" />
+
+                <include
+                    android:id="@+id/lnl_toilet_review_row_2"
+                    layout="@layout/row_toilet_review" />
+
+                <include
+                    android:id="@+id/lnl_toilet_review_row_3"
+                    layout="@layout/row_toilet_review" />
+
+                <include
+                    android:id="@+id/lnl_toilet_review_row_4"
+                    layout="@layout/row_toilet_review" />
+
+                <include
+                    android:id="@+id/lnl_toilet_review_row_5"
+                    layout="@layout/row_toilet_review" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

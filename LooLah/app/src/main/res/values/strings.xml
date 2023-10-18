@@ -87,6 +87,9 @@
     <string name="example_toilet_details_availability">Yes</string>
     <string name="example_toilet_details_address">53 Ang Mo Kio Avenue 3, S(569933)</string>
     <string name="example_toilet_details_crowd">Not Crowded</string>
+    <string name="example_toilet_review_username">Test User 123</string>
+    <string name="example_toilet_review_rating">5</string>
+    <string name="example_toilet_review_comment">Here there everywhere i don\'t know what i doing anymore. This is a temporary review.</string>
     <string name="example_profile_username">\@example.123</string>
     <string name="example_profile_rank">Veteran</string>
     <string name="example_profile_statistics_photos">149</string>
