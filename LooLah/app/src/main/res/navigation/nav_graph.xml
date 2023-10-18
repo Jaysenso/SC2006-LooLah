@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
@@ -13,10 +14,21 @@
             app:destination="@id/toiletDetailsFragment" />
     </fragment>
 
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.loolah.MapFragment"
+        android:label="MapFragment">
+
+    </fragment>
+
+
     <fragment
         android:id="@+id/toiletDetailsFragment"
         android:name="com.example.loolah.ToiletDetailsFragment"
-        android:label="ToiletDetailsFragment"></fragment>
+        android:label="ToiletDetailsFragment">
+
+    </fragment>
 
     <fragment
         android:id="@+id/profileFragment"

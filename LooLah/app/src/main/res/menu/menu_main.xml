@@ -6,7 +6,7 @@
         android:title="@string/navbar_home" />
 
     <item
-        android:id="@+id/mapsFragment"
+        android:id="@+id/mapFragment"
         android:icon="@drawable/ic_navbar_maps"
         android:title="@string/navbar_maps" />
 
