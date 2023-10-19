@@ -1,45 +1,38 @@
 package com.example.loolah;
 
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.SearchView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.location.Address;
 
 import java.util.*;
 import java.io.*;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap googleMap;
-    SupportMapFragment mapFragment;
+    private SearchView mapSearchView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View map_fragment = inflater.inflate(R.layout.fragment_map, container, false);
+
 
         String[] toilet_types = new String[]{"Type", "Bus Interchange", "Club", "Coffeeshop", "Foodcourt", "Government Office", "Market & Food Centre", "MRT Station", "Park", "Pier", "Place of worship", "Private Office", "Restaurant", "Shopping Centre", "Tourist Attraction", "Community Centre", "Food Court", "Dormitory", "Industrial Complex"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, toilet_types);
@@ -66,7 +59,42 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mapSearchView = (SearchView) getView().findViewById(R.id.mapSearch);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.maps);
+        mapSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                String location = mapSearchView.getQuery().toString();
+                List<Address> addressList = null;
+
+                if (location != null) {
+                    Geocoder geocoder = new Geocoder(requireContext());
+
+                    try {
+                        addressList = geocoder.getFromLocationName(location,1);
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Address address = addressList.get(0);
+                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                    googleMap.addMarker(new MarkerOptions().position(latLng).title("Location"));
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                }
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
         mapFragment.getMapAsync(this);
     }
 

@@ -14,7 +14,9 @@
         android:layout_height="match_parent" />
 
 
+
     <LinearLayout
+
         android:id="@+id/lnl_home_search"
         android:layout_width="0dp"
         android:layout_height="40dp"
@@ -25,26 +27,36 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        >
-        <EditText
-            android:id="@+id/et_home_search"
+        app:layout_constraintVertical_chainStyle="packed" >
+
+        <SearchView
+            android:id ="@+id/mapSearch"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
+            android:queryHint="Search..."
+            android:iconifiedByDefault="false"
+            android:elevation="5dp"
             android:layout_weight="1"
-            android:background="@null"
-            android:fontFamily="sans-serif-medium"
-            android:hint="@string/home_search_hint"
-            android:imeOptions="actionGo"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="5dp"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textColorHint="@color/muted"
-            android:textSize="16sp" />
+            android:fontFamily="sans-serif-medium" />
+
+        <!--        <EditText-->
+<!--            android:id="@+id/et_home_search"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@null"-->
+<!--            android:fontFamily="sans-serif-medium"-->
+<!--            android:hint="@string/home_search_hint"-->
+<!--            android:imeOptions="actionGo"-->
+<!--            android:importantForAutofill="no"-->
+<!--            android:inputType="text"-->
+<!--            android:paddingHorizontal="15dp"-->
+<!--            android:paddingVertical="5dp"-->
+<!--            android:selectAllOnFocus="true"-->
+<!--            android:singleLine="true"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textColorHint="@color/muted"-->
+<!--            android:textSize="16sp" />-->
 
         <ImageButton
             android:id="@+id/btn_home_search"
@@ -66,7 +78,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lnl_home_search">
+        app:layout_constraintTop_toBottomOf="@id/lnl_home_search" >
 
         <Spinner
             android:id="@+id/sp_home_filter_type"
@@ -99,7 +111,5 @@
             android:layout_weight="1"
             android:background="@drawable/bg_spinner" />
     </LinearLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
