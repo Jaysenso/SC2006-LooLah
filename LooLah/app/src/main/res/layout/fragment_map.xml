@@ -1,65 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingVertical="5dp">
+    android:layout_height="match_parent">
 
     <!-- GOOGLE MAP API Implementation -->
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/maps"
+        android:id="@+id/fcv_map_google"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
-
     <LinearLayout
-
-        android:id="@+id/lnl_home_search"
+        android:id="@+id/lnl_map_search"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/bg_borderless"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" >
+        app:layout_constraintTop_toTopOf="parent">
 
-        <SearchView
-            android:id ="@+id/mapSearch"
+        <android.widget.SearchView
+            android:id="@+id/sv_map_search"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:queryHint="Search..."
-            android:iconifiedByDefault="false"
-            android:elevation="5dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-medium" />
+            android:elevation="5dp"
+            android:fontFamily="sans-serif-medium"
+            android:iconifiedByDefault="false"
+            android:paddingStart="-10dp"
+            android:paddingEnd="-10dp"
+            android:queryBackground="@android:color/transparent"
+            android:queryHint="Search..." />
 
         <!--        <EditText-->
-<!--            android:id="@+id/et_home_search"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="@null"-->
-<!--            android:fontFamily="sans-serif-medium"-->
-<!--            android:hint="@string/home_search_hint"-->
-<!--            android:imeOptions="actionGo"-->
-<!--            android:importantForAutofill="no"-->
-<!--            android:inputType="text"-->
-<!--            android:paddingHorizontal="15dp"-->
-<!--            android:paddingVertical="5dp"-->
-<!--            android:selectAllOnFocus="true"-->
-<!--            android:singleLine="true"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textColorHint="@color/muted"-->
-<!--            android:textSize="16sp" />-->
+        <!--            android:id="@+id/et_home_search"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:background="@null"-->
+        <!--            android:fontFamily="sans-serif-medium"-->
+        <!--            android:hint="@string/home_search_hint"-->
+        <!--            android:imeOptions="actionGo"-->
+        <!--            android:importantForAutofill="no"-->
+        <!--            android:inputType="text"-->
+        <!--            android:paddingHorizontal="15dp"-->
+        <!--            android:paddingVertical="5dp"-->
+        <!--            android:selectAllOnFocus="true"-->
+        <!--            android:singleLine="true"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:textColorHint="@color/muted"-->
+        <!--            android:textSize="16sp" />-->
 
         <ImageButton
-            android:id="@+id/btn_home_search"
+            android:id="@+id/btn_map_search"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:background="@drawable/bg_borderless"
@@ -70,7 +67,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lnl_home_filter"
+        android:id="@+id/lnl_map_filter"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_marginHorizontal="20dp"
@@ -78,10 +75,10 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lnl_home_search" >
+        app:layout_constraintTop_toBottomOf="@id/lnl_map_search">
 
         <Spinner
-            android:id="@+id/sp_home_filter_type"
+            android:id="@+id/sp_map_filter_type"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
@@ -89,7 +86,7 @@
             android:background="@drawable/bg_spinner" />
 
         <Spinner
-            android:id="@+id/sp_home_filter_district"
+            android:id="@+id/sp_map_filter_district"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
@@ -97,7 +94,7 @@
             android:background="@drawable/bg_spinner" />
 
         <Spinner
-            android:id="@+id/sp_home_filter_distance"
+            android:id="@+id/sp_map_filter_distance"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
@@ -105,7 +102,7 @@
             android:background="@drawable/bg_spinner" />
 
         <Spinner
-            android:id="@+id/sp_home_filter_rating"
+            android:id="@+id/sp_map_filter_rating"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
