@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ((Spinner) home_fragment.findViewById(R.id.sp_home_filter_rating)).setAdapter(adapter);
 
-        LinearLayout row_toilet = home_fragment.findViewById(R.id.lnl_toilet);
+        LinearLayout row_toilet = home_fragment.findViewById(R.id.lnl_toilet_row);
         row_toilet.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_toiletDetailsFragment);
         });

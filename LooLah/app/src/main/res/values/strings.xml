@@ -51,6 +51,15 @@
     <string name="toilet_details_gallery_btn">Gallery</string>
     <string name="toilet_details_direction_btn">Direction</string>
 
+    <!-- Favorite -->
+    <string name="favorite_search_hint">Search…</string>
+    <string name="favorite_search_btn">Search</string>
+
+    <!-- Favorite Row -->
+    <string name="toilet_favorite_icon">Toilet Icon</string>
+    <string name="toilet_favorite_verified">Verified</string>
+    <string name="toilet_favorite_favorited_btn">Favorited</string>
+
     <!-- Profile -->
     <string name="profile_background">Profile Background</string>
     <string name="profile_settings">Profile Settings</string>
