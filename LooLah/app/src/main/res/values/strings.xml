@@ -51,6 +51,10 @@
     <string name="toilet_details_gallery_btn">Gallery</string>
     <string name="toilet_details_direction_btn">Direction</string>
 
+    <!-- Toilet Reviews -->
+    <string name="edit_review_save">SAVE</string>
+    <string name="edit_review_profile">Posting publicly</string>
+
     <!-- Favorite -->
     <string name="favorite_search_hint">Search…</string>
     <string name="favorite_search_btn">Search</string>
@@ -109,4 +113,5 @@
     <string name="example_profile_review_toilet_review">Fairly acceptable. A bit dirty but not the worst. Could be better.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
