@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="20dp">
 
     <ImageView
-        android:id="@+id/iv_home_logo"
+        android:id="@+id/iv_favorite_logo"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@id/lnl_home_search"
+        app:layout_constraintBottom_toTopOf="@+id/lnl_favorite_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon" />
 
     <LinearLayout
-        android:id="@+id/lnl_home_search"
+        android:id="@+id/lnl_favorite_search"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/bg_borderless"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/lnl_home_filter"
+        app:layout_constraintBottom_toTopOf="@id/lnl_favorite_filter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_home_logo">
+        app:layout_constraintTop_toBottomOf="@+id/iv_favorite_logo">
 
         <EditText
-            android:id="@+id/et_home_search"
+            android:id="@+id/et_favorite_search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
             android:fontFamily="sans-serif-medium"
-            android:hint="@string/home_search_hint"
+            android:hint="@string/favorite_search_hint"
             android:imeOptions="actionGo"
             android:importantForAutofill="no"
             android:inputType="text"
@@ -49,18 +50,18 @@
             android:textSize="16sp" />
 
         <ImageButton
-            android:id="@+id/btn_home_search"
+            android:id="@+id/btn_favorite_search"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:background="@drawable/bg_borderless"
             android:backgroundTint="@color/secondary"
-            android:contentDescription="@string/home_search_btn"
+            android:contentDescription="@string/favorite_search_btn"
             android:src="@drawable/ic_search"
             app:tint="@color/white" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lnl_home_filter"
+        android:id="@+id/lnl_favorite_filter"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_marginHorizontal="20dp"
@@ -68,10 +69,10 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lnl_home_search">
+        app:layout_constraintTop_toBottomOf="@+id/lnl_favorite_search">
 
         <Spinner
-            android:id="@+id/sp_home_filter_type"
+            android:id="@+id/sp_favorite_filter_type"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
@@ -79,7 +80,7 @@
             android:background="@drawable/bg_spinner" />
 
         <Spinner
-            android:id="@+id/sp_home_filter_district"
+            android:id="@+id/sp_favorite_filter_district"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
@@ -87,31 +88,25 @@
             android:background="@drawable/bg_spinner" />
 
         <Spinner
-            android:id="@+id/sp_home_filter_distance"
+            android:id="@+id/sp_favorite_filter_rating"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="@drawable/bg_spinner" />
 
-        <Spinner
-            android:id="@+id/sp_home_filter_rating"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/bg_spinner" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lnl_home_filter"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/lnl_favorite_filter"
+        tools:layout_editor_absoluteX="0dp">
 
-        <include layout="@layout/row_toilet" />
+        <include layout="@layout/row_toilet_favorite" />
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

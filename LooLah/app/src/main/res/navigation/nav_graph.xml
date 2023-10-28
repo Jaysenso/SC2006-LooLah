@@ -22,6 +22,16 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.loolah.FavoriteFragment"
+        android:label="FavouriteFragment">
+
+        <action
+            android:id="@+id/action_favoritesFragment_to_toiletDetailsFragment"
+            app:destination="@id/toiletDetailsFragment" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/toiletDetailsFragment"

@@ -25,8 +25,8 @@ import java.util.*;
 import java.io.*;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
-    private GoogleMap googleMap;
-    private SearchView mapSearchView;
+    private GoogleMap google_map;
+    private SearchView sv_map;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,22 +37,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         String[] toilet_types = new String[]{"Type", "Bus Interchange", "Club", "Coffeeshop", "Foodcourt", "Government Office", "Market & Food Centre", "MRT Station", "Park", "Pier", "Place of worship", "Private Office", "Restaurant", "Shopping Centre", "Tourist Attraction", "Community Centre", "Food Court", "Dormitory", "Industrial Complex"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, toilet_types);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ((Spinner) map_fragment.findViewById(R.id.sp_home_filter_type)).setAdapter(adapter);
+        ((Spinner) map_fragment.findViewById(R.id.sp_map_filter_type)).setAdapter(adapter);
 
         String[] toilet_districts = new String[]{"District", "Central", "North East", "North West", "South East", "South West"};
         adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, toilet_districts);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ((Spinner) map_fragment.findViewById(R.id.sp_home_filter_district)).setAdapter(adapter);
+        ((Spinner) map_fragment.findViewById(R.id.sp_map_filter_district)).setAdapter(adapter);
 
         String[] toilet_distance = new String[]{"Distance", "< 5m", "< 10m", "< 15m", "< 20m", "< 25m"};
         adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, toilet_distance);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ((Spinner) map_fragment.findViewById(R.id.sp_home_filter_distance)).setAdapter(adapter);
+        ((Spinner) map_fragment.findViewById(R.id.sp_map_filter_distance)).setAdapter(adapter);
 
         String[] toilet_rating = new String[]{"Rating", "1 star", "2 star", "3 star", "4 star", "5 star"};
         adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, toilet_rating);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ((Spinner) map_fragment.findViewById(R.id.sp_home_filter_rating)).setAdapter(adapter);
+        ((Spinner) map_fragment.findViewById(R.id.sp_map_filter_rating)).setAdapter(adapter);
 
         return map_fragment;
     }
@@ -60,14 +60,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mapSearchView = (SearchView) getView().findViewById(R.id.mapSearch);
+        sv_map = getView().findViewById(R.id.sv_map_search);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.maps);
-        mapSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        SupportMapFragment google_map_fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fcv_map_google);
+        sv_map.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                String location = mapSearchView.getQuery().toString();
+                String location = sv_map.getQuery().toString();
                 List<Address> addressList = null;
 
                 if (location != null) {
@@ -82,8 +82,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                     Address address = addressList.get(0);
                     LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    googleMap.addMarker(new MarkerOptions().position(latLng).title("Location"));
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+                    google_map.addMarker(new MarkerOptions().position(latLng).title("Location"));
+                    google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                 }
 
                 return false;
@@ -95,15 +95,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 return false;
             }
         });
-        mapFragment.getMapAsync(this);
+        google_map_fragment.getMapAsync(this);
     }
 
     @Override
     public void onMapReady(@NonNull GoogleMap map) {
-        googleMap = map;
+        google_map = map;
         //on Map creation - camera will zoom into Singapore by default
         LatLng singapore = new LatLng(1.3521, 103.8198);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 12));
+        google_map.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 12));
         //read geolocation csv and plot pins on the map
         readCSV();
 
@@ -119,7 +119,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             ArrayList<LatLng> latLngList = new ArrayList<LatLng>();
 
             //Read through the rows and populate LatLng arraylist with the corresponding latitude and longitude
-            String line = "";
+            String line;
             while ((line = reader.readLine()) != null) {
                 double lat = Double.parseDouble(line.split(",")[0]);
                 double lon = Double.parseDouble(line.split(",")[1]);
@@ -128,7 +128,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
             //plot on googleMap using latLngList
             for(LatLng pos : latLngList){
-                googleMap.addMarker(new MarkerOptions()
+                google_map.addMarker(new MarkerOptions()
                         .position(pos)
                         .title("Location"));
             }

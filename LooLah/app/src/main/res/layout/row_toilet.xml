@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/lnl_toilet"
+    android:id="@+id/lnl_toilet_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="20dp"
@@ -24,13 +24,13 @@
             android:contentDescription="@string/toilet_icon"
             android:src="@drawable/ic_toilet"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_toilet_name"
+            app:layout_constraintEnd_toStartOf="@id/tv_toilet_favorite_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/tertiary" />
 
         <TextView
-            android:id="@+id/tv_toilet_name"
+            android:id="@+id/tv_toilet_favorite_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -40,19 +40,19 @@
             android:textSize="16sp"
             android:typeface="normal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/iv_toilet_verified"
+            app:layout_constraintEnd_toStartOf="@id/iv_toilet_favorite_verified"
             app:layout_constraintStart_toEndOf="@id/iv_toilet_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_toilet_verified"
+            android:id="@+id/iv_toilet_favorite_verified"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="5dp"
             android:contentDescription="@string/toilet_verified"
             android:src="@drawable/ic_toilet_verified"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_toilet_name"
+            app:layout_constraintStart_toEndOf="@id/tv_toilet_favorite_name"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
