@@ -54,6 +54,8 @@
     <!-- Toilet Reviews -->
     <string name="edit_review_save">SAVE</string>
     <string name="edit_review_profile">Posting publicly</string>
+    <string name="edit_review_upload_photos_btn">Upload Photos</string>
+    <string name="edit_review_delete_btn">Delete</string>
 
     <!-- Favorite -->
     <string name="favorite_search_hint">Search…</string>
