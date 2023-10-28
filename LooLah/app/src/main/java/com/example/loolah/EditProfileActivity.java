@@ -1,13 +1,14 @@
 package com.example.loolah;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.provider.MediaStore;
+import androidx.appcompat.widget.Toolbar;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -23,6 +24,13 @@ public class EditProfileActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.editTextName);
         btnSave = findViewById(R.id.btnSave);
         btnChangePP = findViewById(R.id.btnChangePP);
+
+        // Set your custom Toolbar as the ActionBar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Enable the "up" button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Set click listeners for buttons
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -40,17 +48,29 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-    /*
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            // Handle the back button click here
+            onBackPressed(); // This will perform the default "back" action
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
     private void saveUserProfile() {
         // TODO: Implement the logic to save the user's profile here
     }
-    */
+
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
 
-    /*
+
     private void changeProfilePicture() {
+        /*
         // User to pick an image from the gallery or capture a new photo.
         Intent pictureIntent = new Intent();
         pictureIntent.setType("image/*");
@@ -65,8 +85,10 @@ public class EditProfileActivity extends AppCompatActivity {
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents);
 
         startActivityForResult(chooserIntent, REQUEST_IMAGE_PICK);
+
+         */
     }
-    */
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

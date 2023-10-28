@@ -12,62 +12,54 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="Edit Profile" />
+        app:title="Edit Profile"
+        app:navigationIcon="?android:attr/homeAsUpIndicator"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="6dp" />
 
-
-    <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
-        android:hint="Name"
-        android:padding="16dp"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/ic_profile_edit_profile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_profile_image"
-        android:layout_width="121dp"
-        android:layout_height="113dp"
-        android:layout_marginTop="92dp"
-        android:background="@android:color/transparent"
-        android:src="@color/secondary"
-        app:layout_constraintBottom_toTopOf="@id/tv_profile_username"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
         android:text="Save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+        app:layout_constraintEnd_toStartOf="@+id/btnChangePP"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/btnChangePP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Profile Picture"
+        android:text="Change Profile Picture"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName"
+        app:layout_constraintStart_toEndOf="@+id/btnSave"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="228dp" />
+        android:layout_marginTop="16dp" />
 
-    <ImageView
-        android:id="@+id/iv_login_logo"
-        android:layout_width="85dp"
-        android:layout_height="60dp"
-        android:layout_centerInParent="true"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/icon"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="445dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

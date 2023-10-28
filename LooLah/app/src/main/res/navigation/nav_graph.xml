@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,30 +13,25 @@
             app:destination="@id/toiletDetailsFragment" />
     </fragment>
 
-
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.loolah.MapFragment"
         android:label="MapFragment">
-
     </fragment>
 
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.loolah.FavoriteFragment"
         android:label="FavouriteFragment">
-
         <action
             android:id="@+id/action_favoritesFragment_to_toiletDetailsFragment"
             app:destination="@id/toiletDetailsFragment" />
     </fragment>
 
-
     <fragment
         android:id="@+id/toiletDetailsFragment"
         android:name="com.example.loolah.ToiletDetailsFragment"
         android:label="ToiletDetailsFragment">
-
     </fragment>
 
     <fragment
@@ -56,6 +50,9 @@
         <action
             android:id="@+id/action_settingFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_editProfileActivity"
+            app:destination="@id/editProfileActivity" />
     </fragment>
 
     <fragment
@@ -66,5 +63,9 @@
             android:id="@+id/action_changePasswordFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+
+    <activity
+        android:id="@+id/editProfileActivity"
+        android:name="com.example.loolah.EditProfileActivity" />
 
 </navigation>

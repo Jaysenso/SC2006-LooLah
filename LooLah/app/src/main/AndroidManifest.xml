@@ -44,6 +44,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".EditProfileActivity"
+            android:label="Edit Profile Activity">
+        </activity>
+
 
         <activity android:name=".GalleryActivity"
             android:exported="true">
