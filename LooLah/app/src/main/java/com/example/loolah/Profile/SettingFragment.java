@@ -1,4 +1,4 @@
-package com.example.loolah;
+package com.example.loolah.Profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+
+import com.example.loolah.Setup.LoginActivity;
+import com.example.loolah.R;
+
 
 public class SettingFragment extends Fragment {
     @Override
@@ -35,6 +39,11 @@ public class SettingFragment extends Fragment {
         btn_sign_out.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), LoginActivity.class));
             getActivity().overridePendingTransition(0, 0);
+        });
+
+        Button btn_edit_profile = setting_fragment.findViewById(R.id.btn_setting_edit_profile);
+        btn_edit_profile.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), EditProfileActivity.class));
         });
 
         return setting_fragment;

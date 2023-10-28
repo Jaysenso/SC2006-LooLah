@@ -1,4 +1,4 @@
-package com.example.loolah;
+package com.example.loolah.Map;
 
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SearchView;
 
+import com.example.loolah.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
