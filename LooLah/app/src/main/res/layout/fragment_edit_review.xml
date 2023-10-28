@@ -220,8 +220,30 @@
                 android:textStyle="bold"
                 android:typeface="normal"
                 android:textAllCaps="false" />
-
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_edit_review_photo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_toilet_review"
+            app:layout_constraintTop_toBottomOf="@id/lnl_edit_review_actions"
+            app:layout_constraintLeft_toLeftOf="@id/ctl_profile_details_info" />
+
+        <ImageButton
+            android:id="@+id/btn_remove_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:background="?android:selectableItemBackground"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:layout_constraintEnd_toEndOf="@id/iv_edit_review_photo"
+            app:layout_constraintTop_toTopOf="@id/iv_edit_review_photo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
