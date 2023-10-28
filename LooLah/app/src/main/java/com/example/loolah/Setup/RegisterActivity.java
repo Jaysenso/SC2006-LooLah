@@ -1,4 +1,4 @@
-package com.example.loolah;
+package com.example.loolah.Setup;
 
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -7,6 +7,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.loolah.R;
 
 public class RegisterActivity extends AppCompatActivity {
     public boolean password_visible = false;

@@ -1,4 +1,4 @@
-package com.example.loolah;
+package com.example.loolah.Setup;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.loolah.R;
 
 public class LoginActivity extends AppCompatActivity {
     private boolean password_visible = false;

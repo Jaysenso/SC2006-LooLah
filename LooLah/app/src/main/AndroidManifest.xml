@@ -34,7 +34,7 @@
 
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".Setup.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Splash">
             <intent-filter>
@@ -45,19 +45,19 @@
         </activity>
 
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".Profile.EditProfileActivity"
             android:label="Edit Profile Activity">
         </activity>
 
 
         <activity
-            android:name=".GalleryActivity"
+            android:name=".ToiletDetails.GalleryActivity"
             android:label="GalleryActivity">
         </activity>
 
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Setup.LoginActivity" />
+        <activity android:name=".Setup.RegisterActivity" />
+        <activity android:name=".Setup.MainActivity" />
 
     </application>
 

@@ -1,4 +1,4 @@
-package com.example.loolah;
+package com.example.loolah.Profile;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.example.loolah.R;
 
 public class EditProfileActivity extends AppCompatActivity {
 

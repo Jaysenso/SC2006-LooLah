@@ -1,4 +1,4 @@
-package com.example.loolah;
+package com.example.loolah.ToiletDetails;
 
 import android.content.Context;
 import android.view.View;
