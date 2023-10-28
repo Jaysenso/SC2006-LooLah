@@ -28,24 +28,28 @@ public class EditProfileActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveUserProfile();
+                // saveUserProfile();
             }
         });
 
         btnChangePP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeProfilePicture();
-            }a
+                // changeProfilePicture();
+            }
         });
     }
 
+    /*
     private void saveUserProfile() {
         // TODO: Implement the logic to save the user's profile here
     }
+    */
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
+
+    /*
     private void changeProfilePicture() {
         // User to pick an image from the gallery or capture a new photo.
         Intent pictureIntent = new Intent();
@@ -62,6 +66,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         startActivityForResult(chooserIntent, REQUEST_IMAGE_PICK);
     }
+    */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -82,5 +87,4 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         }
     }
-}
 }
