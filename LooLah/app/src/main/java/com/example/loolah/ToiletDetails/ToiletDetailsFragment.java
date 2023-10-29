@@ -49,10 +49,11 @@ public class ToiletDetailsFragment extends Fragment {
         });
 
         // Button to toggle to Add Review page
-        Button btnToiletDetailsReview = toilet_details_fragment.findViewById(R.id.btn_toilet_details_review);
+        //idk why there are issues after i add this part..
+        /*Button btnToiletDetailsReview = toilet_details_fragment.findViewById(R.id.btn_toilet_details_review);
         btnToiletDetailsReview.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_toiletDetailsFragment_to_reviewFragment);
-        });
+        });*/
 
         return toilet_details_fragment;
     }

@@ -1,9 +1,11 @@
 package com.example.loolah.Reviews;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
@@ -118,6 +120,21 @@ public class AddReviewFragment extends Fragment{
             isStar5Selected = !isStar5Selected;
         });
 
+        //Upload Photo
+        /*Button uploadPhotosbtn = addReview_fragment.findViewById(R.id.btn_add_review_upload_photos);
+        uploadPhotosbtn.setOnClickListener(v -> {
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+            // Start the activity to open the gallery
+            startActivityForResult(galleryIntent, REQUEST_CODE); // Define REQUEST_CODE as an integer constant
+
+            // REQUEST_CODE is used to identify the result when the user picks an image.
+        });*/
+
+        //Select Location
+        /*Button selectLocationbtn = addReview_fragment.findViewById(R.id.btn_add_review_select_location);
+        selectLocationbtn.setOnClickListener(v ->{
+        });*/
         return addReview_fragment;
     }
 

@@ -187,7 +187,7 @@
                 android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/btn_add_review_delete"
+                android:id="@+id/btn_add_review_select_location"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="5dp"
