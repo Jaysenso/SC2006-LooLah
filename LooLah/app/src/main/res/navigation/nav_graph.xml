@@ -17,6 +17,9 @@
         android:id="@+id/mapFragment"
         android:name="com.example.loolah.Map.MapFragment"
         android:label="MapFragment">
+        <action
+            android:id="@+id/action_mapFragment_to_toiletRVMenu"
+            app:destination="@id/toiletRVMenu" />
     </fragment>
 
     <fragment
@@ -77,5 +80,9 @@
     <activity
         android:id="@+id/editProfileActivity"
         android:name="com.example.loolah.Profile.EditProfileActivity" />
+    <activity
+        android:id="@+id/toiletRVMenu"
+        android:name="com.example.loolah.ToiletRVMenu"
+        android:label="ToiletRVMenu" />
 
 </navigation>

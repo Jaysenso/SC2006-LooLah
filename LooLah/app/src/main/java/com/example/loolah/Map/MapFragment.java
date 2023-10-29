@@ -4,16 +4,20 @@ import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.SearchView;
 
-import com.example.loolah.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,7 +25,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.location.Address;
-
+import com.example.loolah.R;
 import java.util.*;
 import java.io.*;
 
@@ -54,6 +58,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, toilet_rating);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ((Spinner) map_fragment.findViewById(R.id.sp_map_filter_rating)).setAdapter(adapter);
+
+
+        ImageButton btn_map_search = map_fragment.findViewById(R.id.btn_map_search);
+        btn_map_search.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_mapFragment_to_toiletRVMenu);
+        });
 
         return map_fragment;
     }
@@ -110,6 +120,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
+
+
     private void readCSV() {
         try {
             //Read the CSV file
@@ -140,5 +152,4 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
 }
-
 

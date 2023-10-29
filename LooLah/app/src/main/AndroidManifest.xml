@@ -5,8 +5,8 @@
     <permission
         android:name="your.package.name.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="your.package.name.permission.MAPS_RECEIVE"/>
 
+    <uses-permission android:name="your.package.name.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -23,15 +23,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LooLah"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ToiletRVMenu"
+            android:exported="false"
+            android:label="@string/title_activity_toilet_rvmenu"
+            android:theme="@style/Theme.LooLah" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyApKmH-N06_SiV6KdTivr5APkFmYuviC3Q"/>
-
-        <meta-data android:name="com.google.android.gms.version"
+            android:value="AIzaSyApKmH-N06_SiV6KdTivr5APkFmYuviC3Q" />
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
 
         <activity
             android:name=".Setup.SplashActivity"
@@ -43,22 +46,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Profile.EditProfileActivity"
-            android:label="Edit Profile Activity">
-        </activity>
-
-
+            android:label="Edit Profile Activity"></activity>
         <activity
             android:name=".ToiletDetails.GalleryActivity"
-            android:label="GalleryActivity">
-        </activity>
-
+            android:label="GalleryActivity"></activity>
         <activity android:name=".Setup.LoginActivity" />
         <activity android:name=".Setup.RegisterActivity" />
         <activity android:name=".Setup.MainActivity" />
-
     </application>
 
 </manifest>
