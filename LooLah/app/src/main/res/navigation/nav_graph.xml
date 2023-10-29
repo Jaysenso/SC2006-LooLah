@@ -32,7 +32,17 @@
         android:id="@+id/toiletDetailsFragment"
         android:name="com.example.loolah.ToiletDetails.ToiletDetailsFragment"
         android:label="ToiletDetailsFragment">
+        <action
+            android:id="@+id/action_toiletDetailsFragment_to_addReviewFragment"
+            app:destination="@id/addReviewFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/addReviewFragment"
+        android:name="com.example.loolah.Reviews.AddReviewFragment"
+        android:label="AddReviewFragment">
+    </fragment>
+
 
     <fragment
         android:id="@+id/profileFragment"
