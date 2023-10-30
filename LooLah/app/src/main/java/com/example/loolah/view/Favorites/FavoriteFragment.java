@@ -1,4 +1,4 @@
-package com.example.loolah.Favorites;
+package com.example.loolah.view.Favorites;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,7 +16,6 @@ import com.example.loolah.R;
 public class FavoriteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View favorite_fragment = inflater.inflate(R.layout.fragment_favorite, container, false);
 
         String[] toilet_types = new String[]{"Type", "Bus Interchange", "Club", "Coffeeshop", "Foodcourt", "Government Office", "Market & Food Centre", "MRT Station", "Park", "Pier", "Place of worship", "Private Office", "Restaurant", "Shopping Centre", "Tourist Attraction", "Community Centre", "Food Court", "Dormitory", "Industrial Complex"};
@@ -35,9 +34,7 @@ public class FavoriteFragment extends Fragment {
         ((Spinner) favorite_fragment.findViewById(R.id.sp_favorite_filter_rating)).setAdapter(adapter);
 
         LinearLayout row_toilet = favorite_fragment.findViewById(R.id.lnl_toilet_favorite_row);
-        row_toilet.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_favoritesFragment_to_toiletDetailsFragment);
-        });
+        row_toilet.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_favoritesFragment_to_toiletDetailsFragment));
 
         return favorite_fragment;
     }

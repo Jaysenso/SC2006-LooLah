@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.loolah.Home.HomeFragment"
+        android:name="com.example.loolah.view.Home.HomeFragment"
         android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_toiletDetailsFragment"
@@ -15,12 +15,12 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.example.loolah.Map.MapFragment"
+        android:name="com.example.loolah.view.Map.MapFragment"
         android:label="MapFragment"></fragment>
 
     <fragment
         android:id="@+id/toiletDetailsFragment"
-        android:name="com.example.loolah.ToiletDetails.ToiletDetailsFragment"
+        android:name="com.example.loolah.view.ToiletDetails.ToiletDetailsFragment"
         android:label="ToiletDetailsFragment">
         <action
             android:id="@+id/action_toiletDetailsFragment_to_toiletGalleryFragment"
@@ -33,12 +33,12 @@
 
     <fragment
         android:id="@+id/toiletGalleryFragment"
-        android:name="com.example.loolah.ToiletDetails.ToiletGalleryFragment"
+        android:name="com.example.loolah.view.ToiletDetails.ToiletGalleryFragment"
         android:label="ToiletGalleryFragment"></fragment>
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.loolah.Favorites.FavoriteFragment"
+        android:name="com.example.loolah.view.Favorites.FavoriteFragment"
         android:label="FavouriteFragment">
         <action
             android:id="@+id/action_favoritesFragment_to_toiletDetailsFragment"
@@ -47,14 +47,14 @@
 
     <fragment
         android:id="@+id/reviewFragment"
-        android:name="com.example.loolah.Reviews.AddReviewFragment"
+        android:name="com.example.loolah.view.Reviews.AddReviewFragment"
         android:label="reviewFragment">
     </fragment>
 
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.loolah.Profile.ProfileFragment"
+        android:name="com.example.loolah.view.Profile.ProfileFragment"
         android:label="ProfileFragment">
         <action
             android:id="@+id/action_profileFragment_to_settingFragment"
@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.loolah.Profile.SettingFragment"
+        android:name="com.example.loolah.view.Profile.SettingFragment"
         android:label="SettingFragment">
         <action
             android:id="@+id/action_settingFragment_to_changePasswordFragment"
@@ -75,7 +75,7 @@
 
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.example.loolah.Profile.ChangePasswordFragment"
+        android:name="com.example.loolah.view.Profile.ChangePasswordFragment"
         android:label="ChangePasswordFragment">
         <action
             android:id="@+id/action_changePasswordFragment_to_profileFragment"
@@ -84,7 +84,7 @@
 
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.example.loolah.Profile.EditProfileFragment">
+        android:name="com.example.loolah.view.Profile.EditProfileFragment">
         <action
             android:id="@+id/action_editProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />

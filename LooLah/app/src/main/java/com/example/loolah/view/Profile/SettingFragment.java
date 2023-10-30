@@ -1,4 +1,4 @@
-package com.example.loolah.Profile;
+package com.example.loolah.view.Profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.loolah.Setup.LoginActivity;
+import com.example.loolah.view.Setup.LoginActivity;
 import com.example.loolah.R;
 
 

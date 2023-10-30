@@ -1,4 +1,4 @@
-package com.example.loolah.Home;
+package com.example.loolah.view.Home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

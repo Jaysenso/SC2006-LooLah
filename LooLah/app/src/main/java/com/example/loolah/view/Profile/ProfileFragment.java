@@ -1,4 +1,4 @@
-package com.example.loolah.Profile;
+package com.example.loolah.view.Profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

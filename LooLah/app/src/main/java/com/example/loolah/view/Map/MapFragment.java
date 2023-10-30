@@ -1,4 +1,4 @@
-package com.example.loolah.Map;
+package com.example.loolah.view.Map;
 
 import android.location.Geocoder;
 import android.os.Bundle;

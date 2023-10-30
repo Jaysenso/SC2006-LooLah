@@ -1,4 +1,4 @@
-package com.example.loolah.Profile;
+package com.example.loolah.view.Profile;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -21,14 +21,13 @@ import com.example.loolah.R;
 
 public class EditProfileFragment extends Fragment {
 
-    private Button btn_save;
     private ImageButton btn_edit_profile_picture;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View edit_profile_fragment = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
-        btn_save = edit_profile_fragment.findViewById(R.id.btn_edit_profile_save);
+        Button btn_save = edit_profile_fragment.findViewById(R.id.btn_edit_profile_save);
         btn_edit_profile_picture = edit_profile_fragment.findViewById(R.id.ib_edit_profile_picture);
         ImageButton btn_back = edit_profile_fragment.findViewById(R.id.ib_edit_profile_back);
 
@@ -38,7 +37,7 @@ public class EditProfileFragment extends Fragment {
         });
 
         btn_save.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_changePasswordFragment_to_profileFragment);
+            Navigation.findNavController(v).navigate(R.id.action_editProfileFragment_to_profileFragment);
         });
 
         btn_edit_profile_picture.setOnClickListener(new View.OnClickListener() {

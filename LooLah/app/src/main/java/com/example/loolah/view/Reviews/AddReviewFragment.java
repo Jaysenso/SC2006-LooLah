@@ -1,4 +1,4 @@
-package com.example.loolah.Reviews;
+package com.example.loolah.view.Reviews;
 
 import android.content.Intent;
 import android.os.Bundle;

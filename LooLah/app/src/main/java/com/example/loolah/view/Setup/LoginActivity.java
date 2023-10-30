@@ -1,4 +1,4 @@
-package com.example.loolah.Setup;
+package com.example.loolah.view.Setup;
 
 import android.content.Intent;
 import android.os.Bundle;
