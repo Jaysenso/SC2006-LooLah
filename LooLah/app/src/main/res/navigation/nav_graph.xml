@@ -25,6 +25,10 @@
         <action
             android:id="@+id/action_toiletDetailsFragment_to_toiletGalleryFragment"
             app:destination="@id/toiletGalleryFragment" />
+
+        <action
+            android:id="@+id/action_toiletDetailsFragment_to_reviewFragment"
+            app:destination="@id/reviewFragment"/>
     </fragment>
 
     <fragment
@@ -40,6 +44,13 @@
             android:id="@+id/action_favoritesFragment_to_toiletDetailsFragment"
             app:destination="@id/toiletDetailsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="com.example.loolah.Reviews.AddReviewFragment"
+        android:label="reviewFragment">
+    </fragment>
+
 
     <fragment
         android:id="@+id/profileFragment"

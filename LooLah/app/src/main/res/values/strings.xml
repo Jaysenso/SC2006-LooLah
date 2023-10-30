@@ -57,6 +57,15 @@
     <string name="toilet_gallery_back_btn">Back</string>
     <string name="toilet_gallery_verified">Verified</string>
 
+    <!-- Add/Edit Reviews -->
+    <string name="edit_review_save_btn">SAVE</string>
+    <string name="add_review_post_btn">POST</string>
+    <string name="edit_review_profile">Posting publicly</string>
+    <string name="edit_review_upload_photos_btn">Upload Photos</string>
+    <string name="edit_review_delete_btn">Delete</string>
+    <string name="add_review_select_location_btn">Select Location</string>
+    <string name="add_review_remove_location_btn">Remove Location</string>
+
     <!-- Favorite -->
     <string name="favorite_search_hint">Search…</string>
     <string name="favorite_search_btn">Search</string>
@@ -122,4 +131,5 @@
     <string name="example_profile_review_toilet_review">Fairly acceptable. A bit dirty but not the worst. Could be better.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
