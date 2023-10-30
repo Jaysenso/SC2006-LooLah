@@ -43,7 +43,7 @@ public class SettingFragment extends Fragment {
 
         Button btn_edit_profile = setting_fragment.findViewById(R.id.btn_setting_edit_profile);
         btn_edit_profile.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), EditProfileActivity.class));
+            Navigation.findNavController(v).navigate(R.id.action_settingFragment_to_editProfileFragment);
         });
 
         return setting_fragment;

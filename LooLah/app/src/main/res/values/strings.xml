@@ -51,6 +51,12 @@
     <string name="toilet_details_gallery_btn">Gallery</string>
     <string name="toilet_details_direction_btn">Direction</string>
 
+    <!-- Toilet Gallery -->
+    <string name="toilet_gallery">Gallery</string>
+    <string name="toilet_gallery_background">Toilet Background</string>
+    <string name="toilet_gallery_back_btn">Back</string>
+    <string name="toilet_gallery_verified">Verified</string>
+
     <!-- Favorite -->
     <string name="favorite_search_hint">Search…</string>
     <string name="favorite_search_btn">Search</string>
@@ -86,6 +92,12 @@
     <string name="change_password_confirm">Confirm Password</string>
     <string name="change_password_save_btn">Save</string>
 
+    <!-- Edit Profile -->
+    <string name="edit_profile_background">Edit Profile Background</string>
+    <string name="edit_profile_back_btn">Back</string>
+    <string name="edit_profile_username">Username</string>
+    <string name="edit_profile_save_btn">Save</string>
+
     <!-- Example Text (To be deleted) -->
     <string name="example_toilet_name">AMK Bus Interchange</string>
     <string name="example_toilet_distance">19.9m</string>
@@ -99,6 +111,7 @@
     <string name="example_toilet_review_username">Test User 123</string>
     <string name="example_toilet_review_rating">5</string>
     <string name="example_toilet_review_comment">Here there everywhere i don\'t know what i doing anymore. This is a temporary review.</string>
+    <string name="example_toilet_gallery_count">(5)</string>
     <string name="example_profile_username">\@example.123</string>
     <string name="example_profile_rank">Veteran</string>
     <string name="example_profile_statistics_photos">149</string>

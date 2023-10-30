@@ -16,8 +16,21 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.loolah.Map.MapFragment"
-        android:label="MapFragment">
+        android:label="MapFragment"></fragment>
+
+    <fragment
+        android:id="@+id/toiletDetailsFragment"
+        android:name="com.example.loolah.ToiletDetails.ToiletDetailsFragment"
+        android:label="ToiletDetailsFragment">
+        <action
+            android:id="@+id/action_toiletDetailsFragment_to_toiletGalleryFragment"
+            app:destination="@id/toiletGalleryFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/toiletGalleryFragment"
+        android:name="com.example.loolah.ToiletDetails.ToiletGalleryFragment"
+        android:label="ToiletGalleryFragment"></fragment>
 
     <fragment
         android:id="@+id/favoritesFragment"
@@ -26,12 +39,6 @@
         <action
             android:id="@+id/action_favoritesFragment_to_toiletDetailsFragment"
             app:destination="@id/toiletDetailsFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/toiletDetailsFragment"
-        android:name="com.example.loolah.ToiletDetails.ToiletDetailsFragment"
-        android:label="ToiletDetailsFragment">
     </fragment>
 
     <fragment
@@ -51,8 +58,8 @@
             android:id="@+id/action_settingFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
         <action
-            android:id="@+id/action_settingFragment_to_editProfileActivity"
-            app:destination="@id/editProfileActivity" />
+            android:id="@+id/action_settingFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
 
     <fragment
@@ -64,8 +71,12 @@
             app:destination="@id/profileFragment" />
     </fragment>
 
-    <activity
-        android:id="@+id/editProfileActivity"
-        android:name="com.example.loolah.Profile.EditProfileActivity" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.loolah.Profile.EditProfileFragment">
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 
 </navigation>

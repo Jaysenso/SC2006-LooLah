@@ -45,14 +45,8 @@
         </activity>
 
         <activity
-            android:name=".Profile.EditProfileActivity"
+            android:name=".Profile.EditProfileFragment"
             android:label="Edit Profile Activity">
-        </activity>
-
-
-        <activity
-            android:name=".ToiletDetails.GalleryActivity"
-            android:label="GalleryActivity">
         </activity>
 
         <activity android:name=".Setup.LoginActivity" />

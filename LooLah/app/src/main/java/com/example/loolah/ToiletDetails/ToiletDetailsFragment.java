@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.loolah.R;
@@ -19,14 +20,6 @@ public class ToiletDetailsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View toilet_details_fragment = inflater.inflate(R.layout.fragment_toilet_details, container, false);
-
-        // Button to navigate to GalleryActivity
-        ImageButton btnGallery = toilet_details_fragment.findViewById(R.id.ib_toilet_details_gallery);
-        btnGallery.setOnClickListener(v -> {
-            // Create an Intent to start the GalleryActivity
-            Intent galleryIntent = new Intent(getContext(), GalleryActivity.class);
-            startActivity(galleryIntent);
-        });
 
         // Button to go back
         ImageButton btnBack = toilet_details_fragment.findViewById(R.id.ib_toilet_details_back);
@@ -44,6 +37,12 @@ public class ToiletDetailsFragment extends Fragment {
                 btnFavorite.setImageResource(R.drawable.ic_toilet_details_favorited);
             }
             isPlay = !isPlay;
+        });
+
+        // Button to navigate to GalleryActivity
+        ImageButton btnGallery = toilet_details_fragment.findViewById(R.id.ib_toilet_details_gallery);
+        btnGallery.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_toiletDetailsFragment_to_toiletGalleryFragment);
         });
 
         return toilet_details_fragment;

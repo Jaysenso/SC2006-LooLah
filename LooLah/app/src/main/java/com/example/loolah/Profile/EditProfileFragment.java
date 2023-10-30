@@ -1,66 +1,55 @@
 package com.example.loolah.Profile;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import android.widget.ImageButton;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.loolah.R;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditProfileFragment extends Fragment {
 
-    private EditText editTextName;
-    private Button btnSave;
-    private Button btnChangePP;
+    private Button btn_save;
+    private ImageButton btn_edit_profile_picture;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View edit_profile_fragment = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
-        editTextName = findViewById(R.id.editTextName);
-        btnSave = findViewById(R.id.btnSave);
-        btnChangePP = findViewById(R.id.btnChangePP);
+        btn_save = edit_profile_fragment.findViewById(R.id.btn_edit_profile_save);
+        btn_edit_profile_picture = edit_profile_fragment.findViewById(R.id.ib_edit_profile_picture);
+        ImageButton btn_back = edit_profile_fragment.findViewById(R.id.ib_edit_profile_back);
 
-        // Set your custom Toolbar as the ActionBar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // Enable the "up" button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Set click listeners for buttons
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // saveUserProfile();
-            }
+        btn_back.setOnClickListener(v -> {
+            NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
+            navHostFragment.getNavController().navigateUp();
         });
 
-        btnChangePP.setOnClickListener(new View.OnClickListener() {
+        btn_save.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_changePasswordFragment_to_profileFragment);
+        });
+
+        btn_edit_profile_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // changeProfilePicture();
             }
         });
+
+        return edit_profile_fragment;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            // Handle the back button click here
-            onBackPressed(); // This will perform the default "back" action
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
 
     private void saveUserProfile() {
         // TODO: Implement the logic to save the user's profile here
@@ -93,7 +82,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK) {
