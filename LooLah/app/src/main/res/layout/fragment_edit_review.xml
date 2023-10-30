@@ -6,11 +6,11 @@
     android:paddingTop="20dp">
 
     <ImageView
-        android:id="@+id/iv_review_logo_logo"
+        android:id="@+id/iv_review_logo"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@id/ctl_profile_details_info"
+        app:layout_constraintBottom_toTopOf="@id/ctl_add_review"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ctl_profile_details_info"
+        android:id="@+id/ctl_add_review"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -36,7 +36,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_review_logo_logo">
+        app:layout_constraintTop_toBottomOf="@id/iv_review_logo">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_profile_image"
@@ -90,7 +90,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <LinearLayout
-            android:id="@+id/lnl_ratings"
+            android:id="@+id/lnl_add_review_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -156,7 +156,7 @@
             android:textSize="20sp"
             android:padding="20dp"
             android:gravity="top"
-            app:layout_constraintTop_toBottomOf="@id/lnl_ratings"/>
+            app:layout_constraintTop_toBottomOf="@id/lnl_add_review_rating"/>
 
         <TextView
             android:id="@+id/tv_toilet_review_address"
@@ -227,7 +227,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/img_toilet_review"
             app:layout_constraintTop_toBottomOf="@id/lnl_edit_review_actions"
-            app:layout_constraintLeft_toLeftOf="@id/ctl_profile_details_info" />
+            app:layout_constraintLeft_toLeftOf="@id/ctl_add_review" />
 
         <ImageButton
             android:id="@+id/btn_remove_photo"

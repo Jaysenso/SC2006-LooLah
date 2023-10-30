@@ -34,11 +34,11 @@ public class AddReviewFragment extends Fragment{
         });
 
         //Stars
-        ImageButton btnStar1 = addReview_fragment.findViewById(R.id.ib_add_review_toilet_rating1);
-        ImageButton btnStar2 = addReview_fragment.findViewById(R.id.ib_add_review_toilet_rating2);
-        ImageButton btnStar3 = addReview_fragment.findViewById(R.id.ib_add_review_toilet_rating3);
-        ImageButton btnStar4 = addReview_fragment.findViewById(R.id.ib_add_review_toilet_rating4);
-        ImageButton btnStar5 = addReview_fragment.findViewById(R.id.ib_add_review_toilet_rating5);
+        ImageButton btnStar1 = addReview_fragment.findViewById(R.id.ib_add_review_rating1);
+        ImageButton btnStar2 = addReview_fragment.findViewById(R.id.ib_add_review_rating2);
+        ImageButton btnStar3 = addReview_fragment.findViewById(R.id.ib_add_review_rating3);
+        ImageButton btnStar4 = addReview_fragment.findViewById(R.id.ib_add_review_rating4);
+        ImageButton btnStar5 = addReview_fragment.findViewById(R.id.ib_add_review_rating5);
 
         btnStar1.setOnClickListener(v -> {
             if(isStar1Selected){

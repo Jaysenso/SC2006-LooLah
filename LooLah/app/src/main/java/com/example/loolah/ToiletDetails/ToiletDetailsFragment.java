@@ -23,35 +23,34 @@ public class ToiletDetailsFragment extends Fragment {
         View toilet_details_fragment = inflater.inflate(R.layout.fragment_toilet_details, container, false);
 
         // Button to go back
-        ImageButton btnBack = toilet_details_fragment.findViewById(R.id.ib_toilet_details_back);
-        btnBack.setOnClickListener(v -> {
+        ImageButton btn_back = toilet_details_fragment.findViewById(R.id.ib_toilet_details_back);
+        btn_back.setOnClickListener(v -> {
             NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
             navHostFragment.getNavController().navigateUp();
         });
 
         // Button to toggle favorite state
-        ImageButton btnFavorite = toilet_details_fragment.findViewById(R.id.ib_toilet_details_favorite);
-        btnFavorite.setOnClickListener(v -> {
+        ImageButton btn_favorite = toilet_details_fragment.findViewById(R.id.ib_toilet_details_favorite);
+        btn_favorite.setOnClickListener(v -> {
             if (isPlay) {
-                btnFavorite.setImageResource(R.drawable.ic_toilet_details_favorite);
+                btn_favorite.setImageResource(R.drawable.ic_toilet_details_favorite);
             } else {
-                btnFavorite.setImageResource(R.drawable.ic_toilet_details_favorited);
+                btn_favorite.setImageResource(R.drawable.ic_toilet_details_favorited);
             }
             isPlay = !isPlay;
         });
 
         // Button to navigate to GalleryActivity
-        ImageButton btnGallery = toilet_details_fragment.findViewById(R.id.ib_toilet_details_gallery);
-        btnGallery.setOnClickListener(v -> {
+        ImageButton btn_gallery = toilet_details_fragment.findViewById(R.id.ib_toilet_details_gallery);
+        btn_gallery.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_toiletDetailsFragment_to_toiletGalleryFragment);
         });
 
         // Button to toggle to Add Review page
-        //idk why there are issues after i add this part..
-        /*Button btnToiletDetailsReview = toilet_details_fragment.findViewById(R.id.btn_toilet_details_review);
-        btnToiletDetailsReview.setOnClickListener(v -> {
+        Button btn_review = toilet_details_fragment.findViewById(R.id.btn_toilet_details_review);
+        btn_review.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_toiletDetailsFragment_to_reviewFragment);
-        });*/
+        });
 
         return toilet_details_fragment;
     }
