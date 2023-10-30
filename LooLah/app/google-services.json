@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "267753413811",
+    "firebase_url": "https://sc2006-loolah-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sc2006-loolah",
+    "storage_bucket": "sc2006-loolah.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267753413811:android:1f978b5ddaee21224f64c6",
+        "android_client_info": {
+          "package_name": "com.example.loolah"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi1xICc4hG5LDbj6xLT4ok00pemiyu9Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

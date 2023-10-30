@@ -1,10 +1,20 @@
 package com.example.loolah.model;
 
 public class User {
+    private String userId;
     private String email;
     private String username;
     private String password;
     private String profilePicUrl;
+    private String[] favorites;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getEmail() {
         return email;
@@ -36,5 +46,13 @@ public class User {
 
     public void setProfilePicUrl(String profilePicUrl) {
         this.profilePicUrl = profilePicUrl;
+    }
+
+    public String[] getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites() {
+        this.favorites = favorites;
     }
 }

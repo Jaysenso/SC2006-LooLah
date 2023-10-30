@@ -6,9 +6,15 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 
+import com.example.loolah.database.DatabaseSetup;
+
 public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DatabaseSetup db = new DatabaseSetup();
+        db.setup();
+
+
         SplashScreen.installSplashScreen(this);
 
         super.onCreate(savedInstanceState);

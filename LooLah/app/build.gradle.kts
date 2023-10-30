@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -52,7 +53,5 @@ dependencies {
     implementation ("com.google.android.gms:play-services-maps:18.2.0")
     
     implementation(platform("com.google.firebase:firebase-bom:32.4.1"))
-    implementation("com.google.firebase:firebase-database")
-
-
+    implementation("com.google.firebase:firebase-firestore")
 }
