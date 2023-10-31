@@ -4,7 +4,6 @@ public enum ToiletType {
     BUS_INTERCHANGE ("Bus Interchange"),
     CLUB ("Club"),
     COFFEESHOP ("Coffeeshop"),
-    FOODCOURT("Foodcourt"),
     GOVERNMENT_OFFICE ("Government Office"),
     MARKET_FOOD_CENTRE ("Market & Food Centre"),
     MRT_STATION ("MRT Station"),
