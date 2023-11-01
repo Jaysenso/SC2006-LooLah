@@ -21,6 +21,24 @@ public class Toilet {
     private double rating;
     private ArrayList<String> photoUrl;
 
+    public Toilet(String name, String address, double longitude, double latitude, ToiletType type, ToiletDistrict district) {
+        this.name = name;
+        this.address = address;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.type = type;
+        this.district = district;
+        accessibility = new HashMap<>();
+        accessibility.put("female", true);
+        accessibility.put("male", true);
+        accessibility.put("wheelchair", true);
+        accessibility.put("child", true);
+        reviews = new ArrayList<>();
+        reviewCount = 0;
+        rating = 0;
+        photoUrl = new ArrayList<>();
+    }
+
     public Toilet(String name, String address, double longitude, double latitude, ToiletType type, ToiletDistrict district, boolean female, boolean male, boolean wheelchair, boolean child) {
         this.name = name;
         this.address = address;

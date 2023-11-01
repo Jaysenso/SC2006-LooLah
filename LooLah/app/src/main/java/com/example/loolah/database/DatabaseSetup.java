@@ -1,27 +1,40 @@
 package com.example.loolah.database;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.example.loolah.model.*;
 import com.example.loolah.model.enums.ToiletDistrict;
 import com.example.loolah.model.enums.ToiletType;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 public class DatabaseSetup {
     private FirebaseFirestore db;
     private CollectionReference toiletColRef;
+    private StorageReference storageRef;
 
     public DatabaseSetup() {
         db = FirebaseFirestore.getInstance();
         toiletColRef = db.collection("toilets");
+        storageRef = FirebaseStorage.getInstance().getReference();
     }
 
-    public void setup() {
-        setupCentral();
+    public void setup(Context context) {
+        setupCentral(context);
         setupSouthWest();
     }
 
-    public void setupCentral() {
-        toiletColRef.add(new Toilet("AMK Bus Interchange", "53 Ang Mo Kio Avenue 3, S(569933)", 103.848705, 1.3691369, ToiletType.BUS_INTERCHANGE, ToiletDistrict.CENTRAL, true, true, true, true)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+    public void setupCentral(Context context) {
+        toiletColRef.add(new Toilet("AMK Bus Interchange", "53 Ang Mo Kio Avenue 3, S(569933)", 103.848705, 1.3691369, ToiletType.BUS_INTERCHANGE, ToiletDistrict.CENTRAL, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImages(context, documentReference.getId(), "AMK Bus Interchange", 5);
+        });
         toiletColRef.add(new Toilet("Seletar Country Club", "101 Seletar Club Road, S(798273)", 103.8581298, 1.4096081, ToiletType.CLUB, ToiletDistrict.CENTRAL, true, true, true, false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
         toiletColRef.add(new Toilet("Kopitiam @ 437 Fernvale Road", "437 Fernvale Road, #01-01, S(790437)", 103.8761231, 1.3926519, ToiletType.COFFEESHOP, ToiletDistrict.CENTRAL, true, true, true, false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
         toiletColRef.add(new Toilet("NTUC Foodfare Court@Clifford Centre", "Clifford Centre, 24 Raffles Place, S(048621)", 103.8519697, 1.2838533, ToiletType.FOOD_COURT, ToiletDistrict.CENTRAL, true, true, false, false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
@@ -47,5 +60,20 @@ public class DatabaseSetup {
         toiletColRef.add(new Toilet("Jurong Eco Garden","1 Cleantech Loop Singapore, S(637141)",103.6921766,1.3553891,ToiletType.PARK, ToiletDistrict.SOUTH_WEST, true,true,true,false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
         toiletColRef.add(new Toilet("CKR Contract Services Pte Ltd","56 Sungei Kadut Drive, S(729573)",103.7449088,1.4126232,ToiletType.PRIVATE_OFFICE, ToiletDistrict.SOUTH_WEST, true,true,false,false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
         toiletColRef.add(new Toilet(" Choa Chu Kang Centre","309 Choa Chu Kang Avenue 4, S(680308)",103.742769,1.385547,ToiletType.SHOPPING_CENTRE, ToiletDistrict.SOUTH_WEST, true,true,true,false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+    }
+
+    public void uploadToiletImages(Context context, String toiletId, String toiletName, int numOfPics) {
+        String fileName = toiletName.replaceAll(" ", "_").toLowerCase();
+        InputStream is;
+
+        for (int i = 1; i <= numOfPics; i++) {
+            is = context.getResources().openRawResource(context.getResources().getIdentifier((fileName + "_" + i), "raw", context.getPackageName()));
+            StorageReference toiletImgUrlRef = storageRef.child("images/toilet/" + fileName + "_" + i);
+            toiletImgUrlRef.putStream(is).addOnFailureListener(Throwable::printStackTrace).addOnSuccessListener(taskSnapshot -> {
+                toiletImgUrlRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    toiletColRef.document(toiletId).update("photoUrl", FieldValue.arrayUnion(uri.toString()));
+                });
+            });
+        }
     }
 }
