@@ -14,8 +14,8 @@ import java.util.Arrays;
 public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        DatabaseSetup db = new DatabaseSetup();
-//        db.setup(getApplicationContext());
+        //DatabaseSetup db = new DatabaseSetup();
+        //db.setup(getApplicationContext());
 
         SplashScreen.installSplashScreen(this);
 

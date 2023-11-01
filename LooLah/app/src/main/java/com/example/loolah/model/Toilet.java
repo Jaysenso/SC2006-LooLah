@@ -31,7 +31,7 @@ public class Toilet {
         accessibility = new HashMap<>();
         accessibility.put("female", true);
         accessibility.put("male", true);
-        accessibility.put("wheelchair", true);
+        accessibility.put("handicap", true);
         accessibility.put("child", true);
         reviews = new ArrayList<>();
         reviewCount = 0;
@@ -39,7 +39,7 @@ public class Toilet {
         photoUrl = new ArrayList<>();
     }
 
-    public Toilet(String name, String address, double longitude, double latitude, ToiletType type, ToiletDistrict district, boolean female, boolean male, boolean wheelchair, boolean child) {
+    public Toilet(String name, String address, double longitude, double latitude, ToiletType type, ToiletDistrict district, boolean female, boolean male, boolean handicap, boolean child) {
         this.name = name;
         this.address = address;
         this.longitude = longitude;
@@ -49,7 +49,7 @@ public class Toilet {
         accessibility = new HashMap<>();
         accessibility.put("female", female);
         accessibility.put("male", male);
-        accessibility.put("wheelchair", wheelchair);
+        accessibility.put("handicap", handicap);
         accessibility.put("child", child);
         reviews = new ArrayList<>();
         reviewCount = 0;
