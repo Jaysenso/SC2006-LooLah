@@ -17,6 +17,7 @@ public class DatabaseSetup {
 
     public void setup() {
         setupCentral();
+        setupSouthWest();
     }
 
     public void setupCentral() {
@@ -33,5 +34,18 @@ public class DatabaseSetup {
         toiletColRef.add(new Toilet("Lum Chang Building", "14, Kung Chong Road, S(159150)", 103.8112565, 1.2900376, ToiletType.PRIVATE_OFFICE, ToiletDistrict.CENTRAL, true, true, false, false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
         toiletColRef.add(new Toilet("Buangkok Square Mall", "991 Buangkok Link, Buangkok Square Mall, S(530991)", 103.8819586, 1.3846918, ToiletType.SHOPPING_CENTRE, ToiletDistrict.CENTRAL, true, true, true, false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
         toiletColRef.add(new Toilet("ArBora Cafe", "109 Mount Faber Road, Level 2, S(099230)", 103.8192945, 1.2713774, ToiletType.TOURIST_ATTRACTION, ToiletDistrict.CENTRAL, true, true, true, false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+    }
+
+    public void setupSouthWest(){
+        toiletColRef.add(new Toilet("Boon Lay Bus Interchange","87 Jurong West Central 3, S(648343)",103.705742,1.3400445,ToiletType.BUS_INTERCHANGE, ToiletDistrict.SOUTH_WEST, true,true,true,true)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+        toiletColRef.add(new Toilet("Kopitiam @ 450 Clementi Avenue 3","450 Clementi Avenue 3, #01-271, S(120450)",103.765368,1.3136967,ToiletType.COFFEESHOP, ToiletDistrict.SOUTH_WEST, true,true,false,false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+        toiletColRef.add(new Toilet("Unison Construction Dormitory","6 Tuas Basin Link, S(638760)",103.6484818,1.3184954,ToiletType.DORMITORY, ToiletDistrict.SOUTH_WEST, false,true,false,false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+        toiletColRef.add(new Toilet("Kopitiam","1 Lower Kent Ridge Road, #05-01 One@Kent Ridge, S (119082)",103.784831,1.2938782,ToiletType.FOOD_COURT, ToiletDistrict.SOUTH_WEST, true,true,true,true)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+        toiletColRef.add(new Toilet("CleanTech One","CleanTech One, 1 Clean Tech Loop, S(637141)",103.6921728,1.3550366,ToiletType.INDUSTRIAL_COMPLEX, ToiletDistrict.SOUTH_WEST, true,true,true,false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+        toiletColRef.add(new Toilet("Ayer Rajah Amenity Centre","69 Ayer Rajah Crescent, S(139961)",103.787009,1.296167,ToiletType.MARKET_FOOD_CENTRE, ToiletDistrict.SOUTH_WEST, true,true,true,false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+        toiletColRef.add(new Toilet("Beauty World MRT Station (DT5)","101 Upper Bukit Timah Road, S(588216)",103.7758127,1.3408774,ToiletType.MRT_STATION, ToiletDistrict.SOUTH_WEST, true,true,false,false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+        toiletColRef.add(new Toilet("Jurong Eco Garden","1 Cleantech Loop Singapore, S(637141)",103.6921766,1.3553891,ToiletType.PARK, ToiletDistrict.SOUTH_WEST, true,true,true,false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+        toiletColRef.add(new Toilet("CKR Contract Services Pte Ltd","56 Sungei Kadut Drive, S(729573)",103.7449088,1.4126232,ToiletType.PRIVATE_OFFICE, ToiletDistrict.SOUTH_WEST, true,true,false,false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
+        toiletColRef.add(new Toilet(" Choa Chu Kang Centre","309 Choa Chu Kang Avenue 4, S(680308)",103.742769,1.385547,ToiletType.SHOPPING_CENTRE, ToiletDistrict.SOUTH_WEST, true,true,true,false)).addOnSuccessListener(documentReference -> toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId()));
     }
 }
