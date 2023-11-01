@@ -1,43 +1,45 @@
 package com.example.loolah.Map;
 
+import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
+import android.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.loolah.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.location.Address;
-import com.example.loolah.R;
-import java.util.*;
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap google_map;
     private SearchView sv_map;
+    private RecyclerView rv_map;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View map_fragment = inflater.inflate(R.layout.fragment_map, container, false);
-
 
         String[] toilet_types = new String[]{"Type", "Bus Interchange", "Club", "Coffeeshop", "Foodcourt", "Government Office", "Market & Food Centre", "MRT Station", "Park", "Pier", "Place of worship", "Private Office", "Restaurant", "Shopping Centre", "Tourist Attraction", "Community Centre", "Food Court", "Dormitory", "Industrial Complex"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, toilet_types);
@@ -72,8 +74,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
 
         sv_map = getView().findViewById(R.id.sv_map_search);
+        rv_map = getView().findViewById(R.id.toiletRVMenu);
 
         SupportMapFragment google_map_fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fcv_map_google);
+
+        sv_map.setOnClickListener(v-> {
+                Navigation.findNavController(v).navigate(R.id.action_mapFragment_to_toiletRVMenu);
+        });
+
+
         sv_map.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -99,13 +108,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 return false;
             }
         });
+
+//        sv_map.setOnSearchClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                rv_map.setVisibility(View.VISIBLE);
+//            }
+//        });
+
         google_map_fragment.getMapAsync(this);
     }
 
@@ -119,7 +134,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         readCSV();
 
     }
-
 
 
     private void readCSV() {

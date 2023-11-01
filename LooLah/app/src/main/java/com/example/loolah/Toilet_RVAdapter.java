@@ -10,18 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-public class Toilet_RVAdapter extends RecyclerView.Adapter<Toilet_RVAdapter.MyViewHolder> {
+public class Toilet_RVAdapter extends RecyclerView.Adapter<Toilet_RVAdapter.MyViewHolder>{
     Context context;
-    ArrayList<ToiletModel> toiletDataList;
+    ArrayList<ToiletModel> displayList;
 
 
-    public Toilet_RVAdapter(Context context, ArrayList<ToiletModel> toiletDataList) {
+    public Toilet_RVAdapter(Context context, ArrayList<ToiletModel> toiletDataList)  {
         this.context = context;
-        this.toiletDataList = toiletDataList;
+        this.displayList = toiletDataList;
     }
 
     @NonNull
@@ -37,14 +35,19 @@ public class Toilet_RVAdapter extends RecyclerView.Adapter<Toilet_RVAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull Toilet_RVAdapter.MyViewHolder holder, int position) {
         //holder.imageView.setImageResource(R.drawable.ic_map_searchpin);
-        holder.name.setText(toiletDataList.get(position).getName());
-        holder.address.setText(toiletDataList.get(position).getAddress());
+        holder.name.setText(displayList.get(position).getName());
+        holder.address.setText(displayList.get(position).getAddress());
 
     }
 
     @Override
     public int getItemCount() {
-        return toiletDataList.size();
+        return displayList.size();
+    }
+
+    public void filterList(ArrayList<ToiletModel> filteredList) {
+        displayList = filteredList;
+        notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -59,4 +62,5 @@ public class Toilet_RVAdapter extends RecyclerView.Adapter<Toilet_RVAdapter.MyVi
             address = itemView.findViewById(R.id.toiletAddress);
         }
     }
+
 }
