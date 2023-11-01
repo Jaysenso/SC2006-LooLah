@@ -8,6 +8,9 @@ import androidx.core.splashscreen.SplashScreen;
 
 import com.example.loolah.database.DatabaseSetup;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
