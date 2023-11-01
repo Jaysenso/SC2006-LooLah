@@ -11,8 +11,8 @@ import com.example.loolah.database.DatabaseSetup;
 public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DatabaseSetup db = new DatabaseSetup();
-        db.setup();
+        // DatabaseSetup db = new DatabaseSetup();
+        // db.setup();
 
 
         SplashScreen.installSplashScreen(this);
