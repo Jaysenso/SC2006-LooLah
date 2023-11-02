@@ -1,212 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/primary">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_register_logo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@+id/tv_register_page"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/icon" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_register_page"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:contentDescription="@string/register_page"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/register_page"
-        android:textColor="@color/secondary"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        android:typeface="normal"
-        app:layout_constraintBottom_toBottomOf="@id/et_register_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_register_logo"
-        app:layout_constraintVertical_chainStyle="packed" />
+        <variable
+            name="registerViewModel"
+            type="com.example.loolah.viewmodel.RegisterViewModel" />
+    </data>
 
-    <EditText
-        android:id="@+id/et_register_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="35dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_borderless"
-        android:fontFamily="sans-serif-medium"
-        android:hint="@string/register_email_hint"
-        android:imeOptions="actionNext"
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        android:padding="15dp"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:textColor="@color/black"
-        android:textColorHint="@color/muted"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/et_register_username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_register_page"
-        app:layout_constraintVertical_chainStyle="packed" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary">
 
-    <EditText
-        android:id="@+id/et_register_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="35dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_borderless"
-        android:fontFamily="sans-serif-medium"
-        android:hint="@string/register_username_hint"
-        android:imeOptions="actionNext"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:padding="15dp"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:textColor="@color/black"
-        android:textColorHint="@color/muted"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/lnl_register_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_register_email"
-        app:layout_constraintVertical_chainStyle="packed" />
+        <ImageView
+            android:id="@+id/iv_register_logo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toTopOf="@+id/tv_register_page"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:srcCompat="@drawable/icon" />
 
-    <LinearLayout
-        android:id="@+id/lnl_register_password"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="35dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/bg_borderless"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/lnl_register_confirm_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_register_username"
-        app:layout_constraintVertical_chainStyle="packed">
+        <TextView
+            android:id="@+id/tv_register_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:contentDescription="@string/register_page"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/register_page"
+            android:textColor="@color/secondary"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            app:layout_constraintBottom_toBottomOf="@id/et_register_email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_register_logo"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <EditText
-            android:id="@+id/et_register_password"
+            android:id="@+id/et_register_email"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="35dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_borderless"
             android:fontFamily="sans-serif-medium"
-            android:hint="@string/register_password_hint"
-            android:imeOptions="actionGo"
+            android:hint="@string/register_email_hint"
+            android:imeOptions="actionNext"
             android:importantForAutofill="no"
-            android:inputType="textPassword"
+            android:inputType="textEmailAddress"
             android:padding="15dp"
             android:selectAllOnFocus="true"
             android:singleLine="true"
+            android:text="@={registerViewModel.email}"
             android:textColor="@color/black"
             android:textColorHint="@color/muted"
-            android:textSize="16sp" />
-
-        <ImageButton
-            android:id="@+id/btn_register_toggle_password"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_borderless"
-            android:backgroundTint="@color/secondary"
-            android:contentDescription="@string/register_toggle_password"
-            android:src="@drawable/ic_password_hide" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lnl_register_confirm_password"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="35dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/bg_borderless"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/btn_register_register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lnl_register_password"
-        app:layout_constraintVertical_chainStyle="packed">
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/et_register_username"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_register_page"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <EditText
-            android:id="@+id/et_register_confirm_password"
+            android:id="@+id/et_register_username"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="35dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_borderless"
             android:fontFamily="sans-serif-medium"
-            android:hint="@string/register_confirm_password_hint"
-            android:imeOptions="actionGo"
+            android:hint="@string/register_username_hint"
+            android:imeOptions="actionNext"
             android:importantForAutofill="no"
-            android:inputType="textPassword"
+            android:inputType="textPersonName"
             android:padding="15dp"
             android:selectAllOnFocus="true"
             android:singleLine="true"
+            android:text="@={registerViewModel.username}"
             android:textColor="@color/black"
             android:textColorHint="@color/muted"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/lnl_register_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_register_email"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-        <ImageButton
-            android:id="@+id/btn_register_toggle_confirm_password"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
+        <LinearLayout
+            android:id="@+id/lnl_register_password"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="35dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/bg_borderless"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/lnl_register_confirm_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_register_username"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <EditText
+                android:id="@+id/et_register_password"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:fontFamily="sans-serif-medium"
+                android:hint="@string/register_password_hint"
+                android:imeOptions="actionGo"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:text="@={registerViewModel.password}"
+                android:textColor="@color/black"
+                android:textColorHint="@color/muted"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/btn_register_toggle_password"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_borderless"
+                android:backgroundTint="@color/secondary"
+                android:contentDescription="@string/register_toggle_password"
+                android:src="@drawable/ic_password_hide" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnl_register_confirm_password"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="35dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_borderless"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/btn_register_register"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnl_register_password"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <EditText
+                android:id="@+id/et_register_confirm_password"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:fontFamily="sans-serif-medium"
+                android:hint="@string/register_confirm_password_hint"
+                android:imeOptions="actionGo"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:text="@={registerViewModel.confirmPassword}"
+                android:textColor="@color/black"
+                android:textColorHint="@color/muted"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/btn_register_toggle_confirm_password"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_borderless"
+                android:backgroundTint="@color/secondary"
+                android:contentDescription="@string/register_toggle_confirm_password"
+                android:src="@drawable/ic_password_hide" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_register_register"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_pill"
             android:backgroundTint="@color/secondary"
-            android:contentDescription="@string/register_toggle_confirm_password"
-            android:src="@drawable/ic_password_hide" />
-    </LinearLayout>
+            android:fontFamily="sans-serif-medium"
+            android:onClick="@{() -> registerViewModel.onRegisterClick()}"
+            android:paddingVertical="10dp"
+            android:text="@string/register_register_btn"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_register_account_exist"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnl_register_confirm_password"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-    <Button
-        android:id="@+id/btn_register_register"
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_pill"
-        android:backgroundTint="@color/secondary"
-        android:fontFamily="sans-serif-medium"
-        android:paddingVertical="10dp"
-        android:text="@string/register_register_btn"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/tv_register_account_exist"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lnl_register_confirm_password"
-        app:layout_constraintVertical_chainStyle="packed" />
+        <TextView
+            android:id="@+id/tv_register_account_exist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/register_account_exist"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/register_account_exist"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:typeface="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_register_register"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-    <TextView
-        android:id="@+id/tv_register_account_exist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:contentDescription="@string/register_account_exist"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/register_account_exist"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:typeface="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_register_register"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

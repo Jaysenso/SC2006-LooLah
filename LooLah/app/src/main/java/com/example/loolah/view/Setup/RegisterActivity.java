@@ -1,53 +1,95 @@
 package com.example.loolah.view.Setup;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loolah.R;
+import com.example.loolah.databinding.ActivityRegisterBinding;
+import com.example.loolah.viewmodel.RegisterViewModel;
 
 public class RegisterActivity extends AppCompatActivity {
     public boolean password_visible = false;
     public boolean confirm_password_visible = false;
 
+    private RegisterViewModel viewModel;
+    private ActivityRegisterBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
 
-        ImageButton btn_toggle_password = findViewById(R.id.btn_register_toggle_password);
-        EditText et_password = findViewById(R.id.et_register_password);
-        ImageButton btn_toggle_confirm_password = findViewById(R.id.btn_register_toggle_confirm_password);
-        EditText et_confirm_password = findViewById(R.id.et_register_confirm_password);
+        viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
-        btn_toggle_password.setOnClickListener(v -> {
-            if (!password_visible) {
-                btn_toggle_password.setImageResource(R.drawable.ic_password_show);
-                et_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
+        binding.setLifecycleOwner(this);
+        binding.setRegisterViewModel(viewModel);
+
+        viewModel.getUser().observe(this, user -> {
+            if (TextUtils.isEmpty(user.getEmail())) {
+                Log.d("TEST", "Empty email address");
+                binding.etRegisterEmail.setError("Error");
+            } else if (!user.isEmailValid()) {
+                Log.d("TEST", "Invalid email address");
+                binding.etRegisterEmail.setError("Error");
+            } else if (TextUtils.isEmpty(user.getUsername())) {
+                Log.d("TEST", "Empty username");
+                binding.etRegisterUsername.setError("Error");
+            } else if (TextUtils.isEmpty(user.getPassword())) {
+                Log.d("TEST", "Empty password");
+                binding.etRegisterPassword.setError("Error");
+            } else if (TextUtils.isEmpty(user.getConfirmPassword())) {
+                Log.d("TEST", "Empty confirm password");
+                binding.etRegisterConfirmPassword.setError("Error");
+            } else if (!user.isPasswordMatching()) {
+                Log.d("TEST", "Passwords do not match");
+                binding.etRegisterConfirmPassword.setError("Error");
             } else {
-                btn_toggle_password.setImageResource(R.drawable.ic_password_hide);
-                et_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                viewModel.register();
             }
-
-            password_visible = !password_visible;
-            et_password.setSelection(et_password.getText().length());
         });
 
-        btn_toggle_confirm_password.setOnClickListener(v -> {
-            if (!confirm_password_visible) {
-                btn_toggle_confirm_password.setImageResource(R.drawable.ic_password_show);
-                et_confirm_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            } else {
-                btn_toggle_confirm_password.setImageResource(R.drawable.ic_password_hide);
-                et_confirm_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        viewModel.getAuthenticatedUser().observe(this, user -> {
+            switch (user.getStatus()) {
+                case SUCCESS:
+                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                    finish();
+                    break;
+                case ERROR:
+                    Log.d("TEST", "Register failed");
+                    binding.etRegisterConfirmPassword.setError("Registration failed");
+                    binding.btnRegisterRegister.setEnabled(true);
+                    break;
+                case LOADING:
+                    Log.d("TEST", "Loading");
+                    binding.btnRegisterRegister.setEnabled(false);
+                    break;
             }
-
-            confirm_password_visible = !confirm_password_visible;
-            et_confirm_password.setSelection(et_confirm_password.getText().length());
         });
+
+        binding.btnRegisterTogglePassword.setOnClickListener(v -> password_visible = togglePasswordVisibility(binding.etRegisterPassword, binding.btnRegisterTogglePassword, password_visible));
+        binding.btnRegisterToggleConfirmPassword.setOnClickListener(v -> confirm_password_visible = togglePasswordVisibility(binding.etRegisterConfirmPassword, binding.btnRegisterToggleConfirmPassword, confirm_password_visible));
+    }
+
+    public boolean togglePasswordVisibility(EditText et, ImageButton ib, boolean visible) {
+        if (!visible) {
+            ib.setImageResource(R.drawable.ic_password_show);
+            et.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+        } else {
+            ib.setImageResource(R.drawable.ic_password_hide);
+            et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+
+        et.setSelection(et.getText().length());
+        return !visible;
     }
 }

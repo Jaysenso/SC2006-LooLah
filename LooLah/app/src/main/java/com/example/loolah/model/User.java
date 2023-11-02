@@ -1,12 +1,22 @@
 package com.example.loolah.model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class User {
     private String userId;
     private String email;
     private String username;
-    private String password;
     private String profilePicUrl;
-    private String[] favorites;
+    private ArrayList<String> favorites;
+
+    public User(String userId, String email, String username) {
+        this.userId = userId;
+        this.email = email;
+        this.username = username;
+        this.profilePicUrl = null;
+        this.favorites = new ArrayList<>();
+    }
 
     public String getUserId() {
         return userId;
@@ -32,14 +42,6 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getProfilePicUrl() {
         return profilePicUrl;
     }
@@ -48,7 +50,7 @@ public class User {
         this.profilePicUrl = profilePicUrl;
     }
 
-    public String[] getFavorites() {
+    public ArrayList<String> getFavorites() {
         return favorites;
     }
 
