@@ -72,55 +72,39 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         sv_map = getView().findViewById(R.id.sv_map_search);
         rv_map = getView().findViewById(R.id.toiletRVMenu);
-
         SupportMapFragment google_map_fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fcv_map_google);
 
         sv_map.setOnClickListener(v-> {
                 Navigation.findNavController(v).navigate(R.id.action_mapFragment_to_toiletRVMenu);
         });
-
-
         sv_map.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 String location = sv_map.getQuery().toString();
                 List<Address> addressList = null;
 
                 if (location != null) {
                     Geocoder geocoder = new Geocoder(requireContext());
-
                     try {
                         addressList = geocoder.getFromLocationName(location,1);
                     }
                     catch (IOException e) {
                         e.printStackTrace();
                     }
-
                     Address address = addressList.get(0);
                     LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
                     google_map.addMarker(new MarkerOptions().position(latLng).title("Location"));
                     google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                 }
-
                 return false;
             }
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String query) {
                 return false;
             }
         });
-
-//        sv_map.setOnSearchClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                rv_map.setVisibility(View.VISIBLE);
-//            }
-//        });
-
         google_map_fragment.getMapAsync(this);
     }
 
@@ -132,17 +116,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         google_map.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 12));
         //read geolocation csv and plot pins on the map
         readCSV();
-
     }
-
 
     private void readCSV() {
         try {
             //Read the CSV file
             InputStream inputStream = getResources().openRawResource(R.raw.toiletlocationlatlong);
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(inputStream));
-
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             ArrayList<LatLng> latLngList = new ArrayList<LatLng>();
 
             //Read through the rows and populate LatLng arraylist with the corresponding latitude and longitude
@@ -152,14 +132,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 double lon = Double.parseDouble(line.split(",")[1]);
                 latLngList.add(new LatLng(lat, lon));
             }
-
             //plot on googleMap using latLngList
             for(LatLng pos : latLngList){
                 google_map.addMarker(new MarkerOptions()
                         .position(pos)
                         .title("Location"));
             }
-
         } catch (IOException e) { //error handling
             e.printStackTrace();
         }

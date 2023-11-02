@@ -10,7 +10,9 @@ import android.widget.Spinner;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,10 +32,9 @@ public class ToiletRVMenu extends AppCompatActivity {
     private SearchView searchView;
 
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.toilet_rvmenu);
-
         //spinner
         Spinner map_filter = (Spinner)findViewById(R.id.sp_map_filter_type);
         Spinner toilet_district = (Spinner)findViewById(R.id.sp_map_filter_district);
@@ -60,6 +61,15 @@ public class ToiletRVMenu extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         toilet_rating.setAdapter(adapter);
 
+        //backarrow (navigate back to mapFragment)
+        ImageButton btn_back_arrow = (ImageButton) findViewById(R.id.btn_back_arrow);
+        btn_back_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         //for searchview & recyclerview
         searchView = findViewById(R.id.search_view);
         recyclerView = findViewById(R.id.toilet_RecyclerView);
@@ -75,14 +85,15 @@ public class ToiletRVMenu extends AppCompatActivity {
             }
             @Override
             public boolean onQueryTextChange(String newText) {
+
                 filter(newText);
                 return false;
             }
         });
     }
 
-
     private void setUpToiletModels() {
+
         try {
             CSVReaderUtil(getResources().openRawResource(R.raw.toiletdatarecyclerviewtest));
         } catch (IOException e) {
@@ -91,14 +102,13 @@ public class ToiletRVMenu extends AppCompatActivity {
     }
 
     private void filter(String constraint) {
-        filteredList = new ArrayList<>();
 
+        filteredList = new ArrayList<>();
         if(constraint == null || constraint.length() == 0) {
             filteredList.addAll(toiletDataList);
         }
         else {
             String filterPattern = constraint.toString().toLowerCase().trim();
-
             for(ToiletModel toilet : toiletDataList) {
                 if(toilet.getName().toLowerCase().contains(filterPattern)) {
                     filteredList.add(toilet);
@@ -109,6 +119,7 @@ public class ToiletRVMenu extends AppCompatActivity {
     }
 
     public void CSVReaderUtil(InputStream inputStream) throws IOException {
+
         String[] record = null;
         toiletDataList = new ArrayList<>();
         //pass in the file location
@@ -132,7 +143,5 @@ public class ToiletRVMenu extends AppCompatActivity {
             Log.wtf("MyActivity", "Error reading data file on line " + record, e);
             e.printStackTrace();
         }
-
     }
-
 }

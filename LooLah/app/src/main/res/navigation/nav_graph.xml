@@ -80,6 +80,7 @@
     <activity
         android:id="@+id/editProfileActivity"
         android:name="com.example.loolah.Profile.EditProfileActivity" />
+
     <activity
         android:id="@+id/toiletRVMenu"
         android:name="com.example.loolah.ToiletRVMenu"
