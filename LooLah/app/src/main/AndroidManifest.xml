@@ -5,8 +5,8 @@
     <permission
         android:name="your.package.name.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="your.package.name.permission.MAPS_RECEIVE"/>
 
+    <uses-permission android:name="your.package.name.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -24,14 +24,12 @@
         android:theme="@style/Theme.LooLah"
         tools:targetApi="31">
 
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyApKmH-N06_SiV6KdTivr5APkFmYuviC3Q"/>
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
 
         <activity
             android:name=".view.Setup.SplashActivity"
@@ -44,14 +42,14 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".view.Profile.EditProfileFragment"
-            android:label="Edit Profile Activity">
-        </activity>
-
         <activity android:name=".view.Setup.LoginActivity" />
         <activity android:name=".view.Setup.RegisterActivity" />
         <activity android:name=".view.Setup.MainActivity" />
+        <activity
+            android:name=".ToiletRVMenu"
+            android:exported="false"
+            android:label="@string/title_activity_toilet_rvmenu"
+            android:theme="@style/Theme.LooLah" />
 
     </application>
 

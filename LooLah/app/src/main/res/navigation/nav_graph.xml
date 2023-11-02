@@ -14,11 +14,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.example.loolah.view.Map.MapFragment"
-        android:label="MapFragment"></fragment>
-
-    <fragment
         android:id="@+id/toiletDetailsFragment"
         android:name="com.example.loolah.view.ToiletDetails.ToiletDetailsFragment"
         android:label="ToiletDetailsFragment">
@@ -28,13 +23,32 @@
 
         <action
             android:id="@+id/action_toiletDetailsFragment_to_reviewFragment"
-            app:destination="@id/reviewFragment"/>
+            app:destination="@id/reviewFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/toiletGalleryFragment"
         android:name="com.example.loolah.view.ToiletDetails.ToiletGalleryFragment"
         android:label="ToiletGalleryFragment"></fragment>
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.loolah.view.Map.MapFragment"
+        android:label="MapFragment">
+        <action
+            android:id="@+id/action_mapFragment_to_toiletRVMenu"
+            app:destination="@id/toiletRVMenu" />
+    </fragment>
+
+    <activity
+        android:id="@+id/toiletRVMenu"
+        android:name="com.example.loolah.ToiletRVMenu"
+        android:label="ToiletRVMenu" />
+
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="com.example.loolah.view.Reviews.AddReviewFragment"
+        android:label="reviewFragment"></fragment>
 
     <fragment
         android:id="@+id/favoritesFragment"
@@ -44,13 +58,6 @@
             android:id="@+id/action_favoritesFragment_to_toiletDetailsFragment"
             app:destination="@id/toiletDetailsFragment" />
     </fragment>
-
-    <fragment
-        android:id="@+id/reviewFragment"
-        android:name="com.example.loolah.view.Reviews.AddReviewFragment"
-        android:label="reviewFragment">
-    </fragment>
-
 
     <fragment
         android:id="@+id/profileFragment"
