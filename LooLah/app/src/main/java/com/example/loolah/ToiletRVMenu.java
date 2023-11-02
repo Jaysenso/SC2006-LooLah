@@ -1,27 +1,28 @@
 package com.example.loolah;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
-import androidx.appcompat.widget.SearchView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.loolah.Map.MapFragment;
 import com.opencsv.CSVReader;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
 
 public class ToiletRVMenu extends AppCompatActivity {
 
@@ -30,6 +31,9 @@ public class ToiletRVMenu extends AppCompatActivity {
     private Toilet_RVAdapter rv_adapter;
     private RecyclerView recyclerView;
     private SearchView searchView;
+    private String searchQuery;
+
+    NavController navController;
 
     public void onCreate(Bundle savedInstanceState) {
 
@@ -81,6 +85,8 @@ public class ToiletRVMenu extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                searchQuery = searchView.getQuery().toString();
+                finish();
                 return false;
             }
             @Override
@@ -92,8 +98,15 @@ public class ToiletRVMenu extends AppCompatActivity {
         });
     }
 
-    private void setUpToiletModels() {
+    //to pass the data back to mapFragment
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("SearchQuery",searchQuery);
+        navController.navigateUp();
+    }
 
+    private void setUpToiletModels() {
         try {
             CSVReaderUtil(getResources().openRawResource(R.raw.toiletdatarecyclerviewtest));
         } catch (IOException e) {

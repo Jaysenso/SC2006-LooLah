@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:contentDescription="@string/home_search_btn"
-            android:src="@drawable/ic_backarrow"/>
+            android:src="@drawable/ic_arrow_back_orange"/>
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"

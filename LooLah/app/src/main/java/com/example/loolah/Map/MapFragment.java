@@ -3,6 +3,7 @@ package com.example.loolah.Map;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import android.widget.SearchView;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.tabs.TabLayout;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +39,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap google_map;
     private SearchView sv_map;
     private RecyclerView rv_map;
+
+    private String savedSearchQuery;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,20 +67,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ((Spinner) map_fragment.findViewById(R.id.sp_map_filter_rating)).setAdapter(adapter);
 
-
         ImageButton btn_map_search = map_fragment.findViewById(R.id.btn_map_search);
         btn_map_search.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_mapFragment_to_toiletRVMenu);
         });
-
         return map_fragment;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         sv_map = getView().findViewById(R.id.sv_map_search);
         rv_map = getView().findViewById(R.id.toiletRVMenu);
         SupportMapFragment google_map_fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fcv_map_google);
+
+        if(savedInstanceState != null)
+            savedSearchQuery = savedInstanceState.getString("SearchQuery");
 
         sv_map.setOnClickListener(v-> {
                 Navigation.findNavController(v).navigate(R.id.action_mapFragment_to_toiletRVMenu);
@@ -82,23 +90,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         sv_map.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                String location = sv_map.getQuery().toString();
-                List<Address> addressList = null;
-
-                if (location != null) {
-                    Geocoder geocoder = new Geocoder(requireContext());
-                    try {
-                        addressList = geocoder.getFromLocationName(location,1);
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Address address = addressList.get(0);
-                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    google_map.addMarker(new MarkerOptions().position(latLng).title("Location"));
-                    google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
-                }
-                return false;
+                if(savedSearchQuery != null)
+                    updateMap(savedSearchQuery);
+                return true;
             }
             @Override
             public boolean onQueryTextChange(String query) {
@@ -116,6 +110,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         google_map.moveCamera(CameraUpdateFactory.newLatLngZoom(singapore, 12));
         //read geolocation csv and plot pins on the map
         readCSV();
+    }
+    private void updateMap(String searchQuery) {
+        List<Address> addressList = null;
+
+        if (searchQuery != null) {
+            Geocoder geocoder = new Geocoder(requireContext());
+            try {
+                addressList = geocoder.getFromLocationName(searchQuery,1);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            Address address = addressList.get(0);
+            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            google_map.addMarker(new MarkerOptions().position(latLng).title("Location"));
+            google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+        }
     }
 
     private void readCSV() {

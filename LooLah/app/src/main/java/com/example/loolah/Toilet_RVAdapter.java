@@ -16,15 +16,14 @@ public class Toilet_RVAdapter extends RecyclerView.Adapter<Toilet_RVAdapter.MyVi
     Context context;
     ArrayList<ToiletModel> displayList;
 
-
     public Toilet_RVAdapter(Context context, ArrayList<ToiletModel> toiletDataList)  {
         this.context = context;
         this.displayList = toiletDataList;
     }
-
     @NonNull
     @Override
     public Toilet_RVAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         //this is where you inflate the layout (giving a look to our rows)
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.itemframe_recyclerview, parent, false);
@@ -34,6 +33,7 @@ public class Toilet_RVAdapter extends RecyclerView.Adapter<Toilet_RVAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull Toilet_RVAdapter.MyViewHolder holder, int position) {
+
         //holder.imageView.setImageResource(R.drawable.ic_map_searchpin);
         holder.name.setText(displayList.get(position).getName());
         holder.address.setText(displayList.get(position).getAddress());
@@ -56,7 +56,6 @@ public class Toilet_RVAdapter extends RecyclerView.Adapter<Toilet_RVAdapter.MyVi
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
             imageView = itemView.findViewById(R.id.imageView);
             name = itemView.findViewById(R.id.toiletName);
             address = itemView.findViewById(R.id.toiletAddress);
