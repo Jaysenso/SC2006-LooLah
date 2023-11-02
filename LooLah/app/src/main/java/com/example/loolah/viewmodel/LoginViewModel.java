@@ -8,9 +8,6 @@ import com.example.loolah.model.User;
 import com.example.loolah.util.LiveDataWrapper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginViewModel extends ViewModel {
     private FirebaseAuth firebaseAuth;
