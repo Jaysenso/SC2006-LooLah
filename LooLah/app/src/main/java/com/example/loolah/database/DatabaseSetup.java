@@ -159,9 +159,9 @@ public class DatabaseSetup {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
             uploadToiletImagesFromFile(context, documentReference.getId(), "Cashew MRT Station", 5);
         });
-        toiletColRef.add(new Toilet("888 Plaza", "Blk 888, Woodlands Drive 50, S(731888)", 103.7950907, 1.4380353, ToiletType.SHOPPING_CENTRE, ToiletDistrict.NORTH_WEST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+        toiletColRef.add(new Toilet("Sembawang Mart", "Blk 511 Canberra Road, S(750511)", 103.8195883, 1.4538337, ToiletType.SHOPPING_CENTRE, ToiletDistrict.NORTH_WEST, true, true, true, true)).addOnSuccessListener(documentReference -> {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
-            uploadToiletImagesFromFile(context, documentReference.getId(), "888 Plaza", 5);
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Sembawang Mart", 5);
         });
 
     }
