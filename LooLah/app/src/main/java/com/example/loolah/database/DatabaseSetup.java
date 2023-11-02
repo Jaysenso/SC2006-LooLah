@@ -31,6 +31,7 @@ public class DatabaseSetup {
 
     public void setup(Context context) {
         setupCentral(context);
+        setUpNorthWest(context);
         setupSouthWest();
     }
 
@@ -132,7 +133,7 @@ public class DatabaseSetup {
         });
     }
 
-    public void setUpNorthWest() {
+    public void setUpNorthWest(Context context) {
 
         toiletColRef.add(new Toilet("Bukit Panjang Integrated Transport Hub", "15 Petir Road, S(678270)", 103.7638759, 1.3784446, ToiletType.BUS_INTERCHANGE, ToiletDistrict.NORTH_WEST, true, true, true, true)).addOnSuccessListener(documentReference -> {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
