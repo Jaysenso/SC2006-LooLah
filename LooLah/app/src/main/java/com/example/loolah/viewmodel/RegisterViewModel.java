@@ -74,8 +74,8 @@ public class RegisterViewModel extends ViewModel {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(usernameMutableLiveData.getValue()).build();
             firebaseUser.updateProfile(profileUpdates).addOnSuccessListener(unused -> {
                 User user = new User(firebaseUser.getUid(), firebaseUser.getEmail(), firebaseUser.getDisplayName());
-                userColRef.document(user.getUserId()).set(user).addOnSuccessListener(documentReference -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.success(user))).addOnFailureListener(Throwable::printStackTrace);
-            }).addOnFailureListener(Throwable::printStackTrace);
-        }).addOnFailureListener(Throwable::printStackTrace);
+                userColRef.document(user.getUserId()).set(user).addOnSuccessListener(documentReference -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.success(user))).addOnFailureListener(command -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.error(command.getMessage(), user)));
+            }).addOnFailureListener(command -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.error(command.getMessage(), null)));
+        }).addOnFailureListener(command -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.error(command.getMessage(), null)));
     }
 }
