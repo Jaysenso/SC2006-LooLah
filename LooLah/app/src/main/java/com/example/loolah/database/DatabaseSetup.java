@@ -132,6 +132,39 @@ public class DatabaseSetup {
         });
     }
 
+    public void setUpNorthWest() {
+
+        toiletColRef.add(new Toilet("Bukit Panjang Integrated Transport Hub", "15 Petir Road, S(678270)", 103.7638759, 1.3784446, ToiletType.BUS_INTERCHANGE, ToiletDistrict.NORTH_WEST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Bukit Panjang Integrated Transport Hub", 5);
+        });
+        toiletColRef.add(new Toilet("Kopitiam @ 504 Yishun Street 51", "504 Yishun Street 51, #01-01, S(760504)", 103.8445869, 1.4182345, ToiletType.COFFEESHOP, ToiletDistrict.NORTH_WEST, true, true, true, false)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Kopitiam @ 504 Yishun Street 51", 5);
+        });
+        toiletColRef.add(new Toilet("Bukit Canberra Indoor Sports Hall", "21 Canberra Link, S(756973)", 103.8236415, 1.4488532, ToiletType.COMMUNITY_CENTRE, ToiletDistrict.NORTH_WEST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Bukit Canberra Indoor Sports Hall", 5);
+        });
+        toiletColRef.add(new Toilet("NTUC Foodfare KTPH", "90 Yishun Central, S(768828)", 103.8385907, 1.4242972, ToiletType.FOOD_COURT, ToiletDistrict.NORTH_WEST, true, true, true, false)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "NTUC Foodfare KTPH", 5);
+        });
+        toiletColRef.add(new Toilet("Chong Pang Market & Food Centre", "105 Yishun Ring Road, S(760105)", 103.8280566, 1.4317981, ToiletType.MARKET_FOOD_CENTRE, ToiletDistrict.NORTH_WEST, true, true, true, false)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Chong Pang Market & Food Centre", 5);
+        });
+        toiletColRef.add(new Toilet("Cashew MRT Station", "1 Cashew Road, S(679696)", 103.7645535, 1.3699296, ToiletType.MRT_STATION, ToiletDistrict.NORTH_WEST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Cashew MRT Station", 5);
+        });
+        toiletColRef.add(new Toilet("888 Plaza", "Blk 888, Woodlands Drive 50, S(731888)", 103.7950907, 1.4380353, ToiletType.SHOPPING_CENTRE, ToiletDistrict.NORTH_WEST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "888 Plaza", 5);
+        });
+
+    }
+
     public void uploadToiletImagesFromFile(Context context, String toiletId, String toiletName, int numOfPics) {
         String fileName = toiletName.replaceAll("\\s@?\\s?|@|\\.|'", "_").toLowerCase();
         InputStream is;
