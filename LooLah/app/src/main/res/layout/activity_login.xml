@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_pill"
-            android:backgroundTint="@color/secondary"
+            android:backgroundTint="@color/btn_secondary_state"
             android:fontFamily="sans-serif-medium"
             android:paddingVertical="10dp"
             android:text="@string/login_login_btn"

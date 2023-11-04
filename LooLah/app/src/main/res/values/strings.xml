@@ -23,7 +23,8 @@
     <string name="register_confirm_password_hint">Confirm Password</string>
     <string name="register_toggle_confirm_password">Toggle Confirm Password Visibility</string>
     <string name="register_register_btn">Register</string>
-    <string name="register_account_exist">Already have an account? Login here</string>
+    <string name="register_account_exist">Already have an account? Login\u0020</string>
+    <string name="register_account_exist_link"><u>here</u></string>
 
     <!-- Navigation Bar -->
     <string name="navbar_home">Home</string>

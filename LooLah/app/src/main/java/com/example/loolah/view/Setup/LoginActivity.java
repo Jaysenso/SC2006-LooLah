@@ -2,13 +2,13 @@ package com.example.loolah.view.Setup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -16,9 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loolah.R;
 import com.example.loolah.databinding.ActivityLoginBinding;
-import com.example.loolah.databinding.ActivityRegisterBinding;
+import com.example.loolah.util.InputValidator;
 import com.example.loolah.viewmodel.LoginViewModel;
-import com.example.loolah.viewmodel.RegisterViewModel;
 
 public class LoginActivity extends AppCompatActivity {
     private boolean password_visible = false;
@@ -38,18 +37,22 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnLoginTogglePassword.setOnClickListener(v -> password_visible = togglePasswordVisibility(binding.etLoginPassword, binding.btnLoginTogglePassword, password_visible));
 
         viewModel.getUser().observe(this, user -> {
-            if (TextUtils.isEmpty(user.getEmail())) {
-                Log.d("TEST", "Empty email address");
-                binding.etLoginEmail.setError("Error");
-            } else if (!user.isEmailValid()) {
-                Log.d("TEST", "Invalid email address");
-                binding.etLoginEmail.setError("Error");
-            } else if (TextUtils.isEmpty(user.getPassword())) {
-                Log.d("TEST", "Empty password");
-                binding.etLoginPassword.setError("Error");
-            } else {
-                viewModel.login();
+            boolean error = false;
+
+            if (InputValidator.isEmptyInput(user.getEmail())) {
+                binding.etLoginEmail.setError("Enter your email");
+                error = true;
+            } else if (!InputValidator.isValidEmail(user.getEmail())) {
+                binding.etLoginEmail.setError("Invalid Email");
+                error = true;
             }
+
+            if (InputValidator.isEmptyInput(user.getPassword())) {
+                binding.etLoginPassword.setError("Enter your password");
+                error = true;
+            }
+
+            if (!error) viewModel.login();
         });
 
         viewModel.getAuthenticatedUser().observe(this, user -> {
@@ -59,12 +62,11 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                     break;
                 case ERROR:
-                    Log.d("TEST", "Login failed");
+                    Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
                     Log.d("TEST", user.getMessage());
                     binding.btnLoginLogin.setEnabled(true);
                     break;
                 case LOADING:
-                    Log.d("TEST", "Loading");
                     binding.btnLoginLogin.setEnabled(false);
                     break;
             }
