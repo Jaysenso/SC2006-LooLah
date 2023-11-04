@@ -2,12 +2,12 @@ package com.example.loolah.view.Setup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loolah.R;
 import com.example.loolah.databinding.ActivityRegisterBinding;
+import com.example.loolah.util.InputValidator;
 import com.example.loolah.viewmodel.RegisterViewModel;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -35,27 +36,39 @@ public class RegisterActivity extends AppCompatActivity {
         binding.setRegisterViewModel(viewModel);
 
         viewModel.getUser().observe(this, user -> {
-            if (TextUtils.isEmpty(user.getEmail())) {
-                Log.d("TEST", "Empty email address");
-                binding.etRegisterEmail.setError("Error");
-            } else if (!user.isEmailValid()) {
-                Log.d("TEST", "Invalid email address");
-                binding.etRegisterEmail.setError("Error");
-            } else if (TextUtils.isEmpty(user.getUsername())) {
-                Log.d("TEST", "Empty username");
-                binding.etRegisterUsername.setError("Error");
-            } else if (TextUtils.isEmpty(user.getPassword())) {
-                Log.d("TEST", "Empty password");
-                binding.etRegisterPassword.setError("Error");
-            } else if (TextUtils.isEmpty(user.getConfirmPassword())) {
-                Log.d("TEST", "Empty confirm password");
-                binding.etRegisterConfirmPassword.setError("Error");
-            } else if (!user.isPasswordMatching()) {
-                Log.d("TEST", "Passwords do not match");
-                binding.etRegisterConfirmPassword.setError("Error");
-            } else {
-                viewModel.register();
+            boolean error = false;
+
+            if (InputValidator.isEmptyInput(user.getEmail())) {
+                binding.etRegisterEmail.setError("Email required");
+                error = true;
+            } else if (!InputValidator.isValidEmail(user.getEmail())) {
+                binding.etRegisterEmail.setError("Invalid email");
+                error = true;
             }
+
+            if (InputValidator.isEmptyInput(user.getUsername())) {
+                binding.etRegisterUsername.setError("Username required");
+                error = true;
+            } else if (!InputValidator.isValidUsername(user.getUsername())) {
+                binding.etRegisterUsername.setError("Invalid username");
+                error = true;
+            }
+
+            if (InputValidator.isEmptyInput(user.getPassword())) {
+                binding.etRegisterPassword.setError("Password required");
+                error = true;
+            } else if (!InputValidator.isValidPassword(user.getPassword())) {
+                binding.etRegisterPassword.setError("Invalid password");
+                error = true;
+            } else if (InputValidator.isEmptyInput(user.getConfirmPassword())) {
+                binding.etRegisterConfirmPassword.setError("Confirm Password required");
+                error = true;
+            } else if (!user.isPasswordMatching()) {
+                binding.etRegisterConfirmPassword.setError("Password does not match");
+                error = true;
+            }
+
+            if (!error) viewModel.register();
         });
 
         viewModel.getAuthenticatedUser().observe(this, user -> {
@@ -65,12 +78,11 @@ public class RegisterActivity extends AppCompatActivity {
                     finish();
                     break;
                 case ERROR:
-                    Log.d("TEST", "Register failed");
-                    binding.etRegisterConfirmPassword.setError("Registration failed");
+                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
+                    Log.d("TEST", user.getMessage());
                     binding.btnRegisterRegister.setEnabled(true);
                     break;
                 case LOADING:
-                    Log.d("TEST", "Loading");
                     binding.btnRegisterRegister.setEnabled(false);
                     break;
             }
@@ -78,6 +90,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         binding.btnRegisterTogglePassword.setOnClickListener(v -> password_visible = togglePasswordVisibility(binding.etRegisterPassword, binding.btnRegisterTogglePassword, password_visible));
         binding.btnRegisterToggleConfirmPassword.setOnClickListener(v -> confirm_password_visible = togglePasswordVisibility(binding.etRegisterConfirmPassword, binding.btnRegisterToggleConfirmPassword, confirm_password_visible));
+        binding.tvRegisterAccountExistLink.setOnClickListener(v -> {
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            finish();
+        });
     }
 
     public boolean togglePasswordVisibility(EditText et, ImageButton ib, boolean visible) {

@@ -36,10 +36,6 @@ public class LoginUser {
         return confirmPassword;
     }
 
-    public boolean isEmailValid() {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
     public boolean isPasswordMatching() {
         return password.equals(confirmPassword);
     }
