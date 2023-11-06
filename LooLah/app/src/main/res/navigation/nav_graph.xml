@@ -1,6 +1,5 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
@@ -23,7 +22,8 @@
 
         <action
             android:id="@+id/action_toiletDetailsFragment_to_reviewFragment"
-            app:destination="@id/reviewFragment" />
+            app:destination="@id/reviewFragment"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
 
     <fragment
@@ -90,7 +90,8 @@
         android:label="ChangePasswordFragment">
         <action
             android:id="@+id/action_changePasswordFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
 
     <fragment

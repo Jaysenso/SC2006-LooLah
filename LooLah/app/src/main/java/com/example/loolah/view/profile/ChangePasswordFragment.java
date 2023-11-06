@@ -36,6 +36,7 @@ public class ChangePasswordFragment extends Fragment {
         viewModel.getChangePasswordStatus().observe(getViewLifecycleOwner(), booleanLiveDataWrapper -> {
             switch (booleanLiveDataWrapper.getStatus()) {
                 case SUCCESS:
+                    viewModel.resetChangePasswordStatus();
                     Toast.makeText(getContext(), "Password successfully updated", Toast.LENGTH_SHORT).show();
                     Navigation.findNavController(getView()).navigate(R.id.action_changePasswordFragment_to_profileFragment);
                     break;

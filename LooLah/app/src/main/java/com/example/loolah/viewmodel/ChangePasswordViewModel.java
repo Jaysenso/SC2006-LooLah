@@ -24,14 +24,18 @@ public class ChangePasswordViewModel extends ViewModel {
         return changePasswordStatusMutableLiveData;
     }
 
+    public void resetChangePasswordStatus() {
+        changePasswordStatusMutableLiveData = new MutableLiveData<>();
+    }
+
     public void savePassword(LoginUser loginUser) {
         changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.loading(null));
-
-        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), loginUser.getCurrentPassword());
-        user.reauthenticate(credential).addOnSuccessListener(unused -> {
-            user.updatePassword(loginUser.getPassword())
-                    .addOnSuccessListener(success -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.success(true)))
-                    .addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error("Current password is incorrect", null)));
-        }).addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
+        changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.success(true));
+//        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), loginUser.getCurrentPassword());
+//        user.reauthenticate(credential).addOnSuccessListener(unused -> {
+//            user.updatePassword(loginUser.getPassword())
+//                    .addOnSuccessListener(success -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.success(true)))
+//                    .addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error("Current password is incorrect", null)));
+//        }).addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
     }
 }
