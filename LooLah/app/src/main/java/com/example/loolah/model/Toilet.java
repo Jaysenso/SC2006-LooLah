@@ -1,11 +1,16 @@
 package com.example.loolah.model;
 
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.example.loolah.R;
 import com.example.loolah.model.enums.ToiletDistrict;
 import com.example.loolah.model.enums.ToiletType;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Toilet {
     private String toiletId;
@@ -16,10 +21,12 @@ public class Toilet {
     private ToiletType type;
     private ToiletDistrict district;
     private HashMap<String, Boolean> accessibility;
-    private ArrayList<String> reviews;
     private int reviewCount;
     private double rating;
     private ArrayList<String> photoUrl;
+    private boolean verified;
+
+    public Toilet() {}
 
     public Toilet(String name, String address, double longitude, double latitude, ToiletType type, ToiletDistrict district) {
         this.name = name;
@@ -28,15 +35,15 @@ public class Toilet {
         this.latitude = latitude;
         this.type = type;
         this.district = district;
-        accessibility = new HashMap<>();
-        accessibility.put("female", true);
-        accessibility.put("male", true);
-        accessibility.put("handicap", true);
-        accessibility.put("child", true);
-        reviews = new ArrayList<>();
-        reviewCount = 0;
-        rating = 0;
-        photoUrl = new ArrayList<>();
+        this.accessibility = new HashMap<>();
+        this.accessibility.put("female", true);
+        this.accessibility.put("male", true);
+        this.accessibility.put("handicap", true);
+        this.accessibility.put("child", true);
+        this.reviewCount = 0;
+        this.rating = 0;
+        this.photoUrl = new ArrayList<>();
+        this.verified = true;
     }
 
     public Toilet(String name, String address, double longitude, double latitude, ToiletType type, ToiletDistrict district, boolean female, boolean male, boolean handicap, boolean child) {
@@ -46,15 +53,15 @@ public class Toilet {
         this.latitude = latitude;
         this.type = type;
         this.district = district;
-        accessibility = new HashMap<>();
-        accessibility.put("female", female);
-        accessibility.put("male", male);
-        accessibility.put("handicap", handicap);
-        accessibility.put("child", child);
-        reviews = new ArrayList<>();
-        reviewCount = 0;
-        rating = 0;
-        photoUrl = new ArrayList<>();
+        this.accessibility = new HashMap<>();
+        this.accessibility.put("female", female);
+        this.accessibility.put("male", male);
+        this.accessibility.put("handicap", handicap);
+        this.accessibility.put("child", child);
+        this.reviewCount = 0;
+        this.rating = 0;
+        this.photoUrl = new ArrayList<>();
+        this.verified = true;
     }
 
     public String getToiletId() {
@@ -121,14 +128,6 @@ public class Toilet {
         this.accessibility = accessibility;
     }
 
-    public ArrayList<String> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(ArrayList<String> reviews) {
-        this.reviews = reviews;
-    }
-
     public int getReviewCount() {
         return reviewCount;
     }
@@ -149,7 +148,28 @@ public class Toilet {
         return photoUrl;
     }
 
+    public String getDisplayPhoto() {
+        return photoUrl.get(0);
+    }
+
     public void setPhotoUrl(ArrayList<String> photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    @BindingAdapter({"load_toilet_image"})
+    public static void loadToiletImage(CircleImageView view, String url) {
+        Glide.with(view.getContext())
+                .load(url)
+                .placeholder(R.drawable.ic_toilet)
+                .fallback(R.drawable.ic_toilet)
+                .into(view);
     }
 }

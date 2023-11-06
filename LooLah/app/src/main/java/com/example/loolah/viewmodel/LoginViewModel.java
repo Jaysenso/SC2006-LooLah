@@ -9,8 +9,10 @@ import com.example.loolah.util.LiveDataWrapper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class LoginViewModel extends ViewModel {
-    private FirebaseAuth firebaseAuth;
+    private final FirebaseAuth firebaseAuth;
 
     private MutableLiveData<String> emailMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> passwordMutableLiveData = new MutableLiveData<>();
@@ -51,9 +53,12 @@ public class LoginViewModel extends ViewModel {
     public void login() {
         authenticatedUserMutableLiveData.setValue(LiveDataWrapper.loading(null));
 
-        firebaseAuth.signInWithEmailAndPassword(emailMutableLiveData.getValue(), passwordMutableLiveData.getValue()).addOnSuccessListener(authResult -> {
+        firebaseAuth.signInWithEmailAndPassword(Objects.requireNonNull(emailMutableLiveData.getValue()), Objects.requireNonNull(passwordMutableLiveData.getValue())).addOnSuccessListener(authResult -> {
             FirebaseUser firebaseUser = authResult.getUser();
-            User user = new User(firebaseUser.getUid(), firebaseUser.getEmail(), firebaseUser.getDisplayName());
+            User user = null;
+
+            if (firebaseUser != null)
+                user = new User(firebaseUser.getUid(), firebaseUser.getEmail(), firebaseUser.getDisplayName());
             if (firebaseUser.getPhotoUrl() != null)
                 user.setProfilePicUrl(firebaseUser.getPhotoUrl().toString());
 

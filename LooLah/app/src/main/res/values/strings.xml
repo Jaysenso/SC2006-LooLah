@@ -36,6 +36,7 @@
     <!-- Home -->
     <string name="home_search_hint">Search…</string>
     <string name="home_search_btn">Search</string>
+    <string name="home_no_toilets">No toilets nearby</string>
 
     <!-- Map -->
     <string name="map_search_hint">Search…</string>
@@ -82,11 +83,17 @@
     <!-- Profile -->
     <string name="profile_background">Profile Background</string>
     <string name="profile_settings">Profile Settings</string>
+    <string name="profile_username" translatable="false">\@%s</string>
     <string name="profile_rank">Profile Rank</string>
+    <string name="profile_rank_gold">Veteran</string>
+    <string name="profile_rank_silver">Apprentice</string>
+    <string name="profile_rank_bronze">Novice</string>
+    <string name="profile_rank_none">Member</string>
     <string name="profile_statistics_photos">Photos</string>
     <string name="profile_statistics_reviews">Reviews</string>
     <string name="profile_statistics_likes">Likes</string>
     <string name="profile_latest_reviews">Latest Reviews</string>
+    <string name="profile_no_reviews">No reviews found</string>
     <string name="profile_review_toilet_verified">Verified</string>
     <string name="profile_review_toilet_rating">Toilet Rating</string>
 

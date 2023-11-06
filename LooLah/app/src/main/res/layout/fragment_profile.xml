@@ -1,225 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_profile_background"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:contentDescription="@string/profile_background"
-        android:src="@drawable/bg_profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+    <data>
 
-    <ImageButton
-        android:id="@+id/ib_profile_settings"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/ic_profile_settings"
-        android:contentDescription="@string/profile_settings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <import type="android.view.View" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_profile_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="50dp"
-        android:background="@android:color/transparent"
-        android:src="@color/secondary"
-        app:layout_constraintBottom_toTopOf="@id/tv_profile_username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="user"
+            type="com.example.loolah.model.User" />
 
-    <TextView
-        android:id="@+id/tv_profile_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/example_profile_username"
-        android:textColor="@color/muted"
-        android:textSize="12sp"
-        android:typeface="normal"
-        app:layout_constraintBottom_toTopOf="@id/lnl_profile_rank"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/civ_profile_image" />
-
-    <LinearLayout
-        android:id="@+id/lnl_profile_rank"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/bg_pill"
-        android:backgroundTint="@color/secondary"
-        android:orientation="horizontal"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="3dp"
-        app:layout_constraintBottom_toTopOf="@id/ctl_profile_statistics"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_profile_username">
-
-        <ImageView
-            android:id="@+id/iv_profile_rank"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:contentDescription="@string/profile_rank"
-            android:src="@drawable/ic_profile_rank"
-            app:tint="@color/gold" />
-
-        <TextView
-            android:id="@+id/tv_profile_rank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/example_profile_rank"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:typeface="normal" />
-    </LinearLayout>
+        <variable
+            name="profileView"
+            type="com.example.loolah.view.profile.ProfileFragment" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ctl_profile_statistics"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_profile_latest_reviews"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lnl_profile_rank">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/lnl_profile_statistics_photos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/tv_profile_statistics_photos_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/example_profile_statistics_photos"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:typeface="normal" />
-
-            <TextView
-                android:id="@+id/tv_profile_statistics_photos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/profile_statistics_photos"
-                android:textColor="@color/muted"
-                android:textSize="12sp"
-                android:typeface="normal" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lnl_profile_statistics_reviews"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
+        <ImageView
+            android:id="@+id/iv_profile_background"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:contentDescription="@string/profile_background"
+            android:src="@drawable/bg_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
 
-            <TextView
-                android:id="@+id/tv_profile_statistics_reviews_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/example_profile_statistics_reviews"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:typeface="normal" />
+        <ImageButton
+            android:id="@+id/ib_profile_settings"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/ic_profile_settings"
+            android:contentDescription="@string/profile_settings"
+            android:onClick="@{() -> profileView.onClickSettings()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_profile_statistics_reviews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/profile_statistics_reviews"
-                android:textColor="@color/muted"
-                android:textSize="12sp"
-                android:typeface="normal" />
-        </LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/tv_profile_username"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:load_user_image="@{user.profilePicUrl}" />
 
-        <LinearLayout
-            android:id="@+id/lnl_profile_statistics_likes"
+        <TextView
+            android:id="@+id/tv_profile_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@{@string/profile_username(user.username)}"
+            android:textColor="@color/muted"
+            android:textSize="12sp"
+            android:typeface="normal"
+            app:layout_constraintBottom_toTopOf="@id/lnl_profile_rank"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/civ_profile_image" />
+
+        <LinearLayout
+            android:id="@+id/lnl_profile_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_pill"
+            android:backgroundTint="@color/secondary"
+            android:orientation="horizontal"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="3dp"
+            app:layout_constraintBottom_toTopOf="@id/ctl_profile_statistics"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_profile_username">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_profile_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:contentDescription="@string/profile_rank"
+                android:src="@drawable/ic_profile_rank"
+                android:tint="@{user.reviewCount > 30 ? @color/gold : user.reviewCount > 15 ? @color/silver : @color/bronze}"
+                android:visibility="@{user.reviewCount > 5 ? View.VISIBLE : View.GONE}" />
 
             <TextView
-                android:id="@+id/tv_profile_statistics_likes_count"
+                android:id="@+id/tv_profile_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="@string/example_profile_statistics_likes"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:typeface="normal" />
-
-            <TextView
-                android:id="@+id/tv_profile_statistics_likes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/profile_statistics_likes"
-                android:textColor="@color/muted"
+                android:text="@{user.reviewCount > 30 ? @string/profile_rank_gold : user.reviewCount > 15 ? @string/profile_rank_silver : user.reviewCount > 5 ? @string/profile_rank_bronze : @string/profile_rank_none}"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:typeface="normal" />
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctl_profile_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_profile_latest_reviews"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lnl_profile_rank">
+
+            <LinearLayout
+                android:id="@+id/lnl_profile_statistics_photos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_profile_statistics_photos_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@{user.photoCountStr}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/tv_profile_statistics_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/profile_statistics_photos"
+                    android:textColor="@color/muted"
+                    android:textSize="12sp"
+                    android:typeface="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnl_profile_statistics_reviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_profile_statistics_reviews_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@{user.reviewCountStr}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/tv_profile_statistics_reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/profile_statistics_reviews"
+                    android:textColor="@color/muted"
+                    android:textSize="12sp"
+                    android:typeface="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnl_profile_statistics_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_profile_statistics_likes_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@{user.likesCountStr}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:typeface="normal" />
+
+                <TextView
+                    android:id="@+id/tv_profile_statistics_likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/profile_statistics_likes"
+                    android:textColor="@color/muted"
+                    android:textSize="12sp"
+                    android:typeface="normal" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_profile_latest_reviews"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/profile_latest_reviews"
+            android:textColor="@color/secondary"
+            android:textSize="16sp"
+            android:typeface="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ctl_profile_statistics" />
+
+        <ScrollView
+            android:id="@+id/sv_profile_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_profile_latest_reviews">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_profile_reviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+                <TextView
+                    android:id="@+id/tv_profile_no_reviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/profile_no_reviews"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </ScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_profile_latest_reviews"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/profile_latest_reviews"
-        android:textColor="@color/secondary"
-        android:textSize="16sp"
-        android:typeface="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ctl_profile_statistics" />
-
-    <ScrollView
-        android:id="@+id/sv_profile_latest_reviews"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_profile_latest_reviews">
-
-        <include layout="@layout/row_profile_review" />
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

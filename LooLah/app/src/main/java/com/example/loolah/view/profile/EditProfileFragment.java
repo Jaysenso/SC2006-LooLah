@@ -1,4 +1,4 @@
-package com.example.loolah.view.Profile;
+package com.example.loolah.view.profile;
 
 import static android.app.Activity.RESULT_OK;
 
