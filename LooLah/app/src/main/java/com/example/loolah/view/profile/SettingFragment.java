@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,9 +28,7 @@ public class SettingFragment extends Fragment {
         binding.setLifecycleOwner(getActivity());
         binding.setSettingView(this);
 
-        if (getArguments() != null) {
-            profilePicUrl = getArguments().getString("profilePicUrl");
-        }
+        if (getArguments() != null) profilePicUrl = getArguments().getString("profilePicUrl");
 
         return binding.getRoot();
     }

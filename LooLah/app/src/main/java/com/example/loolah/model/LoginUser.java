@@ -7,23 +7,22 @@ public class LoginUser {
     private String confirmPassword;
     private String currentPassword;
 
-    // Login
+    public LoginUser() {
+        this.email = null;
+        this.username = null;
+        this.password = null;
+        this.confirmPassword = null;
+        this.currentPassword = null;
+    }
+
     public LoginUser(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    // Register
     public LoginUser(String email, String username, String password, String confirmPassword) {
         this.email = email;
         this.username = username;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-    }
-
-    // Change Password
-    public LoginUser(String currentPassword, String password, String confirmPassword) {
-        this.currentPassword = currentPassword;
         this.password = password;
         this.confirmPassword = confirmPassword;
     }
@@ -58,6 +57,14 @@ public class LoginUser {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
     }
 
     public boolean isPasswordMatching() {
