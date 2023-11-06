@@ -5,15 +5,25 @@ public class LoginUser {
     private String username;
     private String password;
     private String confirmPassword;
+    private String currentPassword;
 
+    // Login
     public LoginUser(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
+    // Register
     public LoginUser(String email, String username, String password, String confirmPassword) {
         this.email = email;
         this.username = username;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+    }
+
+    // Change Password
+    public LoginUser(String currentPassword, String password, String confirmPassword) {
+        this.currentPassword = currentPassword;
         this.password = password;
         this.confirmPassword = confirmPassword;
     }

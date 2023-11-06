@@ -81,6 +81,8 @@ public class ProfileFragment extends Fragment implements ProfileReviewListAdapte
     }
 
     public void onClickSettings() {
+        Bundle bundle = new Bundle();
+        bundle.putString("profilePicUrl", binding.getUser().getProfilePicUrl());
         Navigation.findNavController(getView()).navigate(R.id.action_profileFragment_to_settingFragment);
     }
 

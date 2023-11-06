@@ -14,38 +14,53 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.loolah.databinding.FragmentSettingBinding;
 import com.example.loolah.view.Setup.LoginActivity;
 import com.example.loolah.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class SettingFragment extends Fragment {
+    private FragmentSettingBinding binding;
+    private String profilePicUrl;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View setting_fragment = inflater.inflate(R.layout.fragment_setting, container, false);
+        binding = FragmentSettingBinding.inflate(inflater, container, false);
+        binding.setLifecycleOwner(getActivity());
+        binding.setSettingView(this);
 
-        ImageButton btn_back = setting_fragment.findViewById(R.id.ib_setting_back);
-        Button btn_change_password = setting_fragment.findViewById(R.id.btn_setting_change_password);
-        Button btn_sign_out = setting_fragment.findViewById(R.id.btn_setting_sign_out);
+        if (getArguments() != null) {
+            profilePicUrl = getArguments().getString("profilePicUrl");
+        }
 
-        btn_back.setOnClickListener(v -> {
-            NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
-            navHostFragment.getNavController().navigateUp();
-        });
+        return binding.getRoot();
+    }
 
-        btn_change_password.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_settingFragment_to_changePasswordFragment);
-        });
+    public String getProfilePicUrl() {
+        return profilePicUrl;
+    }
 
-        btn_sign_out.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
-            getActivity().overridePendingTransition(0, 0);
-        });
+    public void onClickBack() {
+        NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
+        navHostFragment.getNavController().navigateUp();
+    }
 
-        Button btn_edit_profile = setting_fragment.findViewById(R.id.btn_setting_edit_profile);
-        btn_edit_profile.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_settingFragment_to_editProfileFragment);
-        });
+    public void onClickChangePassword(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString("profilePicUrl", profilePicUrl);
 
-        return setting_fragment;
+        Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_changePasswordFragment, bundle);
+    }
+
+    public void onClickEditProfile(View view) {
+        Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_editProfileFragment);
+    }
+
+    public void onClickSignOut() {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+        getActivity().overridePendingTransition(0, 0);
+        getActivity().finish();
     }
 }
