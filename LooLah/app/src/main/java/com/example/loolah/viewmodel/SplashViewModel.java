@@ -10,7 +10,8 @@ public class SplashViewModel extends ViewModel {
     private MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
 
     public MutableLiveData<FirebaseUser> getFirebaseUser() {
-        if (firebaseUserMutableLiveData == null) firebaseUserMutableLiveData = new MutableLiveData<>();
+        if (firebaseUserMutableLiveData == null)
+            firebaseUserMutableLiveData = new MutableLiveData<>();
         return firebaseUserMutableLiveData;
     }
 

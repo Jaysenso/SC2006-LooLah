@@ -12,9 +12,11 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
+
 public class RegisterViewModel extends ViewModel {
-    private FirebaseAuth firebaseAuth;
-    private CollectionReference userColRef;
+    private final FirebaseAuth firebaseAuth;
+    private final CollectionReference userColRef;
 
     private MutableLiveData<String> emailMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> usernameMutableLiveData = new MutableLiveData<>();
@@ -69,13 +71,15 @@ public class RegisterViewModel extends ViewModel {
     public void register() {
         authenticatedUserMutableLiveData.setValue(LiveDataWrapper.loading(null));
 
-        firebaseAuth.createUserWithEmailAndPassword(emailMutableLiveData.getValue(), passwordMutableLiveData.getValue()).addOnSuccessListener(authResult -> {
+        firebaseAuth.createUserWithEmailAndPassword(Objects.requireNonNull(emailMutableLiveData.getValue()), Objects.requireNonNull(passwordMutableLiveData.getValue())).addOnSuccessListener(authResult -> {
             FirebaseUser firebaseUser = authResult.getUser();
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(usernameMutableLiveData.getValue()).build();
-            firebaseUser.updateProfile(profileUpdates).addOnSuccessListener(unused -> {
-                User user = new User(firebaseUser.getUid(), firebaseUser.getEmail(), firebaseUser.getDisplayName());
-                userColRef.document(user.getUserId()).set(user).addOnSuccessListener(documentReference -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.success(user))).addOnFailureListener(command -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.error(command.getMessage(), user)));
-            }).addOnFailureListener(command -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.error(command.getMessage(), null)));
+            if (firebaseUser != null) {
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(usernameMutableLiveData.getValue()).build();
+                firebaseUser.updateProfile(profileUpdates).addOnSuccessListener(unused -> {
+                    User user = new User(firebaseUser.getUid(), firebaseUser.getEmail(), firebaseUser.getDisplayName());
+                    userColRef.document(user.getUserId()).set(user).addOnSuccessListener(documentReference -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.success(user))).addOnFailureListener(command -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.error(command.getMessage(), user)));
+                }).addOnFailureListener(command -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.error(command.getMessage(), null)));
+            }
         }).addOnFailureListener(command -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.error(command.getMessage(), null)));
     }
 }

@@ -1,12 +1,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.loolah.view.Home.HomeFragment"
+        android:name="com.example.loolah.view.home.HomeFragment"
         android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_toiletDetailsFragment"
@@ -23,7 +22,8 @@
 
         <action
             android:id="@+id/action_toiletDetailsFragment_to_reviewFragment"
-            app:destination="@id/reviewFragment" />
+            app:destination="@id/reviewFragment"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
 
     <fragment
@@ -61,16 +61,20 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.loolah.view.Profile.ProfileFragment"
+        android:name="com.example.loolah.view.profile.ProfileFragment"
         android:label="ProfileFragment">
         <action
             android:id="@+id/action_profileFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+
+        <action
+            android:id="@+id/action_profileFragment_to_toiletDetailsFragment"
+            app:destination="@id/toiletDetailsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.loolah.view.Profile.SettingFragment"
+        android:name="com.example.loolah.view.profile.SettingFragment"
         android:label="SettingFragment">
         <action
             android:id="@+id/action_settingFragment_to_changePasswordFragment"
@@ -82,16 +86,17 @@
 
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.example.loolah.view.Profile.ChangePasswordFragment"
+        android:name="com.example.loolah.view.profile.ChangePasswordFragment"
         android:label="ChangePasswordFragment">
         <action
             android:id="@+id/action_changePasswordFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
 
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.example.loolah.view.Profile.EditProfileFragment">
+        android:name="com.example.loolah.view.profile.EditProfileFragment">
         <action
             android:id="@+id/action_editProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />

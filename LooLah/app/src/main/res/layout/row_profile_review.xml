@@ -1,104 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/lnl_profile_review_row"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginVertical="5dp"
-    android:background="@drawable/bg_borderless"
-    android:clickable="true"
-    android:focusable="true"
-    android:orientation="horizontal"
-    android:padding="10dp">
+<layout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_profile_review_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@color/secondary"
-        app:layout_constraintBottom_toTopOf="@id/tv_profile_username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <LinearLayout
+        <import type="android.view.View" />
+
+        <variable
+            name="profileView"
+            type="com.example.loolah.view.profile.ProfileFragment" />
+
+        <variable
+            name="review"
+            type="com.example.loolah.model.Review" />
+
+        <variable
+            name="toilet"
+            type="com.example.loolah.model.Toilet" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lnl_profile_review_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:orientation="vertical">
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/bg_borderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_profile_review_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@color/secondary"
+            app:layout_constraintBottom_toTopOf="@id/tv_profile_username"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:load_toilet_image="@{toilet.displayPhoto}" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_profile_review_toilet_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/example_profile_review_toilet_name"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:typeface="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_profile_review_toilet_verified"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_profile_review_toilet_verified"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginStart="5dp"
-                android:contentDescription="@string/profile_review_toilet_verified"
-                android:src="@drawable/ic_toilet_verified"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tv_profile_review_toilet_name"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/lnl_profile_review_toilet_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_profile_review_toilet_rating"
+                    android:id="@+id/tv_profile_review_toilet_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="@string/example_profile_review_toilet_rating"
-                    android:textColor="@color/muted"
+                    android:text="@{toilet.name}"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:typeface="normal" />
+                    android:typeface="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_profile_review_toilet_verified"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/iv_profile_review_toilet_rating"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="2dp"
-                    android:contentDescription="@string/profile_review_toilet_rating"
-                    android:src="@drawable/ic_toilet_rating"
-                    app:tint="@color/muted" />
-            </LinearLayout>
+                    android:id="@+id/iv_profile_review_toilet_verified"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="@string/profile_review_toilet_verified"
+                    android:src="@drawable/ic_toilet_verified"
+                    android:visibility="@{toilet.verified ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_profile_review_toilet_name"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:id="@+id/lnl_profile_review_toilet_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/example_profile_review_toilet_review"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:typeface="normal" />
+                    <TextView
+                        android:id="@+id/tv_profile_review_toilet_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@{review.ratingStr}"
+                        android:textColor="@color/muted"
+                        android:textSize="16sp"
+                        android:typeface="normal" />
+
+                    <ImageView
+                        android:id="@+id/iv_profile_review_toilet_rating"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="2dp"
+                        android:contentDescription="@string/profile_review_toilet_rating"
+                        android:src="@drawable/ic_toilet_rating"
+                        app:tint="@color/muted" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@{review.description}"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:typeface="normal" />
+
+        </LinearLayout>
 
     </LinearLayout>
+</layout>
 
-</LinearLayout>
