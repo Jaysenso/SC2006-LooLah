@@ -33,6 +33,7 @@ public class DatabaseSetup {
         setupCentral(context);
         setUpNorthWest(context);
         setupSouthWest();
+        setupNorthEast(context);
     }
 
     public void setupCentral(Context context) {
@@ -165,6 +166,36 @@ public class DatabaseSetup {
 
     }
 
+    public void setupNorthEast(Context context) {
+        toiletColRef.add(new Toilet("Sengkang Bus Interchange", "13 Sengkang Square, S(545077)", 103.8961290, 1.3924638, ToiletType.BUS_INTERCHANGE, ToiletDistrict.NORTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Sengkang Bus Interchange", 5);
+        });
+        toiletColRef.add(new Toilet("NTUC Club Downtown East", "1 Pasir Ris Close S(519599)", 103.9551183, 1.3778516, ToiletType.CLUB, ToiletDistrict.NORTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "NTUC Club Downtown East", 5);
+        });
+        toiletColRef.add(new Toilet("Kopitiam @ 275D Compassvale Link", "275D Compassvale Link, #01-01, S(544275)", 103.8937421, 1.3835105, ToiletType.COFFEESHOP, ToiletDistrict.NORTH_EAST, true, true, true, false)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Kopitiam @ 275D Compassvale Link", 5);
+        });
+        toiletColRef.add(new Toilet("Serangoon Garden Market", "49A Serangoon Garden Way, S(555945)", 103.8665831, 1.3634822, ToiletType.MARKET_FOOD_CENTRE, ToiletDistrict.NORTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Serangoon Garden Market", 5);
+        });
+        toiletColRef.add(new Toilet("Eunos MRT Station", "30 Eunos Crescent, S(409423)", 103.9028833, 1.3199036, ToiletType.MRT_STATION, ToiletDistrict.NORTH_EAST, true, true, true, false)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Eunos MRT Station", 5);
+        });
+        toiletColRef.add(new Toilet("Al - Istighfar Mosque", "2 Pasir Ris Walk, S(518239)", 103.9640656, 1.3713552, ToiletType.PLACE_OF_WORSHIP, ToiletDistrict.NORTH_EAST, true, true, true, false)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Al - Istighfar Mosque", 5);
+        });
+        toiletColRef.add(new Toilet("Century Square", "2 Tampines Central 5, S(529509)", 103.9436205, 1.3528328, ToiletType.SHOPPING_CENTRE, ToiletDistrict.NORTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Century Square", 5);
+        });
+    }
     public void uploadToiletImagesFromFile(Context context, String toiletId, String toiletName, int numOfPics) {
         String fileName = toiletName.replaceAll("\\s@?&?\\s?|@|\\.|'", "_").toLowerCase();
         InputStream is;
