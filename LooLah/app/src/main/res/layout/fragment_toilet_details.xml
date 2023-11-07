@@ -134,35 +134,22 @@
                         app:layout_constraintStart_toEndOf="@id/tv_toilet_details_type"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <LinearLayout
-                        android:id="@+id/lnl_toilet_details_rating"
+                    <TextView
+                        android:id="@+id/tv_toilet_details_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:drawablePadding="2dp"
+                        android:fontFamily="sans-serif-medium"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:text="@{toilet.ratingStr}"
+                        android:textColor="@color/muted"
+                        android:textSize="14sp"
+                        android:typeface="normal"
+                        app:drawableEndCompat="@drawable/ic_toilet_rating"
+                        app:drawableTint="@color/muted"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/tv_toilet_details_rating"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@{toilet.ratingStr}"
-                            android:textColor="@color/muted"
-                            android:textSize="12sp"
-                            android:typeface="normal" />
-
-                        <ImageView
-                            android:id="@+id/iv_toilet_details_rating"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginStart="2dp"
-                            android:contentDescription="@string/toilet_rating"
-                            android:src="@drawable/ic_toilet_rating"
-                            app:tint="@color/muted" />
-                    </LinearLayout>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:load_user_image="@{review.creatorProfilePicUrl}"/>
+            app:load_user_image="@{review.creatorProfilePicUrl}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +48,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="@{review.creatorUsername}"                    android:textColor="@color/black"
+                    android:text="@{review.creatorUsername}"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:typeface="normal"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -65,7 +66,7 @@
                     android:gravity="center_vertical"
                     android:text="@{review.ratingStr}"
                     android:textColor="@color/muted"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:typeface="normal"
                     app:drawableEndCompat="@drawable/ic_toilet_rating"
                     app:drawableTint="@color/muted"
@@ -97,8 +98,8 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@{review.liked ? @drawable/ic_toilet_details_review_liked : @drawable/ic_toilet_details_review_like}"
-                    android:backgroundTint="@color/muted"
-                    android:contentDescription="@string/toilet_row_like_btn"/>
+                    android:backgroundTint="@{review.liked ? @color/secondary : @color/muted}"
+                    android:contentDescription="@string/toilet_row_like_btn" />
             </LinearLayout>
 
         </LinearLayout>

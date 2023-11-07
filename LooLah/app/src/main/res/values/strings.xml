@@ -50,6 +50,7 @@
     <string name="toilet_details_background">Toilet Background</string>
     <string name="toilet_details_back_btn">Back</string>
     <string name="toilet_details_verified">Verified</string>
+    <string name="toilet_details_rating">Toilet Rating</string>
     <string name="toilet_details_accessibility_true">Yes</string>
     <string name="toilet_details_accessibility_false">No</string>
     <string name="toilet_details_review">Reviews</string>

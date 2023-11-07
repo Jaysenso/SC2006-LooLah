@@ -71,6 +71,8 @@ public class ProfileViewModel extends ViewModel {
                     });
                 }
             }
+
+            reviewListMutableLiveData.setValue(LiveDataWrapper.success(reviewList));
         });
     }
 }

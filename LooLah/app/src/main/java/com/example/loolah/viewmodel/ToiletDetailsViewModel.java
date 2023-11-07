@@ -72,11 +72,12 @@ public class ToiletDetailsViewModel extends ViewModel {
                        if (review.getLikedBy().contains(user.getUid())) review.setLiked(true);
                        reviewList.add(review);
 
-
                         reviewListMutableLiveData.setValue(LiveDataWrapper.success(reviewList));
                     });
                 }
             }
+
+            reviewListMutableLiveData.setValue(LiveDataWrapper.success(reviewList));
         });
     }
 
