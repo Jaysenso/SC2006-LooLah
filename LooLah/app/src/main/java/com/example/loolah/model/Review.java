@@ -1,12 +1,13 @@
 package com.example.loolah.model;
 
+import java.util.ArrayList;
+
 public class Review {
     private String reviewId;
     private int rating;
     private String description;
-    private int likesCount;
+    private ArrayList<String> likedBy;
     private String creatorId;
-    private String creatorUsername;
     private String toiletId;
 
     public String getReviewId() {
@@ -37,12 +38,12 @@ public class Review {
         this.description = description;
     }
 
-    public int getLikesCount() {
-        return likesCount;
+    public ArrayList<String> getLikedBy() {
+        return likedBy;
     }
 
-    public void setLikesCount(int likesCount) {
-        this.likesCount = likesCount;
+    public void setLikedBy(ArrayList<String> likedBy) {
+        this.likedBy = likedBy;
     }
 
     public String getCreatorId() {
@@ -51,14 +52,6 @@ public class Review {
 
     public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
-    }
-
-    public String getCreatorUsername() {
-        return creatorUsername;
-    }
-
-    public void setCreatorUsername(String creatorUsername) {
-        this.creatorUsername = creatorUsername;
     }
 
     public String getToiletId() {

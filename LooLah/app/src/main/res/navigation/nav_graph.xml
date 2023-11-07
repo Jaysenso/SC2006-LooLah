@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/toiletDetailsFragment"
-        android:name="com.example.loolah.view.ToiletDetails.ToiletDetailsFragment"
+        android:name="com.example.loolah.view.home.ToiletDetailsFragment"
         android:label="ToiletDetailsFragment">
         <action
             android:id="@+id/action_toiletDetailsFragment_to_toiletGalleryFragment"
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/toiletGalleryFragment"
-        android:name="com.example.loolah.view.ToiletDetails.ToiletGalleryFragment"
+        android:name="com.example.loolah.view.home.ToiletGalleryFragment"
         android:label="ToiletGalleryFragment"></fragment>
 
     <fragment

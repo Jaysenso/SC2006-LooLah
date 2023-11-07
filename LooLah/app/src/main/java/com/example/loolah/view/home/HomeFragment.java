@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -34,7 +35,7 @@ public class HomeFragment extends Fragment implements HomeToiletListAdapter.OnIt
     private HomeToiletListAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         viewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
 
@@ -91,8 +92,10 @@ public class HomeFragment extends Fragment implements HomeToiletListAdapter.OnIt
     @Override
     public void onResume() {
         super.onResume();
-        if (checkLocationPermission()) getLocation();
-        else binding.tvHomeNoPermission.setVisibility(View.VISIBLE);
+        if (checkLocationPermission()) {
+            binding.tvHomeNoPermission.setVisibility(View.GONE);
+            getLocation();
+        } else binding.tvHomeNoPermission.setVisibility(View.VISIBLE);
     }
 
     @SuppressLint("MissingPermission")

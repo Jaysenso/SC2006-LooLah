@@ -50,11 +50,19 @@
     <string name="toilet_details_background">Toilet Background</string>
     <string name="toilet_details_back_btn">Back</string>
     <string name="toilet_details_verified">Verified</string>
+    <string name="toilet_details_accessibility_true">Yes</string>
+    <string name="toilet_details_accessibility_false">No</string>
     <string name="toilet_details_review">Reviews</string>
+    <string name="toilet_details_review_count" translatable="false">(%s)</string>
+    <string name="toilet_details_no_reviews">No reviews found</string>
     <string name="toilet_details_favorite_btn">Favorite</string>
-    <string name="toilet_details_review_btn">Review</string>
+    <string name="toilet_details_add_review_btn">Review</string>
+    <string name="toilet_details_edit_review_btn">Edit Review</string>
     <string name="toilet_details_gallery_btn">Gallery</string>
     <string name="toilet_details_direction_btn">Direction</string>
+
+    <!-- Toilet Review Row -->
+    <string name="toilet_row_like_btn">Like Review</string>
 
     <!-- Map -->
     <string name="map_search_hint">Search…</string>

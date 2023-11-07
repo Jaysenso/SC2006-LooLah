@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.loolah.R;
 import com.example.loolah.adapter.ProfileReviewListAdapter;
 import com.example.loolah.databinding.FragmentProfileBinding;
-import com.example.loolah.model.Review;
+import com.example.loolah.model.ReviewDetails;
 import com.example.loolah.viewmodel.ProfileViewModel;
 
 import java.util.ArrayList;
@@ -58,14 +58,11 @@ public class ProfileFragment extends Fragment implements ProfileReviewListAdapte
         viewModel.getReviewList().observe(getViewLifecycleOwner(), reviewListLiveDataWrapper -> {
             switch(reviewListLiveDataWrapper.getStatus()) {
                 case SUCCESS:
-                    ArrayList<Review> reviews = reviewListLiveDataWrapper.getData();
+                    ArrayList<ReviewDetails> reviews = reviewListLiveDataWrapper.getData();
                     if (reviews.size() == 0) binding.tvProfileNoReviews.setVisibility(View.VISIBLE);
                     else binding.tvProfileNoReviews.setVisibility(View.INVISIBLE);
 
-                    if (reviews != null) {
-                        adapter.setProfileReviewList(reviews);
-                        adapter.setProfileReviewToiletList(viewModel.getReviewToiletList());
-                    }
+                    adapter.setProfileReviewList(reviews);
                     break;
                 case ERROR:
                     Toast toast = Toast.makeText(getContext(), reviewListLiveDataWrapper.getMessage(), Toast.LENGTH_SHORT);
@@ -86,7 +83,7 @@ public class ProfileFragment extends Fragment implements ProfileReviewListAdapte
         Navigation.findNavController(getView()).navigate(R.id.action_profileFragment_to_settingFragment);
     }
 
-    public void onSelectReview(View view, Review review) {
+    public void onSelectReview(View view, ReviewDetails review) {
         Bundle bundle = new Bundle();
         bundle.putString("toiletId", review.getToiletId());
 

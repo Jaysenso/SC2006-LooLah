@@ -3,7 +3,7 @@ package com.example.loolah.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.loolah.model.Review;
+import com.example.loolah.model.ReviewDetails;
 import com.example.loolah.model.Toilet;
 import com.example.loolah.model.User;
 import com.example.loolah.util.LiveDataWrapper;
@@ -24,8 +24,7 @@ public class ProfileViewModel extends ViewModel {
     private final CollectionReference tColRef;
 
     private MutableLiveData<LiveDataWrapper<User>> profileMutableLiveData;
-    private MutableLiveData<LiveDataWrapper<ArrayList<Review>>> reviewListMutableLiveData;
-    private ArrayList<Toilet> reviewToiletList;
+    private MutableLiveData<LiveDataWrapper<ArrayList<ReviewDetails>>> reviewListMutableLiveData;
 
     public ProfileViewModel() {
         super();
@@ -34,7 +33,6 @@ public class ProfileViewModel extends ViewModel {
         uColRef = db.collection("users");
         rColRef = db.collection("reviews");
         tColRef = db.collection("toilets");
-        reviewToiletList = new ArrayList<>();
     }
 
     public MutableLiveData<LiveDataWrapper<User>> getProfile() {
@@ -42,14 +40,9 @@ public class ProfileViewModel extends ViewModel {
         return profileMutableLiveData;
     }
 
-    public MutableLiveData<LiveDataWrapper<ArrayList<Review>>> getReviewList() {
+    public MutableLiveData<LiveDataWrapper<ArrayList<ReviewDetails>>> getReviewList() {
         if (reviewListMutableLiveData == null) reviewListMutableLiveData = new MutableLiveData<>();
         return reviewListMutableLiveData;
-    }
-
-    public ArrayList<Toilet> getReviewToiletList() {
-        if (reviewToiletList == null) reviewToiletList = new ArrayList<>();
-        return reviewToiletList;
     }
 
     public void getUserProfile() {
@@ -58,17 +51,21 @@ public class ProfileViewModel extends ViewModel {
     }
 
     public void getProfileReviews() {
-        ArrayList<Review> reviewList = new ArrayList<>();
-        reviewToiletList = new ArrayList<>();
+        ArrayList<ReviewDetails> reviewList = new ArrayList<>();
 
         reviewListMutableLiveData.setValue(LiveDataWrapper.loading(null));
         rColRef.whereEqualTo("creatorId", user.getUid()).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                Review review = document.toObject(Review.class);
+                ReviewDetails review = document.toObject(ReviewDetails.class);
                 if (review != null) {
                     tColRef.whereEqualTo("toiletId", review.getToiletId()).get().addOnSuccessListener(queryDocumentSnapshots1 -> {
-                        reviewToiletList.add(queryDocumentSnapshots1.getDocuments().get(0).toObject(Toilet.class));
-                        reviewList.add(review);
+                        Toilet toilet = queryDocumentSnapshots1.getDocuments().get(0).toObject(Toilet.class);
+                        if (toilet != null) {
+                            review.setToiletName(toilet.getName());
+                            review.setToiletPhotoUrl(toilet.getDisplayPhoto());
+                            review.setToiletVerified(toilet.isVerified());
+                            reviewList.add(review);
+                        }
 
                         reviewListMutableLiveData.setValue(LiveDataWrapper.success(reviewList));
                     });

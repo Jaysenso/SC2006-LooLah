@@ -1,5 +1,7 @@
 package com.example.loolah.model;
 
+import android.widget.ImageView;
+
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
@@ -13,8 +15,6 @@ import com.firebase.geofire.GeoLocation;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Toilet {
     private String toiletId;
@@ -153,6 +153,22 @@ public class Toilet {
         return accessibility;
     }
 
+    public boolean getFemaleAccessibility() {
+        return Boolean.TRUE.equals(accessibility.get("female"));
+    }
+
+    public boolean getMaleAccessibility() {
+        return Boolean.TRUE.equals(accessibility.get("male"));
+    }
+
+    public boolean getHandicapAccessibility() {
+        return Boolean.TRUE.equals(accessibility.get("handicap"));
+    }
+
+    public boolean getChildAccessibility() {
+        return Boolean.TRUE.equals(accessibility.get("child"));
+    }
+
     public void setAccessibility(HashMap<String, Boolean> accessibility) {
         this.accessibility = accessibility;
     }
@@ -202,7 +218,7 @@ public class Toilet {
     }
 
     @BindingAdapter({"load_toilet_image"})
-    public static void loadToiletImage(CircleImageView view, String url) {
+    public static void loadToiletImage(ImageView view, String url) {
         Glide.with(view.getContext())
                 .load(url)
                 .placeholder(R.drawable.ic_toilet)
