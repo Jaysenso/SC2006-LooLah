@@ -37,14 +37,14 @@
     <string name="home_search_hint">Search…</string>
     <string name="home_search_btn">Search</string>
     <string name="home_no_toilets">No toilets nearby</string>
-
-    <!-- Map -->
-    <string name="map_search_hint">Search…</string>
+    <string name="home_no_permission">Permission not allowed,\nunable to retrieve nearby toilets. </string>
 
     <!-- Toilet Row -->
     <string name="toilet_icon">Toilet Icon</string>
     <string name="toilet_verified">Verified</string>
     <string name="toilet_rating">Toilet Rating</string>
+    <string name="toilet_distance" translatable="false">%sm</string>
+    <string name="toilet_review_count" translatable="false">(%s)</string>
 
     <!-- Toilet Details -->
     <string name="toilet_details_background">Toilet Background</string>
@@ -55,6 +55,9 @@
     <string name="toilet_details_review_btn">Review</string>
     <string name="toilet_details_gallery_btn">Gallery</string>
     <string name="toilet_details_direction_btn">Direction</string>
+
+    <!-- Map -->
+    <string name="map_search_hint">Search…</string>
 
     <!-- Toilet Gallery -->
     <string name="toilet_gallery">Gallery</string>

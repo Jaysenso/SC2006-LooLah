@@ -134,9 +134,22 @@
                     android:id="@+id/tv_home_no_toilets"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="50dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/home_no_toilets"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_home_no_permission"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/home_no_permission"
                     android:textAlignment="center"
                     android:textSize="14sp"
                     android:visibility="gone" />

@@ -134,7 +134,6 @@ public class DatabaseSetup {
     }
 
     public void setUpNorthWest(Context context) {
-
         toiletColRef.add(new Toilet("Bukit Panjang Integrated Transport Hub", "15 Petir Road, S(678270)", 103.7638759, 1.3784446, ToiletType.BUS_INTERCHANGE, ToiletDistrict.NORTH_WEST, true, true, true, true)).addOnSuccessListener(documentReference -> {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
             uploadToiletImagesFromFile(context, documentReference.getId(), "Bukit Panjang Integrated Transport Hub", 5);
@@ -167,7 +166,7 @@ public class DatabaseSetup {
     }
 
     public void uploadToiletImagesFromFile(Context context, String toiletId, String toiletName, int numOfPics) {
-        String fileName = toiletName.replaceAll("\\s@?\\s?|@|\\.|'", "_").toLowerCase();
+        String fileName = toiletName.replaceAll("\\s@?&?\\s?|@|\\.|'", "_").toLowerCase();
         InputStream is;
 
         for (int i = 1; i <= numOfPics; i++) {
@@ -182,7 +181,7 @@ public class DatabaseSetup {
     }
 
     public void uploadToiletImagesFromUrl(String toiletId, String toiletName, ArrayList<String> toiletImgUrl) {
-        String fileName = toiletName.replaceAll("\\s@?\\s?|@|\\.|'", "_").toLowerCase();
+        String fileName = toiletName.replaceAll("\\s@?&?\\s?|@|\\.|'", "_").toLowerCase();
 
         new Thread(() -> {
             URL url = null;

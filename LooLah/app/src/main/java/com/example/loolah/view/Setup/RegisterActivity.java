@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -79,7 +78,6 @@ public class RegisterActivity extends AppCompatActivity {
                     break;
                 case ERROR:
                     Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
-                    Log.d("TEST", user.getMessage());
                     binding.btnRegisterRegister.setEnabled(true);
                     break;
                 case LOADING:

@@ -6,7 +6,11 @@ import com.bumptech.glide.Glide;
 import com.example.loolah.R;
 import com.example.loolah.model.enums.ToiletDistrict;
 import com.example.loolah.model.enums.ToiletType;
+import com.example.loolah.util.NumberUtil;
+import com.firebase.geofire.GeoFireUtils;
+import com.firebase.geofire.GeoLocation;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +22,8 @@ public class Toilet {
     private String address;
     private double longitude;
     private double latitude;
+    private String geoHash;
+    private double distance;
     private ToiletType type;
     private ToiletDistrict district;
     private HashMap<String, Boolean> accessibility;
@@ -26,13 +32,15 @@ public class Toilet {
     private ArrayList<String> photoUrl;
     private boolean verified;
 
-    public Toilet() {}
+    public Toilet() {
+    }
 
     public Toilet(String name, String address, double longitude, double latitude, ToiletType type, ToiletDistrict district) {
         this.name = name;
         this.address = address;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.geoHash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(latitude, longitude));
         this.type = type;
         this.district = district;
         this.accessibility = new HashMap<>();
@@ -51,6 +59,7 @@ public class Toilet {
         this.address = address;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.geoHash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(latitude, longitude));
         this.type = type;
         this.district = district;
         this.accessibility = new HashMap<>();
@@ -104,6 +113,26 @@ public class Toilet {
         this.latitude = latitude;
     }
 
+    public String getGeoHash() {
+        return geoHash;
+    }
+
+    public void setGeoHash(String geoHash) {
+        this.geoHash = geoHash;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public String getDistanceStr() {
+        return NumberUtil.format((long) distance);
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
     public ToiletType getType() {
         return type;
     }
@@ -132,12 +161,20 @@ public class Toilet {
         return reviewCount;
     }
 
+    public String getReviewCountStr() {
+        return String.valueOf(reviewCount);
+    }
+
     public void setReviewCount(int reviewCount) {
         this.reviewCount = reviewCount;
     }
 
     public double getRating() {
         return rating;
+    }
+
+    public String getRatingStr() {
+        return new DecimalFormat("0.0").format(rating);
     }
 
     public void setRating(double rating) {
@@ -149,7 +186,7 @@ public class Toilet {
     }
 
     public String getDisplayPhoto() {
-        return photoUrl.get(0);
+        return photoUrl.size() > 0 ? photoUrl.get(0) : null;
     }
 
     public void setPhotoUrl(ArrayList<String> photoUrl) {
