@@ -88,7 +88,10 @@ public class HomeFragment extends Fragment implements HomeToiletListAdapter.OnIt
 
     @SuppressLint("MissingPermission")
     private void getLocation() {
-        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> viewModel.getToilets(location));
+        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
+            if (location != null) viewModel.getToilets(location);
+            else Toast.makeText(getContext(), "Please turn on your location and restart the app", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void requestLocationPermission() {
