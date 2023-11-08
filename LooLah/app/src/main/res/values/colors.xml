@@ -11,6 +11,7 @@
     <color name="muted">#A7A7A7</color>
     <color name="success">#4BB543</color>
     <color name="tint">#66000000</color>
+    <color name="red">#FF0000</color>
 
     <color name="not_crowded">#4BB543</color>
     <color name="some_crowd">#FDCC0D</color>
