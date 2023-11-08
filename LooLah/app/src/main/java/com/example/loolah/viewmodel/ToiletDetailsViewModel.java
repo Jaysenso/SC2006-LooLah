@@ -52,7 +52,8 @@ public class ToiletDetailsViewModel extends ViewModel {
                     if (aggregateQuerySnapshot.getCount() == 1) toilet.setReviewed(true);
                     toiletMutableLiveData.setValue(LiveDataWrapper.success(toilet));
                 });
-            } else toiletMutableLiveData.setValue(LiveDataWrapper.error("Toilet does not exist", null));
+            } else
+                toiletMutableLiveData.setValue(LiveDataWrapper.error("Toilet does not exist", null));
         });
     }
 
@@ -66,11 +67,11 @@ public class ToiletDetailsViewModel extends ViewModel {
 
                 if (review != null) {
                     uColRef.whereEqualTo("userId", review.getCreatorId()).get().addOnSuccessListener(queryDocumentSnapshots1 -> {
-                       DocumentSnapshot userDocument = queryDocumentSnapshots1.getDocuments().get(0);
-                       review.setCreatorUsername(userDocument.getString("username"));
-                       review.setCreatorProfilePicUrl(userDocument.getString("profilePicUrl"));
-                       if (review.getLikedBy().contains(user.getUid())) review.setLiked(true);
-                       reviewList.add(review);
+                        DocumentSnapshot userDocument = queryDocumentSnapshots1.getDocuments().get(0);
+                        review.setCreatorUsername(userDocument.getString("username"));
+                        review.setCreatorProfilePicUrl(userDocument.getString("profilePicUrl"));
+                        if (review.getLikedBy().contains(user.getUid())) review.setLiked(true);
+                        reviewList.add(review);
 
                         reviewListMutableLiveData.setValue(LiveDataWrapper.success(reviewList));
                     });

@@ -20,7 +20,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.loolah.R;
 
 public class EditProfileFragment extends Fragment {
-
     private ImageButton btn_edit_profile_picture;
 
     @Override

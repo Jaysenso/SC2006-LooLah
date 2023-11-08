@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.loolah.model.Toilet;
+import com.example.loolah.model.enums.ToiletDistrict;
+import com.example.loolah.model.enums.ToiletType;
 import com.example.loolah.util.LiveDataWrapper;
 import com.firebase.geofire.GeoFireUtils;
 import com.firebase.geofire.GeoLocation;
@@ -18,7 +20,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class HomeViewModel extends ViewModel {
     private final CollectionReference tColRef;
@@ -64,13 +65,26 @@ public class HomeViewModel extends ViewModel {
                 }
             }
 
-            Collections.sort(toiletList, (toilet1, toilet2) -> (int) (toilet1.getDistance() - toilet2.getDistance()));
+            toiletList.sort((toilet1, toilet2) -> (int) (toilet1.getDistance() - toilet2.getDistance()));
             toiletListMutableLiveData.setValue(LiveDataWrapper.success(toiletList));
             filteredToiletListMutableLiveData.setValue(LiveDataWrapper.success(toiletList));
         });
     }
 
-    public void filterToilets() {
+    public void filterToilets(String keyword, ToiletType type, ToiletDistrict district, double distance, int rating) {
+        try {
+            ArrayList<Toilet> toiletList = toiletListMutableLiveData.getValue().getData();
+            ArrayList<Toilet> filteredToiletList = new ArrayList<>();
 
+            for (Toilet toilet : toiletList) {
+                if (toilet.getName().toLowerCase().contains(keyword.toLowerCase()) && toilet.getDistance() <= distance && toilet.getRating() >= rating && (type == null || toilet.getType() == type) && (district == null || toilet.getDistrict() == district)) {
+                    filteredToiletList.add(toilet);
+                }
+            }
+
+            filteredToiletListMutableLiveData.setValue(LiveDataWrapper.success(filteredToiletList));
+        } catch (Exception e) {
+            filteredToiletListMutableLiveData.setValue(LiveDataWrapper.error("Something went wrong when getting toilets", null));
+        }
     }
 }

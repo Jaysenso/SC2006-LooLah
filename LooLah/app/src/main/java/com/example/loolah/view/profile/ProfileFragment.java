@@ -43,7 +43,8 @@ public class ProfileFragment extends Fragment implements ProfileReviewListAdapte
         viewModel.getProfile().observe(getViewLifecycleOwner(), userLiveDataWrapper -> {
             switch (userLiveDataWrapper.getStatus()) {
                 case SUCCESS:
-                    if (userLiveDataWrapper.getData() != null) binding.setUser(userLiveDataWrapper.getData());
+                    if (userLiveDataWrapper.getData() != null)
+                        binding.setUser(userLiveDataWrapper.getData());
                     break;
                 case ERROR:
                     Toast toast = Toast.makeText(getContext(), userLiveDataWrapper.getMessage(), Toast.LENGTH_SHORT);
@@ -56,7 +57,7 @@ public class ProfileFragment extends Fragment implements ProfileReviewListAdapte
         viewModel.getUserProfile();
 
         viewModel.getReviewList().observe(getViewLifecycleOwner(), reviewListLiveDataWrapper -> {
-            switch(reviewListLiveDataWrapper.getStatus()) {
+            switch (reviewListLiveDataWrapper.getStatus()) {
                 case SUCCESS:
                     ArrayList<ReviewDetails> reviews = reviewListLiveDataWrapper.getData();
                     if (reviews.size() == 0) binding.tvProfileNoReviews.setVisibility(View.VISIBLE);

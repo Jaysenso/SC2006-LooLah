@@ -20,7 +20,8 @@ public class ChangePasswordViewModel extends ViewModel {
     }
 
     public MutableLiveData<LiveDataWrapper<Boolean>> getChangePasswordStatus() {
-        if (changePasswordStatusMutableLiveData == null) changePasswordStatusMutableLiveData = new MutableLiveData<>();
+        if (changePasswordStatusMutableLiveData == null)
+            changePasswordStatusMutableLiveData = new MutableLiveData<>();
         return changePasswordStatusMutableLiveData;
     }
 
@@ -30,12 +31,9 @@ public class ChangePasswordViewModel extends ViewModel {
 
     public void savePassword(LoginUser loginUser) {
         changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.loading(null));
-        changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.success(true));
-//        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), loginUser.getCurrentPassword());
-//        user.reauthenticate(credential).addOnSuccessListener(unused -> {
-//            user.updatePassword(loginUser.getPassword())
-//                    .addOnSuccessListener(success -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.success(true)))
-//                    .addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error("Current password is incorrect", null)));
-//        }).addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
+        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), loginUser.getCurrentPassword());
+        user.reauthenticate(credential).addOnSuccessListener(unused -> user.updatePassword(loginUser.getPassword())
+                .addOnSuccessListener(success -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.success(true)))
+                .addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error("Current password is incorrect", null)))).addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
     }
 }

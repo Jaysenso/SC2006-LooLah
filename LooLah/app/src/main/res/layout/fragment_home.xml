@@ -65,7 +65,8 @@
                 android:backgroundTint="@color/secondary"
                 android:contentDescription="@string/home_search_btn"
                 android:src="@drawable/ic_search"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                android:onClick="@{() -> homeView.onClickSearch()}"/>
         </LinearLayout>
 
         <LinearLayout

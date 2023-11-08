@@ -61,7 +61,8 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
             switch (reviewListLiveDataWrapper.getStatus()) {
                 case SUCCESS:
                     ArrayList<ReviewDetails> reviews = reviewListLiveDataWrapper.getData();
-                    if (reviews.size() == 0) binding.tvToiletDetailsNoReviews.setVisibility(View.VISIBLE);
+                    if (reviews.size() == 0)
+                        binding.tvToiletDetailsNoReviews.setVisibility(View.VISIBLE);
                     else binding.tvToiletDetailsNoReviews.setVisibility(View.INVISIBLE);
 
                     adapter.setToiletReviewList(reviews);
@@ -89,8 +90,10 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
     }
 
     public void onClickFavorite() {
-        if (isPlay) binding.ibToiletDetailsFavorite.setImageResource(R.drawable.ic_toilet_details_favorite);
-        else binding.ibToiletDetailsFavorite.setImageResource(R.drawable.ic_toilet_details_favorited);
+        if (isPlay)
+            binding.ibToiletDetailsFavorite.setImageResource(R.drawable.ic_toilet_details_favorite);
+        else
+            binding.ibToiletDetailsFavorite.setImageResource(R.drawable.ic_toilet_details_favorited);
 
         isPlay = !isPlay;
     }

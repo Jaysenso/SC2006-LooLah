@@ -40,8 +40,8 @@ public class ToiletGalleryFragment extends Fragment {
         });
 
         GridView gv_gallery = toilet_details_fragment.findViewById(R.id.gv_toilet_gallery);
-        gv_gallery.setColumnWidth((getResources().getDisplayMetrics().widthPixels - 50) / 3 );
-        int[] imageResources = {R.drawable.img_toilet_details, R.drawable.img_toilet_details, R.drawable.img_toilet_details,R.drawable.img_toilet_details};
+        gv_gallery.setColumnWidth((getResources().getDisplayMetrics().widthPixels - 50) / 3);
+        int[] imageResources = {R.drawable.img_toilet_details, R.drawable.img_toilet_details, R.drawable.img_toilet_details, R.drawable.img_toilet_details};
         ImageAdapter adapter = new ImageAdapter(getContext(), imageResources);
         gv_gallery.setAdapter(adapter);
 

@@ -19,7 +19,8 @@ public class User {
     private int reviewCount;
     private int likesCount;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String userId, String email, String username) {
         this.userId = userId;
@@ -121,10 +122,6 @@ public class User {
 
     @BindingAdapter({"load_user_image"})
     public static void loadUserImage(CircleImageView view, String url) {
-        Glide.with(view.getContext())
-                .load(url)
-                .placeholder(R.drawable.img_profile_placeholder)
-                .fallback(R.drawable.img_profile_placeholder)
-                .into(view);
+        Glide.with(view.getContext()).load(url).placeholder(R.drawable.img_profile_placeholder).fallback(R.drawable.img_profile_placeholder).into(view);
     }
 }
