@@ -32,6 +32,7 @@ public class DatabaseSetup {
         setUpNorthWest(context);
         setupSouthWest();
         setupNorthEast(context);
+        setupSouthEast(context);
     }
 
     public void setupCentral(Context context) {
@@ -192,6 +193,43 @@ public class DatabaseSetup {
         toiletColRef.add(new Toilet("Century Square", "2 Tampines Central 5, S(529509)", 103.9436205, 1.3528328, ToiletType.SHOPPING_CENTRE, ToiletDistrict.NORTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
             uploadToiletImagesFromFile(context, documentReference.getId(), "Century Square", 5);
+        });
+    }
+
+    public void setupSouthEast(Context context){
+        toiletColRef.add(new Toilet("Hearbeat@Bedok", "11 Bedok North Street 1, S(469662)", 1.3270, 103.9321, ToiletType.GOVERNMENT_OFFICE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Hearbeat@Bedok", 5);
+        });
+
+        toiletColRef.add(new Toilet("Changi Business Park 15", "15 Changi Business Park Central 1, S(486057)", 1.336466, 103.968533, ToiletType.PRIVATE_OFFICE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Changi Business Park 15", 5);
+        });
+
+        toiletColRef.add(new Toilet("Kopitiam @ 248 Simei Street 3", "238 Simei Street 3, #01-136, S(520248)", 1.341699, 103.952998, ToiletType.COFFEESHOP, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Kopitiam @ 248 Simei Street 3", 5);
+        });
+
+        toiletColRef.add(new Toilet("Kopitiam Corner", "152A Bedok South Road, S(461152)", 1.317732, 103.947769, ToiletType.FOOD_COURT, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), " Kopitiam Corner", 1);
+        });
+
+        toiletColRef.add(new Toilet("Eunos Bus Interchange", "409 Eunos Road 2, S(409388)", 1.319421, 103.902488, ToiletType.BUS_INTERCHANGE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Eunos Bus Interchange", 5);
+        });
+
+        toiletColRef.add(new Toilet("Changi Village Hawker Centre", "2 Changi Village Road, S(500002)", 1.389146, 103.988316, ToiletType.MARKET_FOOD_CENTRE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Changi Village Hawker Centre", 5);
+        });
+
+        toiletColRef.add(new Toilet("Paya Lebar MRT Station", "30 Paya Lebar Road, S(409006)", 1.318271, 103.893283, ToiletType.MRT_STATION, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Paya Lebar MRT Station", 5);
         });
     }
 
