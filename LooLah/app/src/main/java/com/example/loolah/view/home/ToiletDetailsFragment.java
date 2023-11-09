@@ -55,7 +55,7 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
                     break;
             }
         });
-        viewModel.getToiletData(toiletId);
+        viewModel.getToiletData(getContext(), getResources(), toiletId);
 
         viewModel.getReviewList().observe(getViewLifecycleOwner(), reviewListLiveDataWrapper -> {
             switch (reviewListLiveDataWrapper.getStatus()) {

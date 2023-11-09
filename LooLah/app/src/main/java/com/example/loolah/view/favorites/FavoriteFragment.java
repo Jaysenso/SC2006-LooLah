@@ -25,6 +25,7 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.OnItem
     private FavoriteViewModel viewModel;
     private FragmentFavoriteBinding binding;
     private FavoriteAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(getActivity()).get(FavoriteViewModel.class);
@@ -43,7 +44,7 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.OnItem
                 case SUCCESS:
                     ArrayList<Toilet> toiletList = toilets.getData();
                     if (toiletList.size() == 0) binding.tvFavNoToilets.setVisibility(View.VISIBLE);
-                    else binding.tvFavNoToilets.setVisibility(View.INVISIBLE);
+                    else binding.tvFavNoToilets.setVisibility(View.GONE);
                     adapter.setFavoritesToiletList(toiletList);
                     break;
                 case ERROR:
@@ -53,7 +54,6 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.OnItem
                     break;
             }
         });
-
         viewModel.getFavoriteToilets();
 
         String[] toilet_types = new String[]{"Type", "Bus Interchange", "Club", "Coffeeshop", "Foodcourt", "Government Office", "Market & Food Centre", "MRT Station", "Park", "Pier", "Place of worship", "Private Office", "Restaurant", "Shopping Centre", "Tourist Attraction", "Community Centre", "Food Court", "Dormitory", "Industrial Complex"};
