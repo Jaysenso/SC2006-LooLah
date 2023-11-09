@@ -64,9 +64,9 @@
                 android:background="@drawable/bg_borderless"
                 android:backgroundTint="@color/secondary"
                 android:contentDescription="@string/home_search_btn"
+                android:onClick="@{() -> homeView.onClickSearch()}"
                 android:src="@drawable/ic_search"
-                app:tint="@color/white"
-                android:onClick="@{() -> homeView.onClickSearch()}"/>
+                app:tint="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -112,7 +112,7 @@
                 android:background="@drawable/bg_spinner" />
         </LinearLayout>
 
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -121,41 +121,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lnl_home_filter">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tv_home_no_toilets"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="50dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/home_no_toilets"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_home_no_permission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="50dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/home_no_permission"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/srl_home_toilets"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_home_toilets"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false" />
-
-                <TextView
-                    android:id="@+id/tv_home_no_toilets"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="50dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/home_no_toilets"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tv_home_no_permission"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="50dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/home_no_permission"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
-            </RelativeLayout>
-        </ScrollView>
-
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

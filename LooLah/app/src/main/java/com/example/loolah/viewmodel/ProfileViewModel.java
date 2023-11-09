@@ -47,7 +47,10 @@ public class ProfileViewModel extends ViewModel {
 
     public void getUserProfile() {
         profileMutableLiveData.setValue(LiveDataWrapper.loading(null));
-        uColRef.whereEqualTo("userId", user.getUid()).get().addOnSuccessListener(queryDocumentSnapshots -> profileMutableLiveData.setValue(LiveDataWrapper.success(Objects.requireNonNull(queryDocumentSnapshots.getDocuments().get(0).toObject(User.class)))));
+        uColRef.whereEqualTo("userId", user.getUid()).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            if (queryDocumentSnapshots.getDocuments().size() > 0) profileMutableLiveData.setValue(LiveDataWrapper.success(Objects.requireNonNull(queryDocumentSnapshots.getDocuments().get(0).toObject(User.class))));
+            else profileMutableLiveData.setValue(LiveDataWrapper.error("User not found", null));
+        });
     }
 
     public void getProfileReviews() {

@@ -4,6 +4,7 @@ import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
 import com.example.loolah.R;
+import com.google.firebase.firestore.Exclude;
 
 import java.util.ArrayList;
 
@@ -88,6 +89,7 @@ public class User {
         return photoCount;
     }
 
+    @Exclude
     public String getPhotoCountStr() {
         return String.valueOf(photoCount);
     }
@@ -100,6 +102,7 @@ public class User {
         return reviewCount;
     }
 
+    @Exclude
     public String getReviewCountStr() {
         return String.valueOf(reviewCount);
     }
@@ -112,6 +115,7 @@ public class User {
         return likesCount;
     }
 
+    @Exclude
     public String getLikesCountStr() {
         return String.valueOf(likesCount);
     }

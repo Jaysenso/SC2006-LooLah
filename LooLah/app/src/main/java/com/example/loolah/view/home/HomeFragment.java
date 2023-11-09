@@ -74,6 +74,14 @@ public class HomeFragment extends Fragment implements HomeToiletListAdapter.OnIt
         setSpinnerAdapter(binding.spHomeFilterDistance, SpinnerUtil.getDistance());
         setSpinnerAdapter(binding.spHomeFilterRating, SpinnerUtil.getRating());
 
+        binding.srlHomeToilets.setOnRefreshListener(() -> {
+            if (checkLocationPermission()) {
+                binding.tvHomeNoPermission.setVisibility(View.GONE);
+                getLocation();
+                binding.srlHomeToilets.setRefreshing(false);
+            } else binding.tvHomeNoPermission.setVisibility(View.VISIBLE);
+        });
+
         return binding.getRoot();
     }
 
