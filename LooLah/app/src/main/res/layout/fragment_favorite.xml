@@ -1,112 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="20dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_favorite_logo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@+id/lnl_favorite_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon" />
+    <data>
 
-    <LinearLayout
-        android:id="@+id/lnl_favorite_search"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_borderless"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/lnl_favorite_filter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_favorite_logo">
+        <variable
+            name="favoriteView"
+            type="com.example.loolah.view.favorites.FavoriteFragment" />
+    </data>
 
-        <EditText
-            android:id="@+id/et_favorite_search"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:fontFamily="sans-serif-medium"
-            android:hint="@string/favorite_search_hint"
-            android:imeOptions="actionGo"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="5dp"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textColorHint="@color/muted"
-            android:textSize="16sp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="20dp">
 
-        <ImageButton
-            android:id="@+id/btn_favorite_search"
+        <ImageView
+            android:id="@+id/iv_favorite_logo"
             android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toTopOf="@+id/lnl_favorite_search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon" />
+
+        <LinearLayout
+            android:id="@+id/lnl_favorite_search"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/bg_borderless"
-            android:backgroundTint="@color/secondary"
-            android:contentDescription="@string/favorite_search_btn"
-            android:src="@drawable/ic_search"
-            app:tint="@color/white" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/lnl_favorite_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_favorite_logo">
 
-    <LinearLayout
-        android:id="@+id/lnl_favorite_filter"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lnl_favorite_search">
+            <EditText
+                android:id="@+id/et_favorite_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:fontFamily="sans-serif-medium"
+                android:hint="@string/favorite_search_hint"
+                android:imeOptions="actionGo"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="5dp"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/muted"
+                android:textSize="16sp" />
 
-        <Spinner
-            android:id="@+id/sp_favorite_filter_type"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_spinner" />
+            <ImageButton
+                android:id="@+id/btn_favorite_search"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_borderless"
+                android:backgroundTint="@color/secondary"
+                android:contentDescription="@string/favorite_search_btn"
+                android:src="@drawable/ic_search"
+                app:tint="@color/white" />
+        </LinearLayout>
 
-        <Spinner
-            android:id="@+id/sp_favorite_filter_district"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_spinner" />
+        <LinearLayout
+            android:id="@+id/lnl_favorite_filter"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnl_favorite_search">
 
-        <Spinner
-            android:id="@+id/sp_favorite_filter_rating"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/bg_spinner" />
+            <Spinner
+                android:id="@+id/sp_favorite_filter_type"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_spinner" />
 
-    </LinearLayout>
+            <Spinner
+                android:id="@+id/sp_favorite_filter_district"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_spinner" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lnl_favorite_filter"
-        tools:layout_editor_absoluteX="0dp">
+            <Spinner
+                android:id="@+id/sp_favorite_filter_rating"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_spinner" />
 
-        <include layout="@layout/row_toilet_favorite" />
-    </ScrollView>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lnl_favorite_filter">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_fav_toilets"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+                <TextView
+                    android:id="@+id/tv_fav_no_toilets"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/favorite_no_toilets"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+        </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
