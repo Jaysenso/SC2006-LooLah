@@ -53,6 +53,11 @@
     <string name="toilet_details_rating">Toilet Rating</string>
     <string name="toilet_details_accessibility_true">Yes</string>
     <string name="toilet_details_accessibility_false">No</string>
+    <string name="toilet_details_crowd_no_data">No Data</string>
+    <string name="toilet_details_crowd_very">Very Crowded</string>
+    <string name="toilet_details_crowd_crowded">Crowded</string>
+    <string name="toilet_details_crowd_some">Some Crowd</string>
+    <string name="toilet_details_crowd_not">Not Crowded</string>
     <string name="toilet_details_review">Reviews</string>
     <string name="toilet_details_review_count" translatable="false">(%s)</string>
     <string name="toilet_details_no_reviews">No reviews found</string>
