@@ -86,6 +86,7 @@
     <!-- Favorite -->
     <string name="favorite_search_hint">Search…</string>
     <string name="favorite_search_btn">Search</string>
+    <string name="favorite_no_toilets">No favorite toilets</string>
 
     <!-- Favorite Row -->
     <string name="toilet_favorite_icon">Toilet Icon</string>

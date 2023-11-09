@@ -1,36 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/lnl_toilet_favorite_row"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginVertical="5dp"
-    android:background="@drawable/bg_borderless"
-    android:clickable="true"
-    android:focusable="true"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="15dp">
+<layout>
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="toilet"
+            type="com.example.loolah.model.Toilet" />
+
+        <variable
+            name="favoriteView"
+            type="com.example.loolah.view.favorites.FavoriteFragment" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lnl_toilet_favorite_row"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/bg_borderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/iv_toilet_favorite_icon"
+                android:id="@+id/iv_toilet_icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:contentDescription="@string/toilet_favorite_icon"
+                android:contentDescription="@string/toilet_icon"
                 android:src="@drawable/ic_toilet"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tv_toilet_favorite_name"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/tertiary" />
@@ -40,23 +51,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:ellipsize="end"
                 android:fontFamily="sans-serif-medium"
-                android:text="@string/example_toilet_name"
+                android:maxLines="1"
+                android:text="@{toilet.name}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:typeface="normal"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iv_toilet_favorite_verified"
-                app:layout_constraintStart_toEndOf="@id/iv_toilet_favorite_icon"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@id/iv_toilet_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="wrap" />
 
             <ImageView
                 android:id="@+id/iv_toilet_favorite_verified"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginStart="5dp"
-                android:contentDescription="@string/toilet_favorite_verified"
+                android:layout_marginEnd="15dp"
+                android:contentDescription="@string/toilet_verified"
                 android:src="@drawable/ic_toilet_verified"
+                android:visibility="@{toilet.verified ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_toilet_favorite_name"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -69,7 +86,7 @@
             android:layout_marginTop="5dp">
 
             <TextView
-                android:id="@+id/tv_toilet_favorite_type"
+                android:id="@+id/tv_toilet_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_pill"
@@ -77,17 +94,17 @@
                 android:fontFamily="sans-serif-medium"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="2dp"
-                android:text="@string/example_toilet_type"
+                android:text="@{toilet.type.toiletType}"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:typeface="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tv_toilet_favorite_district"
+                app:layout_constraintEnd_toStartOf="@id/tv_toilet_district"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_toilet_favorite_district"
+                android:id="@+id/tv_toilet_district"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -96,21 +113,34 @@
                 android:fontFamily="sans-serif-medium"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="2dp"
-                android:text="@string/example_toilet_district"
+                android:text="@{toilet.district.toiletDistrict}"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:typeface="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tv_toilet_favorite_type"
+                app:layout_constraintStart_toEndOf="@id/tv_toilet_type"
                 app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/ib_toilet_favorite_favorited"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/ic_toilet_details_favorited"
-        android:backgroundTint="@color/secondary"
-        android:contentDescription="@string/toilet_favorite_favorited_btn" />
-</LinearLayout>
+            <LinearLayout
+                android:id="@+id/lnl_toilet_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageButton
+                    android:id="@+id/ib_toilet_favorite_favorited"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_toilet_details_favorited"
+                    android:backgroundTint="@color/secondary"
+                    android:contentDescription="@string/toilet_favorite_favorited_btn" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>
