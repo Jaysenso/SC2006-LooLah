@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.loolah.R;
 import com.example.loolah.adapter.FavoriteAdapter;
-import com.example.loolah.databinding.FragmentFavoriteBinding;;
+import com.example.loolah.databinding.FragmentFavoriteBinding;
 import com.example.loolah.model.Toilet;
 import com.example.loolah.viewmodel.FavoriteViewModel;
 
