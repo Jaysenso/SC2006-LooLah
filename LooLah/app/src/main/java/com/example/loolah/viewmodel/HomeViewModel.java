@@ -30,11 +30,6 @@ public class HomeViewModel extends ViewModel {
         tColRef = FirebaseFirestore.getInstance().collection("toilets");
     }
 
-    public MutableLiveData<LiveDataWrapper<ArrayList<Toilet>>> getToiletList() {
-        if (toiletListMutableLiveData == null) toiletListMutableLiveData = new MutableLiveData<>();
-        return toiletListMutableLiveData;
-    }
-
     public MutableLiveData<LiveDataWrapper<ArrayList<Toilet>>> getFilteredToiletList() {
         if (filteredToiletListMutableLiveData == null)
             filteredToiletListMutableLiveData = new MutableLiveData<>();
@@ -68,7 +63,7 @@ public class HomeViewModel extends ViewModel {
             toiletList.sort((toilet1, toilet2) -> (int) (toilet1.getDistance() - toilet2.getDistance()));
             toiletListMutableLiveData.setValue(LiveDataWrapper.success(toiletList));
             filteredToiletListMutableLiveData.setValue(LiveDataWrapper.success(toiletList));
-        });
+        }).addOnFailureListener(e -> filteredToiletListMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
     }
 
     public void filterToilets(String keyword, ToiletType type, ToiletDistrict district, double distance, int rating) {

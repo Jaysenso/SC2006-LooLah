@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -33,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.setLifecycleOwner(this);
         binding.setLoginViewModel(viewModel);
-        binding.btnLoginTogglePassword.setOnClickListener(v -> password_visible = togglePasswordVisibility(binding.etLoginPassword, binding.btnLoginTogglePassword, password_visible));
 
         viewModel.getUser().observe(this, user -> {
             boolean error = false;
@@ -61,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                     break;
                 case ERROR:
-                    Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Login failed, please login again.", Toast.LENGTH_SHORT).show();
                     binding.btnLoginLogin.setEnabled(true);
                     break;
                 case LOADING:
@@ -70,8 +68,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button btn_sign_up = findViewById(R.id.btn_login_sign_up);
-        btn_sign_up.setOnClickListener(v -> {
+        binding.btnLoginTogglePassword.setOnClickListener(v -> password_visible = togglePasswordVisibility(binding.etLoginPassword, binding.btnLoginTogglePassword, password_visible));
+        binding.btnLoginLogin.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             finish();
         });

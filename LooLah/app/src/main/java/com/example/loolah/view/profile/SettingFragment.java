@@ -39,7 +39,8 @@ public class SettingFragment extends Fragment {
 
     public void onClickBack() {
         NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
-        navHostFragment.getNavController().navigateUp();
+        if (navHostFragment != null) navHostFragment.getNavController().navigateUp();
+        // TODO: Add else show Toast
     }
 
     public void onClickChangePassword(View view) {
@@ -55,8 +56,10 @@ public class SettingFragment extends Fragment {
 
     public void onClickSignOut() {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getActivity(), LoginActivity.class));
-        getActivity().overridePendingTransition(0, 0);
-        getActivity().finish();
+        startActivity(new Intent(requireActivity(), LoginActivity.class));
+        requireActivity().overridePendingTransition(0, 0);
+        requireActivity().finish();
+
+        // TODO: Add confirmation dialog
     }
 }

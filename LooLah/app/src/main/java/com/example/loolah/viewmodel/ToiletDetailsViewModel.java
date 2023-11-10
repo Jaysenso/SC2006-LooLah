@@ -66,8 +66,8 @@ public class ToiletDetailsViewModel extends ViewModel {
 
     public void getToiletData(Context context, Resources resources, String toiletId) {
         toiletMutableLiveData.setValue(LiveDataWrapper.loading(null));
-        tColRef.whereEqualTo("toiletId", toiletId).get().addOnSuccessListener(queryDocumentSnapshots -> {
-            ToiletDetails toilet = queryDocumentSnapshots.getDocuments().get(0).toObject(ToiletDetails.class);
+        tColRef.document(toiletId).get().addOnSuccessListener(documentSnapshot -> {
+            ToiletDetails toilet = documentSnapshot.toObject(ToiletDetails.class);
 
             if (toilet != null) {
                 rColRef.whereEqualTo("toiletId", toilet.getToiletId()).whereEqualTo("creatorId", user.getUid()).count().get(AggregateSource.SERVER).addOnSuccessListener(aggregateQuerySnapshot -> {
@@ -93,10 +93,10 @@ public class ToiletDetailsViewModel extends ViewModel {
                             });
                         }
                     });
-                });
+                }).addOnFailureListener(e -> toiletMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
             } else
                 toiletMutableLiveData.setValue(LiveDataWrapper.error("Toilet does not exist", null));
-        });
+        }).addOnFailureListener(e -> toiletMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
     }
 
     public void getToiletReviews(String toiletId) {
@@ -116,20 +116,20 @@ public class ToiletDetailsViewModel extends ViewModel {
                         reviewList.add(review);
 
                         reviewListMutableLiveData.setValue(LiveDataWrapper.success(reviewList));
-                    });
+                    }).addOnFailureListener(e -> reviewListMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
                 }
             }
 
             reviewListMutableLiveData.setValue(LiveDataWrapper.success(reviewList));
-        });
+        }).addOnFailureListener(e -> reviewListMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
     }
 
-    public void likeReview(String reviewId) {
-        rColRef.document(reviewId).update("likedBy", FieldValue.arrayUnion(user.getUid()));
+    public void likeReview(String reviewId, String creatorId) {
+        rColRef.document(reviewId).update("likedBy", FieldValue.arrayUnion(user.getUid())).addOnSuccessListener(unused -> uColRef.document(creatorId).update("likesCount", FieldValue.increment(1)));
     }
 
-    public void unlikeReview(String reviewId) {
-        rColRef.document(reviewId).update("likedBy", FieldValue.arrayRemove(user.getUid()));
+    public void unlikeReview(String reviewId, String creatorId) {
+        rColRef.document(reviewId).update("likedBy", FieldValue.arrayRemove(user.getUid())).addOnSuccessListener(unused -> uColRef.document(creatorId).update("likesCount", FieldValue.increment(-1)));
     }
 
     public interface VolleyCallback {

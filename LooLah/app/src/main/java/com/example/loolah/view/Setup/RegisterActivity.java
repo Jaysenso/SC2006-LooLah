@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                     finish();
                     break;
                 case ERROR:
-                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Registration failed, please try again.", Toast.LENGTH_SHORT).show();
                     binding.btnRegisterRegister.setEnabled(true);
                     break;
                 case LOADING:

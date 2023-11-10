@@ -11,14 +11,12 @@ import com.example.loolah.database.DatabaseSetup;
 import com.example.loolah.viewmodel.SplashViewModel;
 
 public class SplashActivity extends AppCompatActivity {
-    private SplashViewModel viewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(SplashViewModel.class);
+        SplashViewModel viewModel = new ViewModelProvider(this).get(SplashViewModel.class);
         viewModel.getFirebaseUser().observe(this, currentUser -> {
             Intent intent;
 

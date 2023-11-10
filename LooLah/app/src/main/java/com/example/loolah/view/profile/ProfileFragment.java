@@ -23,13 +23,12 @@ import com.example.loolah.viewmodel.ProfileViewModel;
 import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment implements ProfileReviewListAdapter.OnItemClickListener {
-    private ProfileViewModel viewModel;
     private FragmentProfileBinding binding;
     private ProfileReviewListAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(getActivity()).get(ProfileViewModel.class);
+        ProfileViewModel viewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getActivity());
@@ -47,8 +46,7 @@ public class ProfileFragment extends Fragment implements ProfileReviewListAdapte
                         binding.setUser(userLiveDataWrapper.getData());
                     break;
                 case ERROR:
-                    Toast toast = Toast.makeText(getContext(), userLiveDataWrapper.getMessage(), Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getContext(), "User not found.", Toast.LENGTH_SHORT).show();
                     break;
                 case LOADING:
                     break;
@@ -60,14 +58,13 @@ public class ProfileFragment extends Fragment implements ProfileReviewListAdapte
             switch (reviewListLiveDataWrapper.getStatus()) {
                 case SUCCESS:
                     ArrayList<ReviewDetails> reviews = reviewListLiveDataWrapper.getData();
-                    if (reviews.size() == 0) binding.tvProfileNoReviews.setVisibility(View.VISIBLE);
-                    else binding.tvProfileNoReviews.setVisibility(View.INVISIBLE);
-
+                    if (reviews != null && reviews.size() == 0)
+                        binding.tvProfileNoReviews.setVisibility(View.VISIBLE);
+                    else binding.tvProfileNoReviews.setVisibility(View.GONE);
                     adapter.setProfileReviewList(reviews);
                     break;
                 case ERROR:
-                    Toast toast = Toast.makeText(getContext(), reviewListLiveDataWrapper.getMessage(), Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getContext(), "Unable to retrieve user reviews.", Toast.LENGTH_SHORT).show();
                     break;
                 case LOADING:
                     break;
@@ -81,7 +78,7 @@ public class ProfileFragment extends Fragment implements ProfileReviewListAdapte
     public void onClickSettings() {
         Bundle bundle = new Bundle();
         bundle.putString("profilePicUrl", binding.getUser().getProfilePicUrl());
-        Navigation.findNavController(getView()).navigate(R.id.action_profileFragment_to_settingFragment);
+        Navigation.findNavController(requireView()).navigate(R.id.action_profileFragment_to_settingFragment);
     }
 
     public void onSelectReview(View view, ReviewDetails review) {

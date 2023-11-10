@@ -34,6 +34,7 @@ public class ChangePasswordViewModel extends ViewModel {
         AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), loginUser.getCurrentPassword());
         user.reauthenticate(credential).addOnSuccessListener(unused -> user.updatePassword(loginUser.getPassword())
                 .addOnSuccessListener(success -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.success(true)))
-                .addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error("Current password is incorrect", null)))).addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
+                .addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error("Error occurred when updating password.", null))))
+                .addOnFailureListener(e -> changePasswordStatusMutableLiveData.setValue(LiveDataWrapper.error("Current password is incorrect.", null)));
     }
 }
