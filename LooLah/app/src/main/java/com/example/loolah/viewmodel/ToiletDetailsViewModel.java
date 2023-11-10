@@ -184,7 +184,7 @@ public class ToiletDetailsViewModel extends ViewModel {
             CSVReaderHeaderAware trainStationCsv = new CSVReaderHeaderAware(new InputStreamReader(resources.openRawResource(R.raw.trainstation)));
             String[] trainStationData = trainStationCsv.readNext();
             do {
-                if (Objects.equals(trainStationData[1], trainStationName) || trainStationName.contains(trainStationData[1])) {
+                if (Objects.equals(trainStationData[1], trainStationName) || trainStationName.contains(trainStationData[1] + " MRT Station") || trainStationName.contains(trainStationData[1] + " Station")) {
                     trainStationLine = trainStationData[2];
                     trainStationCode = trainStationData[0];
                 }
