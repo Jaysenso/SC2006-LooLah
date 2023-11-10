@@ -334,8 +334,8 @@
                 android:background="@drawable/bg_borderless"
                 android:backgroundTint="@color/secondary"
                 android:contentDescription="@string/toilet_details_favorite_btn"
-                android:onClick="@{() -> toiletDetailsView.onClickFavorite()}"
-                android:src="@drawable/ic_toilet_details_favorite" />
+                android:onClick="@{() -> toiletDetailsView.onClickFavorite(toilet.toiletId,toilet.favorited)}"
+                android:src="@{toilet.favorited ? @drawable/ic_toilet_details_favorited : @drawable/ic_toilet_details_favorite}"/>
 
             <Button
                 android:id="@+id/btn_toilet_details_add_review"

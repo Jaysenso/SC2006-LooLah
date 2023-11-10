@@ -3,6 +3,7 @@ package com.example.loolah.view.home;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import com.example.loolah.viewmodel.ToiletDetailsViewModel;
 import java.util.ArrayList;
 
 public class ToiletDetailsFragment extends Fragment implements ToiletReviewListAdapter.OnItemClickListener {
-    boolean isPlay = false;
+
     private ToiletDetailsViewModel viewModel;
     private FragmentToiletDetailsBinding binding;
     private ToiletReviewListAdapter adapter;
@@ -92,13 +93,16 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
         else viewModel.likeReview(review.getReviewId(), review.getCreatorId());
     }
 
-    public void onClickFavorite() {
-        if (isPlay)
-            binding.ibToiletDetailsFavorite.setImageResource(R.drawable.ic_toilet_details_favorite);
+    public void onClickFavorite(String toiletId, Boolean favorited) {
+        if (!favorited) {
+            viewModel.addFavoriteToilet(toiletId);
+            Log.d("TEST", "fav toilet added");
+        }
         else
-            binding.ibToiletDetailsFavorite.setImageResource(R.drawable.ic_toilet_details_favorited);
-
-        isPlay = !isPlay;
+        {
+            viewModel.removeFavoriteToilet(toiletId);
+            Log.d("TEST", "fav toilet removed");
+        }
     }
 
     public void onClickAddReview(View view) {
