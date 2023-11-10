@@ -1,11 +1,13 @@
 package com.example.loolah.view.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,12 +21,13 @@ import com.example.loolah.R;
 import com.example.loolah.adapter.ToiletReviewListAdapter;
 import com.example.loolah.databinding.FragmentToiletDetailsBinding;
 import com.example.loolah.model.ReviewDetails;
+import com.example.loolah.model.ToiletDetails;
 import com.example.loolah.viewmodel.ToiletDetailsViewModel;
 
 import java.util.ArrayList;
 
 public class ToiletDetailsFragment extends Fragment implements ToiletReviewListAdapter.OnItemClickListener {
-    boolean isPlay = false;
+
     private ToiletDetailsViewModel viewModel;
     private FragmentToiletDetailsBinding binding;
     private ToiletReviewListAdapter adapter;
@@ -74,6 +77,7 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
                     break;
             }
         });
+
         viewModel.getToiletReviews(toiletId);
 
         return binding.getRoot();
@@ -89,13 +93,16 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
         else viewModel.likeReview(review.getReviewId());
     }
 
-    public void onClickFavorite() {
-        if (isPlay)
-            binding.ibToiletDetailsFavorite.setImageResource(R.drawable.ic_toilet_details_favorite);
+    public void onClickFavorite(String toiletId, Boolean favorited) {
+        if (!favorited) {
+            viewModel.addFavoriteToilet(toiletId);
+            Log.d("TEST", "fav toilet added");
+        }
         else
-            binding.ibToiletDetailsFavorite.setImageResource(R.drawable.ic_toilet_details_favorited);
-
-        isPlay = !isPlay;
+        {
+            viewModel.removeFavoriteToilet(toiletId);
+            Log.d("TEST", "fav toilet removed");
+        }
     }
 
     public void onClickGallery(View view) {

@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.loolah.databinding.RowToiletReviewBinding;
 import com.example.loolah.model.ReviewDetails;
+import com.example.loolah.model.ToiletDetails;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ToiletReviewListAdapter extends RecyclerView.Adapter<ToiletReviewListAdapter.ToiletReviewViewHolder> {

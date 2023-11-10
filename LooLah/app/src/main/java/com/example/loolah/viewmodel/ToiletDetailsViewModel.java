@@ -1,12 +1,17 @@
 package com.example.loolah.viewmodel;
 
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.loolah.model.ReviewDetails;
+import com.example.loolah.model.Toilet;
 import com.example.loolah.model.ToiletDetails;
+import com.example.loolah.model.User;
 import com.example.loolah.util.LiveDataWrapper;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.AggregateSource;
@@ -52,6 +57,20 @@ public class ToiletDetailsViewModel extends ViewModel {
                     if (aggregateQuerySnapshot.getCount() == 1) toilet.setReviewed(true);
                     toiletMutableLiveData.setValue(LiveDataWrapper.success(toilet));
                 });
+                uColRef.whereEqualTo("userId", user.getUid()).get().addOnSuccessListener(queryDocumentSnapshots1 -> {
+                    for (DocumentSnapshot document : queryDocumentSnapshots1.getDocuments()) {
+                        User user = document.toObject(User.class);
+                        if(user.getFavorites().contains(toilet.getToiletId()))
+                        {
+                            toilet.setFavorited(true);
+                        }
+                        else
+                        {
+                            toilet.setFavorited(false);
+                        }
+                    }
+
+                });
             } else
                 toiletMutableLiveData.setValue(LiveDataWrapper.error("Toilet does not exist", null));
         });
@@ -88,5 +107,24 @@ public class ToiletDetailsViewModel extends ViewModel {
 
     public void unlikeReview(String reviewId) {
         rColRef.document(reviewId).update("likedBy", FieldValue.arrayRemove(user.getUid()));
+    }
+
+    public void addFavoriteToilet(String toiletId) {
+        uColRef.document(user.getUid()).update("favorites", FieldValue.arrayUnion(toiletId))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        ToiletDetails favoriteToilet = toiletMutableLiveData.getValue().getData();
+                        favoriteToilet.setFavorited(true);
+                        toiletMutableLiveData.setValue(LiveDataWrapper.success(favoriteToilet));
+                    }
+                });
+    }
+
+    public void removeFavoriteToilet(String toiletId) {
+        uColRef.document(user.getUid()).update("favorites", FieldValue.arrayRemove(toiletId));
+        ToiletDetails favoriteToilet = toiletMutableLiveData.getValue().getData();
+        favoriteToilet.setFavorited(false);
+        toiletMutableLiveData.setValue(LiveDataWrapper.success(favoriteToilet));
     }
 }

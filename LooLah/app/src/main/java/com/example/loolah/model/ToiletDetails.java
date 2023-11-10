@@ -3,6 +3,7 @@ package com.example.loolah.model;
 public class ToiletDetails extends Toilet {
     private String crowdLevel;
     private boolean reviewed;
+    private boolean favorited;
 
     public ToiletDetails() {
         super();
@@ -22,5 +23,13 @@ public class ToiletDetails extends Toilet {
 
     public void setReviewed(boolean reviewed) {
         this.reviewed = reviewed;
+    }
+
+    public boolean isFavorited() {
+        return favorited;
+    }
+
+    public void setFavorited(boolean favorited) {
+        this.favorited = favorited;
     }
 }

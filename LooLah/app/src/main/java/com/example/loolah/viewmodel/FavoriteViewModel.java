@@ -33,7 +33,6 @@ public class FavoriteViewModel extends ViewModel {
         favouritesToiletList = new ArrayList<>();
     }
 
-
     public MutableLiveData<LiveDataWrapper<ArrayList<Toilet>>> getFavoritesToiletListMutableLiveData() {
         if (favouritesToiletListMutableLiveData == null) favouritesToiletListMutableLiveData = new MutableLiveData<>();
         return favouritesToiletListMutableLiveData;
@@ -49,6 +48,7 @@ public class FavoriteViewModel extends ViewModel {
         favouritesToiletList = new ArrayList<>();
 
         favouritesToiletListMutableLiveData.setValue(LiveDataWrapper.loading(null));
+
         uColRef.whereEqualTo("userId", user.getUid()).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
                 User user = document.toObject(User.class);
@@ -58,9 +58,8 @@ public class FavoriteViewModel extends ViewModel {
                     if (favoritesList.get(i) != null)
                     {
                         tColRef.whereEqualTo("toiletId", favoritesList.get(i)).get().addOnSuccessListener(queryDocumentSnapshots1 -> {
-                            //Toilet toilet = document.toObject(Toilet.class);
                             favouritesToiletList.add(queryDocumentSnapshots1.getDocuments().get(0).toObject(Toilet.class));
-                            Log.d("TEST", "adding to fav toilet list");
+                            Log.d("TEST", "getting fav toilet list");
                             favouritesToiletListMutableLiveData.setValue(LiveDataWrapper.success(favouritesToiletList));
                         });
                     }
