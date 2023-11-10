@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_mapFragment_to_toiletRVMenu"
             app:destination="@id/toiletRVMenu" />
+        <action
+            android:id="@+id/action_mapFragment_to_toiletDetailsFragment"
+            app:destination="@id/toiletDetailsFragment" />
     </fragment>
 
     <activity
