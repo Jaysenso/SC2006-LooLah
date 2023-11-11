@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@+id/reviewFragment"
-        android:name="com.example.loolah.view.Reviews.AddReviewFragment"
+        android:name="com.example.loolah.view.reviews.AddReviewFragment"
         android:label="reviewFragment"></fragment>
 
     <fragment

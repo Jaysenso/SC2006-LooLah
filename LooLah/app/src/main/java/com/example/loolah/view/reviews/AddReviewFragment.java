@@ -1,6 +1,5 @@
-package com.example.loolah.view.Reviews;
+package com.example.loolah.view.reviews;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +11,6 @@ import android.widget.ImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loolah.R;
 import com.example.loolah.databinding.FragmentAddReviewBinding;
@@ -37,7 +33,7 @@ public class AddReviewFragment extends Fragment{
 
         binding = FragmentAddReviewBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getActivity());
-        //binding.setAddReviewView(this);
+        binding.setAddReviewView(this);
 
         ImageButton btnBack = addReview_fragment.findViewById(R.id.ib_add_review_back);
 
@@ -145,8 +141,7 @@ public class AddReviewFragment extends Fragment{
             EditText text = addReview_fragment.findViewById(R.id.add_review_comment);
             String reviewDesc = text.getText().toString();
             //how to retrieve int rating = 5;
-            String toiletId = "test";
-
+            String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
             viewModel.postReview(reviewDesc,rating.get(),toiletId);
 
             NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();

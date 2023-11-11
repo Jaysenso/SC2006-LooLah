@@ -4,9 +4,9 @@
 
     <data>
 
-<!--       <variable-->
-<!--           name="locationView"-->
-<!--           type="com.example.loolah.view.Reviews.SelectLocationFragment" />-->
+       <variable
+           name="locationView"
+           type="com.example.loolah.view.reviews.SelectLocationFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

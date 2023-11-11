@@ -109,11 +109,15 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
     }
 
     public void onClickAddReview(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_toiletDetailsFragment_to_reviewFragment);
+        Bundle bundle = new Bundle();
+        bundle.putString("toiletId", getArguments() != null ? getArguments().getString("toiletId") : null);
+        Navigation.findNavController(view).navigate(R.id.action_toiletDetailsFragment_to_reviewFragment,bundle);
     }
 
     public void onClickEditReview(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_toiletDetailsFragment_to_reviewFragment);
+        Bundle bundle = new Bundle();
+        bundle.putString("toiletId", getArguments() != null ? getArguments().getString("toiletId") : null);
+        Navigation.findNavController(view).navigate(R.id.action_toiletDetailsFragment_to_reviewFragment,bundle);
     }
 
     public void onClickGallery() {

@@ -8,9 +8,9 @@
         <variable
             name="user"
             type="com.example.loolah.model.User" />
-        <!--<variable
+        <variable
             name="addReviewView"
-        type="com.example.loolah.view.Reviews.AddReviewFragment" />-->
+        type="com.example.loolah.view.reviews.AddReviewFragment" />
 </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
