@@ -75,6 +75,12 @@ public class EditProfileFragment extends Fragment {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 currentUser = document.toObject(User.class);
+
+                                if (currentUser != null) {
+                                    currentUser.setOriginalUsername(currentUser.getUsername());
+                                    currentUser.setOriginalProfilePicUrl(currentUser.getProfilePicUrl());
+                                }
+
                                 updateUIWithUserData();
                                 Log.d(TAG, "User data loaded successfully");
                             } else {
@@ -89,7 +95,6 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
-
     private void saveUserProfile() {
         if (currentUser == null) {
             Log.e(TAG, "currentUser is null in saveUserProfile()");
@@ -100,28 +105,32 @@ public class EditProfileFragment extends Fragment {
         EditText etUsername = requireView().findViewById(R.id.et_edit_profile_username);
         String newUsername = etUsername.getText().toString();
 
-        if (newUsername.isEmpty()) {
-            Toast.makeText(requireContext(), "Username cannot be empty", Toast.LENGTH_SHORT).show();
-            return;
+        // Check if the username has changed
+        if (!newUsername.equals(currentUser.getUsername())) {
+            currentUser.setUsername(newUsername);
         }
-        currentUser.setUsername(newUsername);
 
-        String updatedProfilePictureUrl = selectedImageUri != null ? selectedImageUri.toString() : profilePictureUrl;
+        // Check if the profile picture has changed
+        if (selectedImageUri != null && !selectedImageUri.toString().equals(profilePictureUrl)) {
+            String updatedProfilePictureUrl = selectedImageUri.toString();
+            profilePictureUrl = updatedProfilePictureUrl;
+            currentUser.setProfilePicUrl(updatedProfilePictureUrl);
+        }
 
-        profilePictureUrl = updatedProfilePictureUrl;
-
-        currentUser.setProfilePicUrl(updatedProfilePictureUrl);
-
-        FirebaseFirestore.getInstance().collection("users").document(currentUser.getUserId()).set(currentUser).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                selectedImageUri = null;
-
-                Toast.makeText(requireContext(), "Profile saved successfully", Toast.LENGTH_SHORT).show();
-                Navigation.findNavController(requireView()).navigate(R.id.action_editProfileFragment_to_profileFragment);
-            } else {
-                Toast.makeText(requireContext(), "Failed to save profile", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Update only if changes were made
+        if (currentUser.isProfileChanged()) {
+            FirebaseFirestore.getInstance().collection("users").document(currentUser.getUserId()).set(currentUser).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    selectedImageUri = null;
+                    Toast.makeText(requireContext(), "Profile saved successfully", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(requireView()).navigate(R.id.action_editProfileFragment_to_profileFragment);
+                } else {
+                    Toast.makeText(requireContext(), "Failed to save profile", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(requireContext(), "No changes made to the profile", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private static final int REQUEST_IMAGE_PICK = 2;
@@ -133,7 +142,6 @@ public class EditProfileFragment extends Fragment {
 
         startActivityForResult(pictureIntent, REQUEST_IMAGE_PICK);
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -159,7 +167,6 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
-
     private void updateUIWithUserData() {
         if (currentUser != null) {
             EditText etUsername = requireView().findViewById(R.id.et_edit_profile_username);
@@ -171,24 +178,19 @@ public class EditProfileFragment extends Fragment {
                 etUsername.setText("DefaultUsername");
             }
 
-
             CircleImageView profileImageView = requireView().findViewById(R.id.civ_edit_profile_profile_image);
 
             if (selectedImageUri != null) {
-
                 Glide.with(requireContext())
                         .load(selectedImageUri)
                         .into(profileImageView);
             } else if (currentUser.getProfilePicUrl() != null && !currentUser.getProfilePicUrl().isEmpty()) {
-
                 Glide.with(requireContext())
                         .load(currentUser.getProfilePicUrl())
                         .into(profileImageView);
             }
         } else {
-
             Log.e(TAG, "User is null");
         }
     }
-
 }
