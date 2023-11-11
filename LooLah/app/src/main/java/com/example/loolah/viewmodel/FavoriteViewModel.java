@@ -53,18 +53,24 @@ public class FavoriteViewModel extends ViewModel {
         uColRef.whereEqualTo("userId", user.getUid()).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
                 User user = document.toObject(User.class);
-                for (int i = 0; i <user.getFavorites().size();i++)
+                if (user.getFavorites().size() > 0)
                 {
-                    favoritesList.add(user.getFavorites().get(i));
-                    if (favoritesList.get(i) != null)
+                    for (int i = 0; i <user.getFavorites().size();i++)
                     {
-                        tColRef.whereEqualTo("toiletId", favoritesList.get(i)).get().addOnSuccessListener(queryDocumentSnapshots1 -> {
-                            favouritesToiletList.add(queryDocumentSnapshots1.getDocuments().get(0).toObject(Toilet.class));
-                            Log.d("TEST", "getting fav toilet list");
-                            favouritesToiletListMutableLiveData.setValue(LiveDataWrapper.success(favouritesToiletList));
-                        });
+                        favoritesList.add(user.getFavorites().get(i));
+                        if (favoritesList.get(i) != null) {
+                            tColRef.whereEqualTo("toiletId", favoritesList.get(i)).get().addOnSuccessListener(queryDocumentSnapshots1 -> {
+                                favouritesToiletList.add(queryDocumentSnapshots1.getDocuments().get(0).toObject(Toilet.class));
+                                Log.d("TEST", "getting fav toilet list");
+                                favouritesToiletListMutableLiveData.setValue(LiveDataWrapper.success(favouritesToiletList));
+                            });
+                        }
                     }
                 }
+                else {
+                    favouritesToiletListMutableLiveData.setValue(LiveDataWrapper.success(favouritesToiletList));
+                }
+
             }
         });
     }

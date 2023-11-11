@@ -44,8 +44,9 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.OnItem
             switch (toilets.getStatus()) {
                 case SUCCESS:
                     ArrayList<Toilet> toiletList = toilets.getData();
-                    if (toiletList != null && toiletList.size() == 0)
+                    if (toiletList == null || toiletList.size() == 0)
                         binding.tvFavNoToilets.setVisibility(View.VISIBLE);
+                    else binding.tvFavNoToilets.setVisibility(View.GONE);
                     adapter.setFavoritesToiletList(toiletList);
                     break;
                 case ERROR:
