@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:paddingHorizontal="10dp"
-            android:text="@string/example_profile_username"
+            android:text="@{@string/profile_username(user.username)"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:typeface="normal"

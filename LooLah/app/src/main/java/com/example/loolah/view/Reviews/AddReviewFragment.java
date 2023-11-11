@@ -6,15 +6,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.loolah.R;
+import com.example.loolah.databinding.FragmentAddReviewBinding;
+import com.example.loolah.viewmodel.ReviewViewModel;
 
 public class AddReviewFragment extends Fragment{
-
+    private ReviewViewModel viewModel;
+    private FragmentAddReviewBinding binding;
     boolean isStar1Selected = false;
     boolean isStar2Selected = false;
     boolean isStar3Selected = false;
@@ -22,8 +30,12 @@ public class AddReviewFragment extends Fragment{
     boolean isStar5Selected = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        viewModel = new ViewModelProvider(requireActivity()).get(ReviewViewModel.class);
         View addReview_fragment = inflater.inflate(R.layout.fragment_add_review, container, false);
+
+        binding = FragmentAddReviewBinding.inflate(inflater, container, false);
+        //binding.setLifecycleOwner(getActivity());
+        //binding.setAddReviewView(this);
 
         ImageButton btnBack = addReview_fragment.findViewById(R.id.ib_add_review_back);
 
@@ -31,6 +43,14 @@ public class AddReviewFragment extends Fragment{
         btnBack.setOnClickListener(v -> {
             NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
             navHostFragment.getNavController().navigateUp();
+        });
+        Button btnPost = addReview_fragment.findViewById(R.id.btn_add_review_post);
+        btnPost.setOnClickListener(v -> {
+            String reviewDesc = addReview_fragment.findViewById(R.id.add_review_comment).toString();
+            int rating = 5;
+            String toiletId = "test";
+
+            viewModel.postReview(reviewDesc,rating,toiletId);
         });
 
         //Stars
@@ -137,6 +157,5 @@ public class AddReviewFragment extends Fragment{
         });*/
         return addReview_fragment;
     }
-
 }
 

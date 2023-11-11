@@ -38,25 +38,33 @@ public class ReviewViewModel extends ViewModel {
         tColRef = db.collection("toilets");
         reviewList = new ArrayList<>();
     }
+    public MutableLiveData<Integer> getRatingMutableLiveData() {
+        return ratingMutableLiveData;
+    }
 
-    public void onPostClick(){
-        Review review = new Review(ratingMutableLiveData.getValue(),reviewDescMutableLiveData.getValue(),user.getUid(),toiletMutableLiveData.getValue());
+    public void setRating(int rating) {
+        ratingMutableLiveData.setValue(rating);
+    }
+
+    public void onPostClick(String toiletID){
+        Review review = new Review(ratingMutableLiveData.getValue(),reviewDescMutableLiveData.getValue(),user.getUid(),toiletID);
         reviewMutableLiveData.setValue(review);
     }
 
-    public void postReview(){
+    public void postReview(String reviewDesc,int rating,String toiletId){
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         // Check if the user is logged in
         if (user != null) {
             Review review = new Review();
             review.setCreatorId(firebaseUser.getUid());
-            review.setToiletId(toiletMutableLiveData.getValue());
-            review.setRating(ratingMutableLiveData.getValue());
+            review.setToiletId(toiletId);
+            review.setRating(rating);
+            review.setDescription(reviewDesc);
 
             rColRef.add(review)
                     .addOnSuccessListener(documentReference -> {
                         // Update the LiveData with the success state containing the created Review object
-                        //reviewMutableLiveData.setValue(LiveDataWrapper.success(review));
+                        reviewMutableLiveData.setValue(review);
                     }).addOnFailureListener(e -> {
                         // Update the LiveData with an error state if adding to Firestore fails
                         //reviewMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null));
