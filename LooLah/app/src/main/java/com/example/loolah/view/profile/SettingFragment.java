@@ -13,18 +13,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.loolah.databinding.FragmentSettingBinding;
+import com.example.loolah.util.ConfirmDialogUtil;
 import com.example.loolah.view.Setup.LoginActivity;
 import com.example.loolah.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class SettingFragment extends Fragment {
-    private FragmentSettingBinding binding;
+public class SettingFragment extends Fragment implements ConfirmDialogUtil.ConfirmDialogListener {
     private String profilePicUrl;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentSettingBinding.inflate(inflater, container, false);
+        FragmentSettingBinding binding = FragmentSettingBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getActivity());
         binding.setSettingView(this);
 
@@ -39,7 +39,8 @@ public class SettingFragment extends Fragment {
 
     public void onClickBack() {
         NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
-        navHostFragment.getNavController().navigateUp();
+        if (navHostFragment != null) navHostFragment.getNavController().navigateUp();
+        // TODO: Add else show Toast
     }
 
     public void onClickChangePassword(View view) {
@@ -54,9 +55,18 @@ public class SettingFragment extends Fragment {
     }
 
     public void onClickSignOut() {
+        ConfirmDialogUtil dialog = new ConfirmDialogUtil();
+        dialog.setConfirmDialogListener(this);
+        dialog.setConfirmDialogMessage("Are you sure you want to logout?");
+
+        dialog.show(requireActivity().getSupportFragmentManager(), "Confirm Logout Fragment");
+    }
+
+    @Override
+    public void onClickConfirm() {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getActivity(), LoginActivity.class));
-        getActivity().overridePendingTransition(0, 0);
-        getActivity().finish();
+        startActivity(new Intent(requireActivity(), LoginActivity.class));
+        requireActivity().overridePendingTransition(0, 0);
+        requireActivity().finish();
     }
 }

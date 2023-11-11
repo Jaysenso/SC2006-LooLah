@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -27,8 +28,8 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.OnItem
     private FavoriteAdapter adapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(getActivity()).get(FavoriteViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        viewModel = new ViewModelProvider(requireActivity()).get(FavoriteViewModel.class);
 
         binding = FragmentFavoriteBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getActivity());
@@ -43,7 +44,8 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.OnItem
             switch (toilets.getStatus()) {
                 case SUCCESS:
                     ArrayList<Toilet> toiletList = toilets.getData();
-                    if (toiletList.size() == 0) binding.tvFavNoToilets.setVisibility(View.VISIBLE);
+                    if (toiletList == null || toiletList.size() == 0)
+                        binding.tvFavNoToilets.setVisibility(View.VISIBLE);
                     else binding.tvFavNoToilets.setVisibility(View.GONE);
                     adapter.setFavoritesToiletList(toiletList);
                     break;

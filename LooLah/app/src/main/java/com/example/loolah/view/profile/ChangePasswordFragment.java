@@ -22,12 +22,12 @@ import com.example.loolah.viewmodel.ChangePasswordViewModel;
 public class ChangePasswordFragment extends Fragment {
     private ChangePasswordViewModel viewModel;
     private FragmentChangePasswordBinding binding;
-    private String profilePicUrl;
     private final LoginUser user = new LoginUser();
+    private String profilePicUrl;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(getActivity()).get(ChangePasswordViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ChangePasswordViewModel.class);
 
         binding = FragmentChangePasswordBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getActivity());
@@ -37,8 +37,8 @@ public class ChangePasswordFragment extends Fragment {
             switch (booleanLiveDataWrapper.getStatus()) {
                 case SUCCESS:
                     viewModel.resetChangePasswordStatus();
-                    Toast.makeText(getContext(), "Password successfully updated", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(getView()).navigate(R.id.action_changePasswordFragment_to_profileFragment);
+                    Toast.makeText(getContext(), "Password successfully updated.", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(requireView()).navigate(R.id.action_changePasswordFragment_to_profileFragment);
                     break;
                 case ERROR:
                     binding.btnChangePasswordSave.setEnabled(true);
@@ -62,7 +62,7 @@ public class ChangePasswordFragment extends Fragment {
 
     public void onClickBack() {
         NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
-        navHostFragment.getNavController().navigateUp();
+        if (navHostFragment != null) navHostFragment.getNavController().navigateUp();
     }
 
     public void onClickSave() {

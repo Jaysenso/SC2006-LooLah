@@ -18,7 +18,6 @@ import java.util.Objects;
 
 public class ProfileViewModel extends ViewModel {
     private final FirebaseUser user;
-    FirebaseFirestore db;
     private final CollectionReference uColRef;
     private final CollectionReference rColRef;
     private final CollectionReference tColRef;
@@ -28,7 +27,7 @@ public class ProfileViewModel extends ViewModel {
 
     public ProfileViewModel() {
         super();
-        db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         uColRef = db.collection("users");
         rColRef = db.collection("reviews");
@@ -47,10 +46,7 @@ public class ProfileViewModel extends ViewModel {
 
     public void getUserProfile() {
         profileMutableLiveData.setValue(LiveDataWrapper.loading(null));
-        uColRef.whereEqualTo("userId", user.getUid()).get().addOnSuccessListener(queryDocumentSnapshots -> {
-            if (queryDocumentSnapshots.getDocuments().size() > 0) profileMutableLiveData.setValue(LiveDataWrapper.success(Objects.requireNonNull(queryDocumentSnapshots.getDocuments().get(0).toObject(User.class))));
-            else profileMutableLiveData.setValue(LiveDataWrapper.error("User not found", null));
-        });
+        uColRef.document(user.getUid()).get().addOnSuccessListener(documentSnapshot -> profileMutableLiveData.setValue(LiveDataWrapper.success(Objects.requireNonNull(documentSnapshot.toObject(User.class))))).addOnFailureListener(e -> profileMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
     }
 
     public void getProfileReviews() {
@@ -71,11 +67,11 @@ public class ProfileViewModel extends ViewModel {
                         }
 
                         reviewListMutableLiveData.setValue(LiveDataWrapper.success(reviewList));
-                    });
+                    }).addOnFailureListener(e -> reviewListMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
                 }
             }
 
             reviewListMutableLiveData.setValue(LiveDataWrapper.success(reviewList));
-        });
+        }).addOnFailureListener(e -> reviewListMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
     }
 }

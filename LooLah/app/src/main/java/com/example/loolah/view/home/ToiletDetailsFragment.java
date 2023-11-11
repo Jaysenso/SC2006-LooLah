@@ -1,6 +1,9 @@
 package com.example.loolah.view.home;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,15 +27,16 @@ import com.example.loolah.viewmodel.ToiletDetailsViewModel;
 import java.util.ArrayList;
 
 public class ToiletDetailsFragment extends Fragment implements ToiletReviewListAdapter.OnItemClickListener {
-    boolean isPlay = false;
+
     private ToiletDetailsViewModel viewModel;
     private FragmentToiletDetailsBinding binding;
     private ToiletReviewListAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        String toiletId = getArguments().getString("toiletId");
-        viewModel = new ViewModelProvider(getActivity()).get(ToiletDetailsViewModel.class);
+        String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
+
+        viewModel = new ViewModelProvider(requireActivity()).get(ToiletDetailsViewModel.class);
 
         binding = FragmentToiletDetailsBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getActivity());
@@ -49,7 +53,7 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
                     binding.setToilet(toiletLiveDataWrapper.getData());
                     break;
                 case ERROR:
-                    Toast.makeText(getContext(), "Unable to retrieve toilet data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Unable to retrieve toilet information.", Toast.LENGTH_SHORT).show();
                     break;
                 case LOADING:
                     break;
@@ -61,14 +65,14 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
             switch (reviewListLiveDataWrapper.getStatus()) {
                 case SUCCESS:
                     ArrayList<ReviewDetails> reviews = reviewListLiveDataWrapper.getData();
-                    if (reviews.size() == 0)
+                    if (reviews != null && reviews.size() == 0)
                         binding.tvToiletDetailsNoReviews.setVisibility(View.VISIBLE);
-                    else binding.tvToiletDetailsNoReviews.setVisibility(View.INVISIBLE);
+                    else binding.tvToiletDetailsNoReviews.setVisibility(View.GONE);
 
                     adapter.setToiletReviewList(reviews);
                     break;
                 case ERROR:
-                    Toast.makeText(getContext(), reviewListLiveDataWrapper.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Unable to retrieve toilet reviews.", Toast.LENGTH_SHORT).show();
                     break;
                 case LOADING:
                     break;
@@ -81,25 +85,24 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
 
     public void onClickBack() {
         NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
-        navHostFragment.getNavController().navigateUp();
+        if (navHostFragment != null) navHostFragment.getNavController().navigateUp();
     }
 
     public void onSelectReviewLike(ReviewDetails review) {
-        if (review.isLiked()) viewModel.unlikeReview(review.getReviewId());
-        else viewModel.likeReview(review.getReviewId());
+        if (review.isLiked()) viewModel.unlikeReview(review.getReviewId(), review.getCreatorId());
+        else viewModel.likeReview(review.getReviewId(), review.getCreatorId());
     }
 
-    public void onClickFavorite() {
-        if (isPlay)
-            binding.ibToiletDetailsFavorite.setImageResource(R.drawable.ic_toilet_details_favorite);
+    public void onClickFavorite(String toiletId, Boolean favorited) {
+        if (!favorited) {
+            viewModel.addFavoriteToilet(toiletId);
+            Log.d("TEST", "fav toilet added");
+        }
         else
-            binding.ibToiletDetailsFavorite.setImageResource(R.drawable.ic_toilet_details_favorited);
-
-        isPlay = !isPlay;
-    }
-
-    public void onClickGallery(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_toiletDetailsFragment_to_toiletGalleryFragment);
+        {
+            viewModel.removeFavoriteToilet(toiletId);
+            Log.d("TEST", "fav toilet removed");
+        }
     }
 
     public void onClickAddReview(View view) {
@@ -108,5 +111,17 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
 
     public void onClickEditReview(View view) {
         Navigation.findNavController(view).navigate(R.id.action_toiletDetailsFragment_to_reviewFragment);
+    }
+
+    public void onClickGallery(View view) {
+        Navigation.findNavController(view).navigate(R.id.action_toiletDetailsFragment_to_toiletGalleryFragment);
+    }
+
+    public void onClickDirection(String name, double latitude, double longitude) {
+        Uri googleMapUri = Uri.parse("geo:0,0?q=" + name + "@" + latitude + "," + longitude);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, googleMapUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(requireActivity().getPackageManager()) != null)
+            startActivity(mapIntent);
     }
 }

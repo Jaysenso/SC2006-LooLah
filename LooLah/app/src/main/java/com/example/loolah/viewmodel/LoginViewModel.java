@@ -55,14 +55,14 @@ public class LoginViewModel extends ViewModel {
 
         firebaseAuth.signInWithEmailAndPassword(Objects.requireNonNull(emailMutableLiveData.getValue()), Objects.requireNonNull(passwordMutableLiveData.getValue())).addOnSuccessListener(authResult -> {
             FirebaseUser firebaseUser = authResult.getUser();
-            User user = null;
 
-            if (firebaseUser != null)
-                user = new User(firebaseUser.getUid(), firebaseUser.getEmail(), firebaseUser.getDisplayName());
-            if (firebaseUser.getPhotoUrl() != null)
-                user.setProfilePicUrl(firebaseUser.getPhotoUrl().toString());
-
-            authenticatedUserMutableLiveData.setValue(LiveDataWrapper.success(user));
+            if (firebaseUser != null) {
+                User user = new User(firebaseUser.getUid(), firebaseUser.getEmail(), firebaseUser.getDisplayName());
+                if (firebaseUser.getPhotoUrl() != null)
+                    user.setProfilePicUrl(firebaseUser.getPhotoUrl().toString());
+                authenticatedUserMutableLiveData.setValue(LiveDataWrapper.success(user));
+            } else
+                authenticatedUserMutableLiveData.setValue(LiveDataWrapper.error("Login failed, please login again.", null));
         }).addOnFailureListener(command -> authenticatedUserMutableLiveData.setValue(LiveDataWrapper.error(command.getMessage(), null)));
     }
 }

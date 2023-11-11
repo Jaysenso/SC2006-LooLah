@@ -3,12 +3,12 @@ package com.example.loolah.view.Map;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +20,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.loolah.R;
+import com.example.loolah.model.Toilet;
 import com.example.loolah.util.drawableToBitmapUtil;
+import com.example.loolah.viewmodel.MapViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,8 +36,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -44,15 +49,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
+
     private GoogleMap google_map;
-    private FusedLocationProviderClient fusedlocationClient;
+    private FusedLocationProviderClient fusedLocationClient;
+    private MapViewModel viewModel;
     private Location currentLocation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View map_fragment = inflater.inflate(R.layout.fragment_map, container, false);
-        fusedlocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
 
         if (checkLocationPermission()) getLocation();
         else requestLocationPermission();
@@ -83,6 +90,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return map_fragment;
     }
 
+
     @SuppressLint("MissingPermission")
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -94,24 +102,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         sv_map.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchQuery) {
-                String location = sv_map.getQuery().toString();
-                List<Address> addressList = null;
 
-                if (location != null) {
+                if (searchQuery != null) {
                     Geocoder geocoder = new Geocoder(requireContext());
-
                     try {
-                        addressList = geocoder.getFromLocationName(location, 1);
+                        List<Address> addressList = geocoder.getFromLocationName(searchQuery, 1);
 
-                        if (addressList.size() > 0) {
+                        if (addressList != null) {
+                            google_map.clear();
                             Address address = addressList.get(0);
                             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-
                             google_map.addMarker(new MarkerOptions()
                                     .position(latLng)
-                                    .title("Location"));
+                                    .title("Current Location"));
                             google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                         }
+                        syncMapData();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -122,48 +128,92 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public boolean onQueryTextChange(String query) {return false;}
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(currentLocation != null) {
-                    LatLng user_location = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                    google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(user_location, 16));
-                }
+        fab.setOnClickListener(v -> {
+            if(currentLocation != null) {
+                LatLng user_location = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                google_map.addMarker(new MarkerOptions()
+                        .position(user_location)
+                        .title("Current Location"));
+                google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(user_location, 14));
             }
         });
 
-        search_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+        search_button.setOnClickListener(v -> {
+            if(sv_map.getQuery() != null) {sv_map.setQuery(sv_map.getQuery(),true);
             }
         });
-
-
     }
+
 
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(@NonNull GoogleMap map) {
-        google_map = map;
-        readCSV();
 
-        if (checkLocationPermission()) getLocation();
-        else requestLocationPermission();
+        google_map = map;
+        viewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
+
+        boolean success = google_map.setMapStyle(new MapStyleOptions(getResources()
+                .getString(R.string.style_json)));
+        if (!success) {
+            Log.e("MAP_STYLE", "Style parsing failed.");
+        }
+
+        syncMapData();
 
         LatLng user_location = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-
         google_map.addMarker(new MarkerOptions()
                 .position(user_location)
                 .title("Current Location"));
-        google_map.moveCamera(CameraUpdateFactory.newLatLngZoom(user_location, 16));
 
-        readCSV();
+        google_map.moveCamera(CameraUpdateFactory.newLatLngZoom(user_location, 14));
+
+        google_map.setOnMarkerClickListener(marker -> {
+            String toiletId = (String) marker.getTag();
+            if (toiletId != null) {
+                Bundle bundle = new Bundle();
+                bundle.putString("toiletId", (String) marker.getTag());
+                Navigation.findNavController(requireView()).navigate(R.id.action_mapFragment_to_toiletDetailsFragment, bundle);
+            }
+            return true;
+        });
     }
 
+    private void syncMapData() {
+
+        viewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
+        Drawable toilet_marker = ResourcesCompat.getDrawable(getResources(),R.drawable.ic_toilet_location, null);
+        BitmapDescriptor bitMap_toilet_marker = drawableToBitmapUtil.drawableToBitmap(toilet_marker);
+
+        viewModel.getToilets();
+        viewModel.getToiletList().observe(getViewLifecycleOwner(), LiveDataWrapper -> {
+            switch (LiveDataWrapper.getStatus()) {
+                case SUCCESS:
+                    ArrayList<Toilet> toiletArrayList = LiveDataWrapper.getData();
+
+                    if(toiletArrayList != null) {
+                        for (Toilet toilet : toiletArrayList) {
+                            google_map.addMarker(new MarkerOptions()
+                                            .position(new LatLng(toilet.getLatitude(), toilet.getLongitude()))
+                                            .title(toilet.getName() + "" + toilet.getToiletId())
+                                            .icon(bitMap_toilet_marker))
+                                    .setTag(toilet.getToiletId());
+                            Log.d("MAP_LOCATION", "Toilet name : " + toilet.getName() + " Toilet Lat/Lng " + toilet.getLatitude() + " " + toilet.getLongitude());
+                        }
+                    }
+                    if (toiletArrayList != null) Log.d("TEST", "error");
+                    else { break; }
+                case ERROR:
+                    Log.d("TEST", "error");
+                    break;
+                case LOADING:
+                    break;
+            }
+        });
+    }
+    
     @SuppressLint("MissingPermission")
     private void getLocation() {
-        fusedlocationClient.getLastLocation().addOnSuccessListener(location -> {
+        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
             if (location != null) currentLocation = location;
             else Toast.makeText(getContext(), "Please turn on your location and restart the app", Toast.LENGTH_SHORT).show();
         });
@@ -176,14 +226,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private boolean checkLocationPermission() {
         return ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
-
-
+    //Legacy Method
     private void readCSV() {
         try {
             //Read the CSV file
             InputStream inputStream = getResources().openRawResource(R.raw.toiletlocationlatlong);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            ArrayList<LatLng> latLngList = new ArrayList<LatLng>();
+            ArrayList<LatLng> latLngList = new ArrayList<>();
 
             Drawable toilet_marker = getResources().getDrawable(R.drawable.ic_toilet_location);
             BitmapDescriptor bitMap_toilet_marker = drawableToBitmapUtil.drawableToBitmap(toilet_marker);

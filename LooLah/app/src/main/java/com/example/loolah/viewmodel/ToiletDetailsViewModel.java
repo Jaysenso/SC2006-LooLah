@@ -16,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.loolah.R;
 import com.example.loolah.model.ReviewDetails;
 import com.example.loolah.model.ToiletDetails;
+import com.example.loolah.model.User;
 import com.example.loolah.util.LiveDataWrapper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,37 +67,42 @@ public class ToiletDetailsViewModel extends ViewModel {
 
     public void getToiletData(Context context, Resources resources, String toiletId) {
         toiletMutableLiveData.setValue(LiveDataWrapper.loading(null));
-        tColRef.whereEqualTo("toiletId", toiletId).get().addOnSuccessListener(queryDocumentSnapshots -> {
-            ToiletDetails toilet = queryDocumentSnapshots.getDocuments().get(0).toObject(ToiletDetails.class);
+        tColRef.document(toiletId).get().addOnSuccessListener(documentSnapshot -> {
+            ToiletDetails toilet = documentSnapshot.toObject(ToiletDetails.class);
 
             if (toilet != null) {
                 rColRef.whereEqualTo("toiletId", toilet.getToiletId()).whereEqualTo("creatorId", user.getUid()).count().get(AggregateSource.SERVER).addOnSuccessListener(aggregateQuerySnapshot -> {
                     if (aggregateQuerySnapshot.getCount() == 1) toilet.setReviewed(true);
 
-                    getClosestTrainStation(context, toilet.getLongitude(), toilet.getLatitude(), trainStationName -> {
-                        if (trainStationName != null) {
-                            getClosestTrainStationCrowd(context, resources, trainStationName, trainStationCrowd -> getClosestCarParkCrowd(context, toilet.getLongitude(), toilet.getLatitude(), carParkCrowd -> {
-                                if (carParkCrowd == null && trainStationCrowd == null)
-                                    toilet.setCrowdLevel(5);
-                                else {
-                                    int carParkCrowdLevel = carParkCrowd == null ? 5 : Integer.parseInt(carParkCrowd) < 50 ? 4 : Integer.parseInt(carParkCrowd) < 100 ? 3 : Integer.parseInt(carParkCrowd) < 150 ? 2 : 1;
-                                    int trainStationCrowdLevel = trainStationCrowd == null ? 5 : trainStationCrowd.equals("h") ? 4 : trainStationCrowd.equals("m") ? 2 : trainStationCrowd.equals("l") ? 1 : 5;
-                                    toilet.setCrowdLevel(carParkCrowdLevel == 5 && trainStationCrowdLevel == 5 ? 5 : carParkCrowdLevel == 5 ? trainStationCrowdLevel : trainStationCrowdLevel == 5 ? carParkCrowdLevel : (carParkCrowdLevel + trainStationCrowdLevel) / 2);
+                    uColRef.document(user.getUid()).get().addOnSuccessListener(documentSnapshot1 -> {
+                        User user = documentSnapshot1.toObject(User.class);
+                        toilet.setFavorited(user != null && user.getFavorites().contains(toilet.getToiletId()));
 
+                        getClosestTrainStation(context, toilet.getLongitude(), toilet.getLatitude(), trainStationName -> {
+                            if (trainStationName != null) {
+                                getClosestTrainStationCrowd(context, resources, trainStationName, trainStationCrowd -> getClosestCarParkCrowd(context, toilet.getLongitude(), toilet.getLatitude(), carParkCrowd -> {
+                                    if (carParkCrowd == null && trainStationCrowd == null)
+                                        toilet.setCrowdLevel(5);
+                                    else {
+                                        int carParkCrowdLevel = carParkCrowd == null ? 5 : Integer.parseInt(carParkCrowd) < 50 ? 4 : Integer.parseInt(carParkCrowd) < 100 ? 3 : Integer.parseInt(carParkCrowd) < 150 ? 2 : 1;
+                                        int trainStationCrowdLevel = trainStationCrowd == null ? 5 : trainStationCrowd.equals("h") ? 4 : trainStationCrowd.equals("m") ? 2 : trainStationCrowd.equals("l") ? 1 : 5;
+                                        toilet.setCrowdLevel(carParkCrowdLevel == 5 && trainStationCrowdLevel == 5 ? 5 : carParkCrowdLevel == 5 ? trainStationCrowdLevel : trainStationCrowdLevel == 5 ? carParkCrowdLevel : (carParkCrowdLevel + trainStationCrowdLevel) / 2);
+
+                                        toiletMutableLiveData.setValue(LiveDataWrapper.success(toilet));
+                                    }
+                                }));
+                            } else {
+                                getClosestCarParkCrowd(context, toilet.getLongitude(), toilet.getLatitude(), carParkCrowd -> {
+                                    toilet.setCrowdLevel(carParkCrowd == null ? 5 : Integer.parseInt(carParkCrowd) < 50 ? 4 : Integer.parseInt(carParkCrowd) < 100 ? 3 : Integer.parseInt(carParkCrowd) < 150 ? 2 : 1);
                                     toiletMutableLiveData.setValue(LiveDataWrapper.success(toilet));
-                                }
-                            }));
-                        } else {
-                            getClosestCarParkCrowd(context, toilet.getLongitude(), toilet.getLatitude(), carParkCrowd -> {
-                                toilet.setCrowdLevel(carParkCrowd == null ? 5 : Integer.parseInt(carParkCrowd) < 50 ? 4 : Integer.parseInt(carParkCrowd) < 100 ? 3 : Integer.parseInt(carParkCrowd) < 150 ? 2 : 1);
-                                toiletMutableLiveData.setValue(LiveDataWrapper.success(toilet));
-                            });
-                        }
+                                });
+                            }
+                        });
                     });
-                });
+                }).addOnFailureListener(e -> toiletMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
             } else
                 toiletMutableLiveData.setValue(LiveDataWrapper.error("Toilet does not exist", null));
-        });
+        }).addOnFailureListener(e -> toiletMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
     }
 
     public void getToiletReviews(String toiletId) {
@@ -116,20 +122,40 @@ public class ToiletDetailsViewModel extends ViewModel {
                         reviewList.add(review);
 
                         reviewListMutableLiveData.setValue(LiveDataWrapper.success(reviewList));
-                    });
+                    }).addOnFailureListener(e -> reviewListMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
                 }
             }
 
             reviewListMutableLiveData.setValue(LiveDataWrapper.success(reviewList));
+        }).addOnFailureListener(e -> reviewListMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
+    }
+
+    public void likeReview(String reviewId, String creatorId) {
+        rColRef.document(reviewId).update("likedBy", FieldValue.arrayUnion(user.getUid())).addOnSuccessListener(unused -> uColRef.document(creatorId).update("likesCount", FieldValue.increment(1)));
+    }
+
+    public void unlikeReview(String reviewId, String creatorId) {
+        rColRef.document(reviewId).update("likedBy", FieldValue.arrayRemove(user.getUid())).addOnSuccessListener(unused -> uColRef.document(creatorId).update("likesCount", FieldValue.increment(-1)));
+    }
+
+    public void addFavoriteToilet(String toiletId) {
+        uColRef.document(user.getUid()).update("favorites", FieldValue.arrayUnion(toiletId)).addOnSuccessListener(aVoid -> {
+            ToiletDetails favoriteToilet = Objects.requireNonNull(toiletMutableLiveData.getValue()).getData();
+            if (favoriteToilet != null) {
+                favoriteToilet.setFavorited(true);
+                toiletMutableLiveData.setValue(LiveDataWrapper.success(favoriteToilet));
+            }
         });
     }
 
-    public void likeReview(String reviewId) {
-        rColRef.document(reviewId).update("likedBy", FieldValue.arrayUnion(user.getUid()));
-    }
-
-    public void unlikeReview(String reviewId) {
-        rColRef.document(reviewId).update("likedBy", FieldValue.arrayRemove(user.getUid()));
+    public void removeFavoriteToilet(String toiletId) {
+        uColRef.document(user.getUid()).update("favorites", FieldValue.arrayRemove(toiletId)).addOnSuccessListener(unused -> {
+            ToiletDetails favoriteToilet = Objects.requireNonNull(toiletMutableLiveData.getValue()).getData();
+            if (favoriteToilet != null) {
+                favoriteToilet.setFavorited(false);
+                toiletMutableLiveData.setValue(LiveDataWrapper.success(favoriteToilet));
+            }
+        });
     }
 
     public interface VolleyCallback {
@@ -184,7 +210,7 @@ public class ToiletDetailsViewModel extends ViewModel {
             CSVReaderHeaderAware trainStationCsv = new CSVReaderHeaderAware(new InputStreamReader(resources.openRawResource(R.raw.trainstation)));
             String[] trainStationData = trainStationCsv.readNext();
             do {
-                if (Objects.equals(trainStationData[1], trainStationName) || trainStationName.contains(trainStationData[1])) {
+                if (Objects.equals(trainStationData[1], trainStationName) || trainStationName.contains(trainStationData[1] + " MRT Station") || trainStationName.contains(trainStationData[1] + " Station")) {
                     trainStationLine = trainStationData[2];
                     trainStationCode = trainStationData[0];
                 }

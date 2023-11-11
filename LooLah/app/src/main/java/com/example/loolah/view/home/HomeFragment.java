@@ -38,8 +38,8 @@ public class HomeFragment extends Fragment implements HomeToiletListAdapter.OnIt
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        viewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+        viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getActivity());
@@ -54,12 +54,13 @@ public class HomeFragment extends Fragment implements HomeToiletListAdapter.OnIt
             switch (toilets.getStatus()) {
                 case SUCCESS:
                     ArrayList<Toilet> toiletList = toilets.getData();
-                    if (toiletList.size() == 0) binding.tvHomeNoToilets.setVisibility(View.VISIBLE);
-                    else binding.tvHomeNoToilets.setVisibility(View.INVISIBLE);
+                    if (toiletList != null && toiletList.size() == 0)
+                        binding.tvHomeNoToilets.setVisibility(View.VISIBLE);
+                    else binding.tvHomeNoToilets.setVisibility(View.GONE);
                     adapter.setHomeToiletList(toiletList);
                     break;
                 case ERROR:
-                    Toast.makeText(getContext(), toilets.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Unable to retrieve nearby toilets.", Toast.LENGTH_SHORT).show();
                     break;
                 case LOADING:
                     break;
@@ -98,16 +99,17 @@ public class HomeFragment extends Fragment implements HomeToiletListAdapter.OnIt
     private void getLocation() {
         fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
             if (location != null) viewModel.getToilets(location);
-            else Toast.makeText(getContext(), "Please turn on your location and restart the app", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(getContext(), "Please turn on your location and restart the app.", Toast.LENGTH_SHORT).show();
         });
     }
 
     private void requestLocationPermission() {
-        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
+        ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 123);
     }
 
     private boolean checkLocationPermission() {
-        return ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        return ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     public void onSelectToilet(View view, Toilet toilet) {
