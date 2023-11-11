@@ -20,6 +20,8 @@ import com.example.loolah.R;
 import com.example.loolah.databinding.FragmentAddReviewBinding;
 import com.example.loolah.viewmodel.ReviewViewModel;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class AddReviewFragment extends Fragment{
     private ReviewViewModel viewModel;
     private FragmentAddReviewBinding binding;
@@ -34,7 +36,7 @@ public class AddReviewFragment extends Fragment{
         View addReview_fragment = inflater.inflate(R.layout.fragment_add_review, container, false);
 
         binding = FragmentAddReviewBinding.inflate(inflater, container, false);
-        //binding.setLifecycleOwner(getActivity());
+        binding.setLifecycleOwner(getActivity());
         //binding.setAddReviewView(this);
 
         ImageButton btnBack = addReview_fragment.findViewById(R.id.ib_add_review_back);
@@ -44,14 +46,6 @@ public class AddReviewFragment extends Fragment{
             NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
             navHostFragment.getNavController().navigateUp();
         });
-        Button btnPost = addReview_fragment.findViewById(R.id.btn_add_review_post);
-        btnPost.setOnClickListener(v -> {
-            String reviewDesc = addReview_fragment.findViewById(R.id.add_review_comment).toString();
-            int rating = 5;
-            String toiletId = "test";
-
-            viewModel.postReview(reviewDesc,rating,toiletId);
-        });
 
         //Stars
         ImageButton btnStar1 = addReview_fragment.findViewById(R.id.ib_add_review_rating1);
@@ -60,6 +54,7 @@ public class AddReviewFragment extends Fragment{
         ImageButton btnStar4 = addReview_fragment.findViewById(R.id.ib_add_review_rating4);
         ImageButton btnStar5 = addReview_fragment.findViewById(R.id.ib_add_review_rating5);
 
+        AtomicInteger rating = new AtomicInteger(0);
         btnStar1.setOnClickListener(v -> {
             if(isStar1Selected){
                 btnStar1.setImageResource(R.drawable.ic_toilet_review_star);
@@ -67,6 +62,7 @@ public class AddReviewFragment extends Fragment{
                 btnStar3.setImageResource(R.drawable.ic_toilet_review_star);
                 btnStar4.setImageResource(R.drawable.ic_toilet_review_star);
                 btnStar5.setImageResource(R.drawable.ic_toilet_review_star);
+                rating.set(1);
             }
             else{
                 btnStar1.setImageResource(R.drawable.ic_toilet_review_starred);
@@ -81,6 +77,7 @@ public class AddReviewFragment extends Fragment{
                 btnStar3.setImageResource(R.drawable.ic_toilet_review_star);
                 btnStar4.setImageResource(R.drawable.ic_toilet_review_star);
                 btnStar5.setImageResource(R.drawable.ic_toilet_review_star);
+                rating.set(2);
             }
             else{
                 btnStar1.setImageResource(R.drawable.ic_toilet_review_starred);
@@ -96,6 +93,7 @@ public class AddReviewFragment extends Fragment{
                 btnStar3.setImageResource(R.drawable.ic_toilet_review_star);
                 btnStar4.setImageResource(R.drawable.ic_toilet_review_star);
                 btnStar5.setImageResource(R.drawable.ic_toilet_review_star);
+                rating.set(3);
             }
             else{
                 btnStar1.setImageResource(R.drawable.ic_toilet_review_starred);
@@ -112,6 +110,7 @@ public class AddReviewFragment extends Fragment{
                 btnStar3.setImageResource(R.drawable.ic_toilet_review_star);
                 btnStar4.setImageResource(R.drawable.ic_toilet_review_star);
                 btnStar5.setImageResource(R.drawable.ic_toilet_review_star);
+                rating.set(4);
             }
             else{
                 btnStar1.setImageResource(R.drawable.ic_toilet_review_starred);
@@ -129,6 +128,7 @@ public class AddReviewFragment extends Fragment{
                 btnStar3.setImageResource(R.drawable.ic_toilet_review_star);
                 btnStar4.setImageResource(R.drawable.ic_toilet_review_star);
                 btnStar5.setImageResource(R.drawable.ic_toilet_review_star);
+                rating.set(5);
             }
             else{
                 btnStar1.setImageResource(R.drawable.ic_toilet_review_starred);
@@ -138,6 +138,19 @@ public class AddReviewFragment extends Fragment{
                 btnStar5.setImageResource(R.drawable.ic_toilet_review_starred);
             }
             isStar5Selected = !isStar5Selected;
+        });
+
+        Button btnPost = addReview_fragment.findViewById(R.id.btn_add_review_post);
+        btnPost.setOnClickListener(v -> {
+            EditText text = addReview_fragment.findViewById(R.id.add_review_comment);
+            String reviewDesc = text.getText().toString();
+            //how to retrieve int rating = 5;
+            String toiletId = "test";
+
+            viewModel.postReview(reviewDesc,rating.get(),toiletId);
+
+            NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
+            navHostFragment.getNavController().navigateUp();
         });
 
         //Upload Photo

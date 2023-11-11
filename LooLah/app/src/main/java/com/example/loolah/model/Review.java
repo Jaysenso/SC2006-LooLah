@@ -12,7 +12,8 @@ public class Review {
 
     public Review(){}
 
-    public Review(int rating,String description,String creatorID,String toiletId){
+    public Review(String reviewID,int rating,String description,String creatorID,String toiletId){
+        this.reviewId=reviewID;
         this.rating=rating;
         this.description=description;
         this.creatorId=creatorID;

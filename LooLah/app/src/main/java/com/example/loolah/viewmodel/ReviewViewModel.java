@@ -1,5 +1,7 @@
 package com.example.loolah.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -11,9 +13,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReviewViewModel extends ViewModel {
     private final FirebaseUser user;
@@ -38,16 +43,9 @@ public class ReviewViewModel extends ViewModel {
         tColRef = db.collection("toilets");
         reviewList = new ArrayList<>();
     }
-    public MutableLiveData<Integer> getRatingMutableLiveData() {
-        return ratingMutableLiveData;
-    }
-
-    public void setRating(int rating) {
-        ratingMutableLiveData.setValue(rating);
-    }
 
     public void onPostClick(String toiletID){
-        Review review = new Review(ratingMutableLiveData.getValue(),reviewDescMutableLiveData.getValue(),user.getUid(),toiletID);
+        Review review = new Review(reviewMutableLiveData.getValue().getReviewId(),ratingMutableLiveData.getValue(),reviewDescMutableLiveData.getValue(),user.getUid(),toiletID);
         reviewMutableLiveData.setValue(review);
     }
 
@@ -55,20 +53,38 @@ public class ReviewViewModel extends ViewModel {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         // Check if the user is logged in
         if (user != null) {
+            //DocumentReference newReviewRef = db.collection("reviews").document();
             Review review = new Review();
             review.setCreatorId(firebaseUser.getUid());
             review.setToiletId(toiletId);
             review.setRating(rating);
             review.setDescription(reviewDesc);
+            //review.setReviewId(newReviewRef.getId());
 
             rColRef.add(review)
                     .addOnSuccessListener(documentReference -> {
+                        // Update the review object with the generated reviewID
+                        review.setReviewId(documentReference.getId());
+                        //to update the reviewId
+                        rColRef.document(documentReference.getId())
+                                .set(review)
+                                .addOnSuccessListener(aVoid -> {
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Handle the failure to update the review in Firestore
+                                    Log.e("Firestore", "Error updating review", e);
+                                });
                         // Update the LiveData with the success state containing the created Review object
                         reviewMutableLiveData.setValue(review);
-                    }).addOnFailureListener(e -> {
+                    })
+                    .addOnFailureListener(e -> {
                         // Update the LiveData with an error state if adding to Firestore fails
-                        //reviewMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null));
+                        // reviewMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null));
                     });
         }
+    }
+
+    public void editReview(String reviewId){
+
     }
 }
