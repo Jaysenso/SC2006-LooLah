@@ -74,6 +74,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
+            android:id="@+id/sv_toilet_details_info"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingHorizontal="20dp"
@@ -222,7 +223,6 @@
                         app:drawableStartCompat="@drawable/ic_toilet_details_child" />
                 </LinearLayout>
 
-
                 <TextView
                     android:id="@+id/tv_toilet_details_address"
                     android:layout_width="0dp"
@@ -317,6 +317,44 @@
         </ScrollView>
 
         <LinearLayout
+            android:id="@+id/lnl_toilet_details_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_toilet_details_background"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_toilet_details_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/toilet_gallery"
+                android:textColor="@color/secondary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+            <GridView
+                android:id="@+id/gv_toilet_details_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:horizontalSpacing="5dp"
+                android:numColumns="3"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/lnl_toilet_details_actions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -335,7 +373,7 @@
                 android:backgroundTint="@color/secondary"
                 android:contentDescription="@string/toilet_details_favorite_btn"
                 android:onClick="@{() -> toiletDetailsView.onClickFavorite(toilet.toiletId,toilet.favorited)}"
-                android:src="@{toilet.favorited ? @drawable/ic_toilet_details_favorited : @drawable/ic_toilet_details_favorite}"/>
+                android:src="@{toilet.favorited ? @drawable/ic_toilet_details_favorited : @drawable/ic_toilet_details_favorite}" />
 
             <Button
                 android:id="@+id/btn_toilet_details_add_review"
@@ -377,7 +415,7 @@
                 android:background="@drawable/bg_borderless"
                 android:backgroundTint="@color/secondary"
                 android:contentDescription="@string/toilet_details_gallery_btn"
-                android:onClick="@{(view) -> toiletDetailsView.onClickGallery(view)}"
+                android:onClick="@{() -> toiletDetailsView.onClickGallery()}"
                 android:src="@drawable/ic_toilet_details_gallery" />
 
             <ImageButton
@@ -387,8 +425,8 @@
                 android:background="@drawable/bg_borderless"
                 android:backgroundTint="@color/secondary"
                 android:contentDescription="@string/toilet_details_direction_btn"
-                android:src="@drawable/ic_toilet_details_direction"
-                android:onClick="@{() -> toiletDetailsView.onClickDirection(toilet.name, toilet.latitude, toilet.longitude)}"/>
+                android:onClick="@{() -> toiletDetailsView.onClickDirection(toilet.name, toilet.latitude, toilet.longitude)}"
+                android:src="@drawable/ic_toilet_details_direction" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

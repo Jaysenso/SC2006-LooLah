@@ -16,20 +16,12 @@
         android:id="@+id/toiletDetailsFragment"
         android:name="com.example.loolah.view.home.ToiletDetailsFragment"
         android:label="ToiletDetailsFragment">
-        <action
-            android:id="@+id/action_toiletDetailsFragment_to_toiletGalleryFragment"
-            app:destination="@id/toiletGalleryFragment" />
 
         <action
             android:id="@+id/action_toiletDetailsFragment_to_reviewFragment"
             app:destination="@id/reviewFragment"
             app:popUpTo="@id/nav_graph" />
     </fragment>
-
-    <fragment
-        android:id="@+id/toiletGalleryFragment"
-        android:name="com.example.loolah.view.home.ToiletGalleryFragment"
-        android:label="ToiletGalleryFragment"></fragment>
 
     <fragment
         android:id="@+id/mapFragment"

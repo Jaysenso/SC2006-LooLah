@@ -3,7 +3,6 @@ package com.example.loolah.view.home;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import com.example.loolah.R;
 import com.example.loolah.adapter.ToiletReviewListAdapter;
 import com.example.loolah.databinding.FragmentToiletDetailsBinding;
 import com.example.loolah.model.ReviewDetails;
+import com.example.loolah.model.ToiletDetails;
 import com.example.loolah.viewmodel.ToiletDetailsViewModel;
 
 import java.util.ArrayList;
@@ -31,6 +31,7 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
     private ToiletDetailsViewModel viewModel;
     private FragmentToiletDetailsBinding binding;
     private ToiletReviewListAdapter adapter;
+    private boolean gallery = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,7 +51,10 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
         viewModel.getToilet().observe(getViewLifecycleOwner(), toiletLiveDataWrapper -> {
             switch (toiletLiveDataWrapper.getStatus()) {
                 case SUCCESS:
-                    binding.setToilet(toiletLiveDataWrapper.getData());
+                    ToiletDetails toilet = toiletLiveDataWrapper.getData();
+                    if (toilet != null) binding.gvToiletDetailsGallery.setAdapter(new ImageAdapter(getContext(), (String[]) toilet.getPhotoUrl().toArray(new String[0])));
+
+                    binding.setToilet(toilet);
                     break;
                 case ERROR:
                     Toast.makeText(getContext(), "Unable to retrieve toilet information.", Toast.LENGTH_SHORT).show();
@@ -84,8 +88,14 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
     }
 
     public void onClickBack() {
-        NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
-        if (navHostFragment != null) navHostFragment.getNavController().navigateUp();
+        if (!gallery) {
+            NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
+            if (navHostFragment != null) navHostFragment.getNavController().navigateUp();
+        } else {
+            binding.lnlToiletDetailsGallery.setVisibility(View.GONE);
+            binding.svToiletDetailsInfo.setVisibility(View.VISIBLE);
+            gallery = false;
+        }
     }
 
     public void onSelectReviewLike(ReviewDetails review) {
@@ -94,15 +104,8 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
     }
 
     public void onClickFavorite(String toiletId, Boolean favorited) {
-        if (!favorited) {
-            viewModel.addFavoriteToilet(toiletId);
-            Log.d("TEST", "fav toilet added");
-        }
-        else
-        {
-            viewModel.removeFavoriteToilet(toiletId);
-            Log.d("TEST", "fav toilet removed");
-        }
+        if (!favorited) viewModel.addFavoriteToilet(toiletId);
+        else viewModel.removeFavoriteToilet(toiletId);
     }
 
     public void onClickAddReview(View view) {
@@ -113,8 +116,12 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
         Navigation.findNavController(view).navigate(R.id.action_toiletDetailsFragment_to_reviewFragment);
     }
 
-    public void onClickGallery(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_toiletDetailsFragment_to_toiletGalleryFragment);
+    public void onClickGallery() {
+        if (!gallery) {
+            binding.lnlToiletDetailsGallery.setVisibility(View.VISIBLE);
+            binding.svToiletDetailsInfo.setVisibility(View.GONE);
+            gallery = true;
+        }
     }
 
     public void onClickDirection(String name, double latitude, double longitude) {

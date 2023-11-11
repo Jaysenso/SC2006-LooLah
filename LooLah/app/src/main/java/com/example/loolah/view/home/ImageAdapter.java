@@ -6,42 +6,44 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-public class ImageAdapter extends BaseAdapter {
-    private Context context;
-    private int[] imageIds;
+import com.bumptech.glide.Glide;
+import com.example.loolah.R;
 
-    public ImageAdapter(Context context, int[] imageIds) {
+public class ImageAdapter extends BaseAdapter {
+    private final Context context;
+    private final String[] imageUrls;
+
+    public ImageAdapter(Context context, String[] imageUrls) {
         this.context = context;
-        this.imageIds = imageIds;
+        this.imageUrls = imageUrls;
     }
 
     @Override
     public int getCount() {
-        return imageIds.length;
+        return imageUrls.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return position;
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        if (convertView == null) {
-            imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        } else {
-            imageView = (ImageView) convertView;
-        }
+        ImageView imageView = new ImageView(context);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (parent.getWidth() - 50) / 3));
-        imageView.setImageResource(imageIds[position]);
+        imageView.setLayoutParams(new ViewGroup.LayoutParams((parent.getWidth() - 50) / 3, (parent.getWidth() - 50) / 3));
+        Glide.with(imageView.getContext())
+                .load(imageUrls[position])
+                .placeholder(R.drawable.img_placeholder)
+                .fallback(R.drawable.img_placeholder)
+                .into(imageView);
 
         return imageView;
     }
