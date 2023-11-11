@@ -84,7 +84,21 @@ public class ReviewViewModel extends ViewModel {
         }
     }
 
-    public void editReview(String reviewId){
+    public void editReview(String reviewId,String reviewDesc,int rating,String toiletId){
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (user != null) {
+            DocumentReference reviewRef = rColRef.document(reviewId);
 
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("description", reviewDesc);
+            updates.put("rating", rating);
+            updates.put("toiletId", toiletId);
+
+            reviewRef.update(updates)
+                    .addOnSuccessListener(aVoid -> {
+                    })
+                    .addOnFailureListener(e -> {
+                    });
+        }
     }
 }
