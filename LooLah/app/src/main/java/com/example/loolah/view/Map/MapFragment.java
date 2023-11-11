@@ -28,6 +28,7 @@ import androidx.navigation.Navigation;
 import com.example.loolah.R;
 import com.example.loolah.model.Toilet;
 import com.example.loolah.util.drawableToBitmapUtil;
+import com.example.loolah.viewmodel.HomeViewModel;
 import com.example.loolah.viewmodel.MapViewModel;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -60,7 +61,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap google_map;
     private FusedLocationProviderClient fusedLocationClient;
-    private MapViewModel viewModel;
     private Location currentLocation;
     private AutocompleteSupportFragment autocompleteFragment;
 
@@ -76,6 +76,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             Places.initialize(getActivity(), getString(R.string.google_maps_key), Locale.ENGLISH);
         }
         autocompleteFragment.setCountries("SG");
+        autocompleteFragment.setHint("Search...");
 
         if (checkLocationPermission()) getLocation();
         else requestLocationPermission();
@@ -133,7 +134,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                     .title("Current Location"));
                             google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                         }
-                        syncMapData();
+                        syncMapDataFull();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -168,7 +169,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(user_location, 14));
             }
         });
-        
+
         search_button.setOnClickListener(v -> {
             if(sv_map.getQuery() != null) {
                 sv_map.setQuery(sv_map.getQuery(),true);
@@ -182,7 +183,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(@NonNull GoogleMap map) {
 
         google_map = map;
-        viewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
 
         boolean success = google_map.setMapStyle(new MapStyleOptions(getResources()
                 .getString(R.string.style_json)));
@@ -190,7 +190,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             Log.e("MAP_STYLE", "Style parsing failed.");
         }
 
-        syncMapData();
+        syncDataOnStart();
 
         LatLng user_location = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
         google_map.addMarker(new MarkerOptions()
@@ -210,14 +210,47 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-    private void syncMapData() {
+    private void syncMapDataFull() {
 
-        viewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
+        MapViewModel viewModel = new ViewModelProvider(getActivity()).get(MapViewModel.class);
         Drawable toilet_marker = ResourcesCompat.getDrawable(getResources(),R.drawable.ic_toilet_location, null);
         BitmapDescriptor bitMap_toilet_marker = drawableToBitmapUtil.drawableToBitmap(toilet_marker);
 
         viewModel.getToilets();
         viewModel.getToiletList().observe(getViewLifecycleOwner(), LiveDataWrapper -> {
+            switch (LiveDataWrapper.getStatus()) {
+                case SUCCESS:
+                    ArrayList<Toilet> toiletArrayList = LiveDataWrapper.getData();
+
+                    if(toiletArrayList != null) {
+                        for (Toilet toilet : toiletArrayList) {
+                            google_map.addMarker(new MarkerOptions()
+                                            .position(new LatLng(toilet.getLatitude(), toilet.getLongitude()))
+                                            .title(toilet.getName() + "" + toilet.getToiletId())
+                                            .icon(bitMap_toilet_marker))
+                                    .setTag(toilet.getToiletId());
+                            Log.d("MAP_LOCATION", "Toilet name : " + toilet.getName() + " Toilet Lat/Lng " + toilet.getLatitude() + " " + toilet.getLongitude());
+                        }
+                    }
+                    if (toiletArrayList != null) Log.d("TEST", "error");
+                    else { break; }
+                case ERROR:
+                    Log.d("TEST", "error");
+                    break;
+                case LOADING:
+                    break;
+            }
+        });
+    }
+
+    public void syncDataOnStart(){
+        HomeViewModel viewModel = new HomeViewModel();
+        viewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+        Drawable toilet_marker = ResourcesCompat.getDrawable(getResources(),R.drawable.ic_toilet_location, null);
+        BitmapDescriptor bitMap_toilet_marker = drawableToBitmapUtil.drawableToBitmap(toilet_marker);
+
+        viewModel.getFilteredToiletList();
+        viewModel.getFilteredToiletList().observe(getViewLifecycleOwner(), LiveDataWrapper -> {
             switch (LiveDataWrapper.getStatus()) {
                 case SUCCESS:
                     ArrayList<Toilet> toiletArrayList = LiveDataWrapper.getData();

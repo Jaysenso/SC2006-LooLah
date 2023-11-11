@@ -20,7 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/bg_borderless"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
             android:queryHint="@string/map_search_hint"/>
 
         <fragment android:id="@+id/autocomplete_fragment"
-            android:layout_width="match_parent"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             />
@@ -53,6 +53,8 @@
             android:contentDescription="@string/home_search_btn"
             android:src="@drawable/ic_search"
             app:tint="@color/white" />
+
+
     </LinearLayout>
 
     <LinearLayout
