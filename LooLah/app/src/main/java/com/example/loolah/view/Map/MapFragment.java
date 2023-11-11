@@ -162,6 +162,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         fab.setOnClickListener(v -> {
             if(currentLocation != null) {
+                google_map.clear();
+                syncDataOnStart();
                 LatLng user_location = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
                 google_map.addMarker(new MarkerOptions()
                         .position(user_location)
