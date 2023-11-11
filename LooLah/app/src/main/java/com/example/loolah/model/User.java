@@ -20,6 +20,13 @@ public class User {
     private int reviewCount;
     private int likesCount;
 
+    // New fields for storing original values
+    @Exclude
+    private String originalUsername;
+
+    @Exclude
+    private String originalProfilePicUrl;
+
     public User() {
     }
 
@@ -122,6 +129,32 @@ public class User {
 
     public void setLikesCount(int likesCount) {
         this.likesCount = likesCount;
+    }
+
+    @Exclude
+    public String getOriginalUsername() {
+        return originalUsername;
+    }
+
+    @Exclude
+    public String getOriginalProfilePicUrl() {
+        return originalProfilePicUrl;
+    }
+
+    @Exclude
+    public void setOriginalUsername(String originalUsername) {
+        this.originalUsername = originalUsername;
+    }
+
+    @Exclude
+    public void setOriginalProfilePicUrl(String originalProfilePicUrl) {
+        this.originalProfilePicUrl = originalProfilePicUrl;
+    }
+
+    @Exclude
+    public boolean isProfileChanged() {
+        return (username != null && !username.equals(originalUsername)) ||
+                (profilePicUrl != null && !profilePicUrl.equals(originalProfilePicUrl));
     }
 
     @BindingAdapter({"load_user_image"})
