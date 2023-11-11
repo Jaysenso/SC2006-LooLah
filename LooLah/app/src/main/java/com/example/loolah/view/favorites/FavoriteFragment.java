@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import com.example.loolah.R;
 import com.example.loolah.adapter.FavoriteAdapter;
 import com.example.loolah.databinding.FragmentFavoriteBinding;
 import com.example.loolah.model.Toilet;
+import com.example.loolah.util.SpinnerUtil;
 import com.example.loolah.viewmodel.FavoriteViewModel;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.OnItem
         binding.rvFavToilets.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         binding.rvFavToilets.setAdapter(adapter);
 
-        viewModel.getFavoritesToiletListMutableLiveData().observe(getViewLifecycleOwner(), toilets -> {
+        viewModel.getFilteredToiletList().observe(getViewLifecycleOwner(), toilets -> {
             switch (toilets.getStatus()) {
                 case SUCCESS:
                     ArrayList<Toilet> toiletList = toilets.getData();
@@ -56,22 +58,12 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.OnItem
                     break;
             }
         });
+
         viewModel.getFavoriteToilets();
 
-        String[] toilet_types = new String[]{"Type", "Bus Interchange", "Club", "Coffeeshop", "Foodcourt", "Government Office", "Market & Food Centre", "MRT Station", "Park", "Pier", "Place of worship", "Private Office", "Restaurant", "Shopping Centre", "Tourist Attraction", "Community Centre", "Food Court", "Dormitory", "Industrial Complex"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, toilet_types);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.spFavoriteFilterType.setAdapter(adapter);
-
-        String[] toilet_districts = new String[]{"District", "Central", "North East", "North West", "South East", "South West"};
-        adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, toilet_districts);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.spFavoriteFilterDistrict.setAdapter(adapter);
-
-        String[] toilet_rating = new String[]{"Rating", "1 star", "2 star", "3 star", "4 star", "5 star"};
-        adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, toilet_rating);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.spFavoriteFilterRating.setAdapter(adapter);
+        setSpinnerAdapter(binding.spFavoriteFilterType, SpinnerUtil.getType());
+        setSpinnerAdapter(binding.spFavoriteFilterDistrict, SpinnerUtil.getDistrict());
+        setSpinnerAdapter(binding.spFavoriteFilterRating, SpinnerUtil.getRating());
 
         return binding.getRoot();
     }
@@ -82,5 +74,16 @@ public class FavoriteFragment extends Fragment implements FavoriteAdapter.OnItem
         bundle.putString("toiletId", toilet.getToiletId());
 
         Navigation.findNavController(view).navigate(R.id.action_favoritesFragment_to_toiletDetailsFragment, bundle);
+    }
+
+    public void onClickSearch() {
+        Log.d("TEST", "Clicking Search");
+        viewModel.filterToilets(binding.etFavoriteSearch.getText().toString(), SpinnerUtil.getTypeValue(binding.spFavoriteFilterType.getSelectedItemPosition()), SpinnerUtil.getDistrictValue(binding.spFavoriteFilterDistrict.getSelectedItemPosition()), SpinnerUtil.getRatingValue(binding.spFavoriteFilterRating.getSelectedItemPosition()));
+    }
+
+    public void setSpinnerAdapter(Spinner spinner, String[] objects) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.requireContext(), R.layout.item_spinner, objects);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 }

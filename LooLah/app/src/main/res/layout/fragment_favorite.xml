@@ -45,7 +45,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:fontFamily="sans-serif-medium"
-                android:hint="@string/favorite_search_hint"
+                android:hint="@string/home_search_hint"
                 android:imeOptions="actionGo"
                 android:importantForAutofill="no"
                 android:inputType="text"
@@ -64,6 +64,7 @@
                 android:background="@drawable/bg_borderless"
                 android:backgroundTint="@color/secondary"
                 android:contentDescription="@string/favorite_search_btn"
+                android:onClick="@{() -> favoriteView.onClickSearch()}"
                 android:src="@drawable/ic_search"
                 app:tint="@color/white" />
         </LinearLayout>
