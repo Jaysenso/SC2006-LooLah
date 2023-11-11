@@ -38,6 +38,12 @@
             android:iconifiedByDefault="false"
             android:queryHint="@string/map_search_hint"/>
 
+        <fragment android:id="@+id/autocomplete_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            />
+
         <ImageButton
             android:id="@+id/btn_home_search"
             android:layout_width="40dp"
