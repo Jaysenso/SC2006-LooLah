@@ -29,6 +29,7 @@ import com.example.loolah.R;
 import com.example.loolah.model.Toilet;
 import com.example.loolah.util.drawableToBitmapUtil;
 import com.example.loolah.viewmodel.MapViewModel;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,6 +40,11 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.BufferedReader;
@@ -46,7 +52,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
@@ -54,12 +62,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private FusedLocationProviderClient fusedLocationClient;
     private MapViewModel viewModel;
     private Location currentLocation;
+    private AutocompleteSupportFragment autocompleteFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View map_fragment = inflater.inflate(R.layout.fragment_map, container, false);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
+        autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+
+        if (!Places.isInitialized()) {
+            Places.initialize(getActivity(), getString(R.string.google_maps_key), Locale.ENGLISH);
+        }
+        autocompleteFragment.setCountries("SG");
 
         if (checkLocationPermission()) getLocation();
         else requestLocationPermission();
@@ -128,6 +144,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public boolean onQueryTextChange(String query) {return false;}
         });
 
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                if(place != null)
+                    sv_map.setQuery(place.getName(),true);
+                Log.i("AUTOCOMPLETE", "Place: " + place.getName() + ", " + place.getId());
+            }
+
+            @Override
+            public void onError(@NonNull Status status) {
+                Log.i("AUTOCOMPLETE", "An error occurred: " + status);
+            }
+
+        });
+
         fab.setOnClickListener(v -> {
             if(currentLocation != null) {
                 LatLng user_location = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
@@ -137,9 +168,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(user_location, 14));
             }
         });
-
+        
         search_button.setOnClickListener(v -> {
-            if(sv_map.getQuery() != null) {sv_map.setQuery(sv_map.getQuery(),true);
+            if(sv_map.getQuery() != null) {
+                sv_map.setQuery(sv_map.getQuery(),true);
             }
         });
     }
@@ -210,7 +242,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
     }
-    
+
     @SuppressLint("MissingPermission")
     private void getLocation() {
         fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
