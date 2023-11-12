@@ -31,10 +31,10 @@ public class ReviewViewModel extends ViewModel {
     private final CollectionReference rColRef;
     private final CollectionReference tColRef;
     private MutableLiveData<Review> reviewMutableLiveData = new MutableLiveData<>();
-    private MutableLiveData<String> toiletMutableLiveData = new MutableLiveData<>();
+    //private MutableLiveData<String> toiletMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<String> reviewDescMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Integer> ratingMutableLiveData = new MutableLiveData<>();
-    private ArrayList<Review> reviewList;
+    //private ArrayList<Review> reviewList;
 
     public ReviewViewModel() {
         super();
@@ -44,7 +44,11 @@ public class ReviewViewModel extends ViewModel {
         uColRef = db.collection("users");
         rColRef = db.collection("reviews");
         tColRef = db.collection("toilets");
-        reviewList = new ArrayList<>();
+    }
+
+    public MutableLiveData<Review> getReview() {
+        if (reviewMutableLiveData == null) reviewMutableLiveData = new MutableLiveData<>();
+        return reviewMutableLiveData;
     }
 
     public void onPostClick(String toiletID){
@@ -53,6 +57,7 @@ public class ReviewViewModel extends ViewModel {
     }
 
     public void postReview(String reviewDesc,int rating,String toiletId){
+
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         // Check if the user is logged in
         if (user != null) {
@@ -86,7 +91,18 @@ public class ReviewViewModel extends ViewModel {
                     });
         }
     }
-
+    /*public void likeReview(String reviewId, String creatorId) {
+        rColRef.document(reviewId).update("likedBy", FieldValue.arrayUnion(user.getUid())).addOnSuccessListener(unused -> uColRef.document(creatorId).update("likesCount", FieldValue.increment(1)));
+    }
+    public void addFavoriteToilet(String toiletId) {
+        uColRef.document(user.getUid()).update("favorites", FieldValue.arrayUnion(toiletId)).addOnSuccessListener(aVoid -> {
+            ToiletDetails favoriteToilet = Objects.requireNonNull(toiletMutableLiveData.getValue()).getData();
+            if (favoriteToilet != null) {
+                favoriteToilet.setFavorited(true);
+                toiletMutableLiveData.setValue(LiveDataWrapper.success(favoriteToilet));
+            }
+        });
+    }*/
     public void editReview(String reviewId,String reviewDesc,int rating,String toiletId){
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (user != null) {
@@ -99,6 +115,7 @@ public class ReviewViewModel extends ViewModel {
 
             reviewRef.update(updates)
                     .addOnSuccessListener(aVoid -> {
+
                     })
                     .addOnFailureListener(e -> {
                     });

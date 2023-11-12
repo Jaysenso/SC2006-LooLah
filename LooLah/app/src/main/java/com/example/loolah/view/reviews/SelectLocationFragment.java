@@ -9,12 +9,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.loolah.R;
 import com.example.loolah.adapter.LocationListAdapter;
 import com.example.loolah.databinding.FragmentSelectlocationBinding;
 import com.example.loolah.model.Toilet;
+import com.example.loolah.util.SpinnerUtil;
 import com.example.loolah.viewmodel.ReviewLocationViewModel;
 
 import java.util.ArrayList;
@@ -44,7 +47,7 @@ public class SelectLocationFragment extends Fragment implements LocationListAdap
                     adapter.setToiletList(toiletList);
                     break;
                 case ERROR:
-                    Toast.makeText(getContext(), "Unable to retrieve nearby toilets.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "No such toilet.", Toast.LENGTH_SHORT).show();
                     break;
                 case LOADING:
                     break;
@@ -54,8 +57,14 @@ public class SelectLocationFragment extends Fragment implements LocationListAdap
         return binding.getRoot();
     }
 
+    public void onClickSearch() {
+        viewModel.filterToilets(binding.etLocationSearch.getText().toString());
+    }
     @Override
     public void onSelectToilet(View view, Toilet toilet) {
+        Bundle bundle = new Bundle();
+        bundle.putString("toiletId", toilet.getToiletId());
 
+        Navigation.findNavController(view).navigate(R.id.action_selectLocationFragment_to_addReviewFragment, bundle);
     }
 }

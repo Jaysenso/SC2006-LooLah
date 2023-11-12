@@ -43,8 +43,20 @@
     <fragment
         android:id="@+id/reviewFragment"
         android:name="com.example.loolah.view.reviews.AddReviewFragment"
-        android:label="reviewFragment"></fragment>
+        android:label="reviewFragment">
+        <action
+            android:id="@+id/action_addReviewFragment_to_selectLocationFragment"
+            app:destination="@+id/selectLocationFragment"/>
+    </fragment>
 
+    <fragment
+        android:id="@+id/selectLocationFragment"
+        android:name="com.example.loolah.view.reviews.SelectLocationFragment"
+        android:label="selectLocationFragment">
+        <action
+            android:id="@+id/action_selectLocationFragment_to_addReviewFragment"
+            app:destination="@+id/reviewFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.loolah.view.favorites.FavoriteFragment"

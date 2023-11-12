@@ -52,7 +52,7 @@
                 android:background="@drawable/bg_borderless"
 
                 android:contentDescription="@string/home_search_btn"
-
+                android:onClick="@{() -> locationView.onClickSearch()}"
                 android:src="@android:drawable/ic_menu_close_clear_cancel"
                 app:tint="@color/muted" />
         </LinearLayout>
