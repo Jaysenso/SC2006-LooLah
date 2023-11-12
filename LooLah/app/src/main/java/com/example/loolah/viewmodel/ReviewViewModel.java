@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.loolah.model.Review;
 import com.example.loolah.model.Toilet;
 import com.example.loolah.model.ToiletDetails;
+import com.example.loolah.model.User;
 import com.example.loolah.util.LiveDataWrapper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,9 +20,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ReviewViewModel extends ViewModel {
     private final FirebaseUser user;
+    private MutableLiveData<LiveDataWrapper<User>> profileMutableLiveData;
     private final FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
     private final CollectionReference uColRef;
@@ -100,5 +103,15 @@ public class ReviewViewModel extends ViewModel {
                     .addOnFailureListener(e -> {
                     });
         }
+    }
+
+    public MutableLiveData<LiveDataWrapper<User>> getProfile() {
+        if (profileMutableLiveData == null) profileMutableLiveData = new MutableLiveData<>();
+        return profileMutableLiveData;
+    }
+
+    public void getUserProfile() {
+        profileMutableLiveData.setValue(LiveDataWrapper.loading(null));
+        uColRef.document(user.getUid()).get().addOnSuccessListener(documentSnapshot -> profileMutableLiveData.setValue(LiveDataWrapper.success(Objects.requireNonNull(documentSnapshot.toObject(User.class))))).addOnFailureListener(e -> profileMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
     }
 }
