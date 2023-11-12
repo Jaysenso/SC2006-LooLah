@@ -139,8 +139,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 .getString(R.string.style_json)));
         if (!success) {Log.e("MAP_STYLE", "Style parsing failed.");}
 
+
         viewModel.getToilets(currentLocation);
         userLocation = currentLocation;
+
+        LatLng currentLocation_LATLNG = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+        google_map.addMarker(new MarkerOptions().position(currentLocation_LATLNG).title("Current Location"));
+        google_map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation_LATLNG, 14));
 
         viewModel.getFilteredToiletList().observe(getViewLifecycleOwner(), LiveDataWrapper -> {
             switch (LiveDataWrapper.getStatus()) {
@@ -150,7 +155,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                     LatLng userLocation_LATLNG = new LatLng(userLocation.getLatitude(),userLocation.getLongitude());
                     google_map.addMarker(new MarkerOptions().position(userLocation_LATLNG).title("Current Location"));
-                    google_map.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation_LATLNG, 14));
+                    //google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation_LATLNG, 14));
 
                     if(toiletArrayList != null) {
                         for (Toilet toilet : toiletArrayList) {
@@ -187,12 +192,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                     searchedLocation.setLongitude(address.getLongitude());
                                     viewModel.getToilets(searchedLocation);
                                     userLocation = searchedLocation;
-//                                    google_map.clear();
-//
-//                                    searchedLocation_LATLNG = new LatLng(searchedLocation.getLatitude(),searchedLocation.getLongitude()); //For Camera
-//                                    google_map.addMarker(new MarkerOptions().position(searchedLocation_LATLNG).title("Current Location"));
-//                                    google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(searchedLocation_LATLNG, 14));
-//                                    userLocation = searchedLocation;
+                                    LatLng searchView_LATLNG = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
+                                    google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(searchView_LATLNG, 14));
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -250,7 +251,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     public void onClickSearch() {
-        viewModel.filterToilets(null, SpinnerUtil.getTypeValue(binding.spMapFilterType.getSelectedItemPosition()), SpinnerUtil.getDistrictValue(binding.spMapFilterDistrict.getSelectedItemPosition()), SpinnerUtil.getDistanceValue(binding.spMapFilterDistance.getSelectedItemPosition()), SpinnerUtil.getRatingValue(binding.spMapFilterRating.getSelectedItemPosition()));
+        viewModel.filterToilets(" ", SpinnerUtil.getTypeValue(binding.spMapFilterType.getSelectedItemPosition()), SpinnerUtil.getDistrictValue(binding.spMapFilterDistrict.getSelectedItemPosition()), SpinnerUtil.getDistanceValue(binding.spMapFilterDistance.getSelectedItemPosition()), SpinnerUtil.getRatingValue(binding.spMapFilterRating.getSelectedItemPosition()));
     }
 
     //Legacy Method
