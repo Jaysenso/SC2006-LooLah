@@ -13,6 +13,7 @@ public class ImageAdapter extends BaseAdapter {
     private final Context context;
     private final String[] imageUrls;
 
+
     public ImageAdapter(Context context, String[] imageUrls) {
         this.context = context;
         this.imageUrls = imageUrls;

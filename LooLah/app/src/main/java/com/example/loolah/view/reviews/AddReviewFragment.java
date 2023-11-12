@@ -1,9 +1,14 @@
 package com.example.loolah.view.reviews;
 
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,11 +19,20 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.loolah.R;
+import com.example.loolah.adapter.PhotoGridAdapter;
 import com.example.loolah.databinding.FragmentAddReviewBinding;
+import com.example.loolah.view.home.ImageAdapter;
 import com.example.loolah.viewmodel.ReviewViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddReviewFragment extends Fragment{
     private ReviewViewModel viewModel;
     private FragmentAddReviewBinding binding;
+    private static final int REQUEST_IMAGE_PICK = 2;
+    private List<Uri> selectedImageUris = new ArrayList<>();
+    private PhotoGridAdapter photoGridAdapter;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(ReviewViewModel.class);
@@ -26,6 +40,10 @@ public class AddReviewFragment extends Fragment{
         binding = FragmentAddReviewBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getActivity());
         binding.setAddReviewView(this);
+
+        photoGridAdapter = new PhotoGridAdapter(getContext(),selectedImageUris);
+        GridView gvUploadedPhotos = binding.getRoot().findViewById(R.id.gv_uploaded_photos);
+        gvUploadedPhotos.setAdapter(photoGridAdapter);
 
         String toiletName = getArguments() != null ? getArguments().getString("toiletName") : null;
         if (toiletName!=null){
@@ -73,6 +91,40 @@ public class AddReviewFragment extends Fragment{
         Navigation.findNavController(view).navigate((R.id.action_addReviewFragment_to_selectLocationFragment));
     }
 
-    public void onClickUploadPhotos(){}
+    public void onClickUploadPhotos() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true); // Enable multiple image selection
+        startActivityForResult(intent, REQUEST_IMAGE_PICK);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
+            if (data != null&& data.getData() != null) {
+                // Single image selected
+                Uri selectedImageUri = data.getData();
+                handleSelectedImage(selectedImageUri);
+                // You can use this URI to load the image or upload it to a server
+            } else if (data.getClipData() != null) {
+                // Multiple images selected
+                ClipData clipData = data.getClipData();
+                for (int i = 0; i < clipData.getItemCount(); i++) {
+                    Uri selectedImageUri = clipData.getItemAt(i).getUri();
+                    handleSelectedImage(selectedImageUri);
+                    // Handle each selected image URI
+                    // You can use these URIs to load the images or upload them to a server
+                }
+            }
+        }
+    }
+    private void handleSelectedImage(Uri selectedImageUri) {
+        // Add the selected image URI to your list
+        selectedImageUris.add(selectedImageUri);
+        // Notify the adapter that the dataset has changed
+        photoGridAdapter.notifyDataSetChanged();
+    }
+
 }
 
