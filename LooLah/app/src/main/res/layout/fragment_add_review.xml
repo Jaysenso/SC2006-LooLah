@@ -3,231 +3,238 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
             name="user"
             type="com.example.loolah.model.User" />
+
         <variable
             name="addReviewView"
-        type="com.example.loolah.view.reviews.AddReviewFragment" />
+            type="com.example.loolah.view.reviews.AddReviewFragment" />
+
+        <variable
+            name="rating"
+            type="int" />
+
         <variable
             name="review"
             type="com.example.loolah.model.Review" />
-</data>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="20dp">
-
-    <ImageView
-        android:id="@+id/iv_review_logo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@id/ctl_add_review"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon" />
-
-    <ImageButton
-        android:id="@+id/ib_add_review_back"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/ic_arrow_back"
-        android:contentDescription="@string/change_password_back_btn"
-        android:onClick="@{() -> addReviewView.onClickBack()}"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ctl_add_review"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
+        android:layout_height="match_parent"
+        android:paddingTop="20dp">
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_review_logo">
+        <ImageView
+            android:id="@+id/iv_review_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toTopOf="@id/ctl_add_review"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civ_profile_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@color/secondary"
-            app:load_user_image="@{user.profilePicUrl}"
+        <ImageButton
+            android:id="@+id/ib_add_review_back"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ic_arrow_back"
+            android:contentDescription="@string/change_password_back_btn"
+            android:onClick="@{() -> addReviewView.onClickBack()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_profile_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:paddingHorizontal="10dp"
-            android:text="@{@string/profile_username(user.username)"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:typeface="normal"
-            app:layout_constraintStart_toEndOf="@id/civ_profile_image"
-            app:layout_constraintTop_toTopOf="@id/civ_profile_image" />
-
-        <TextView
-            android:id="@+id/tv_posting_publicly"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="sans-serif-medium"
-            android:paddingHorizontal="10dp"
-            android:text="@string/edit_review_profile"
-            android:textColor="@color/muted"
-            android:textSize="12sp"
-            android:typeface="normal"
-            app:layout_constraintStart_toEndOf="@id/civ_profile_image"
-            app:layout_constraintTop_toBottomOf="@id/tv_profile_username" />
-
-        <Button
-            android:id="@+id/btn_add_review_post"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/add_review_post_btn"
-            android:textAllCaps="true"
-            android:textColor="@color/secondary"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:typeface="normal"
-            app:layout_constraintBottom_toBottomOf="@id/civ_profile_image"
-            android:onClick="@{()->addReviewView.onClickPost()}"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/lnl_add_review_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_posting_publicly">
-
-            <ImageButton
-                android:id="@+id/ib_add_review_rating1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:background="@android:color/transparent"
-                android:onClick="@{() -> addReviewView.onClickStar(1)}"
-                android:scaleType="fitCenter"
-                android:src="@{addReviewView.getSelectedRating() >= 1 ? @drawable/ic_toilet_review_starred : @drawable/ic_toilet_review_star}"/>
-
-            <ImageButton
-                android:id="@+id/ib_add_review_rating2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:background="@android:color/transparent"
-                android:onClick="@{() -> addReviewView.onClickStar(2)}"
-                android:scaleType="fitCenter"
-                android:src="@{addReviewView.getSelectedRating() >= 2 ? @drawable/ic_toilet_review_starred : @drawable/ic_toilet_review_star}"/>
-
-            <ImageButton
-                android:id="@+id/ib_add_review_rating3"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:background="@android:color/transparent"
-                android:onClick="@{() -> addReviewView.onClickStar(3)}"
-                android:scaleType="fitCenter"
-                android:src="@{addReviewView.getSelectedRating() >= 3 ? @drawable/ic_toilet_review_starred : @drawable/ic_toilet_review_star}"/>
-
-            <ImageButton
-                android:id="@+id/ib_add_review_rating4"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:background="@android:color/transparent"
-                android:onClick="@{() -> addReviewView.onClickStar(4)}"
-                android:scaleType="fitCenter"
-                android:src="@{addReviewView.getSelectedRating() >= 4 ? @drawable/ic_toilet_review_starred : @drawable/ic_toilet_review_star}"/>
-
-            <ImageButton
-                android:id="@+id/ib_add_review_rating5"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:background="@android:color/transparent"
-                android:onClick="@{() -> addReviewView.onClickStar(5)}"
-                android:scaleType="fitCenter"
-                android:src="@{addReviewView.getSelectedRating() >= 5 ? @drawable/ic_toilet_review_starred : @drawable/ic_toilet_review_star}"/>
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/add_review_comment"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:background="@android:drawable/editbox_background_normal"
-            android:gravity="top"
-            android:importantForAutofill="no"
-            android:inputType="textMultiLine"
-            android:padding="20dp"
-
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/lnl_add_review_rating" />
-
-
-        <LinearLayout
-            android:id="@+id/lnl_add_review_actions"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctl_add_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_review_comment">
+            app:layout_constraintTop_toBottomOf="@id/iv_review_logo">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_profile_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@color/secondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:load_user_image="@{user.profilePicUrl}" />
+
+            <TextView
+                android:id="@+id/tv_profile_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:paddingHorizontal="10dp"
+                android:text="@{@string/edit_review_username(user.username)}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:typeface="normal"
+                app:layout_constraintStart_toEndOf="@id/civ_profile_image"
+                app:layout_constraintTop_toTopOf="@id/civ_profile_image" />
+
+            <TextView
+                android:id="@+id/tv_posting_publicly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:paddingHorizontal="10dp"
+                android:text="@string/edit_review_profile"
+                android:textColor="@color/muted"
+                android:textSize="12sp"
+                android:typeface="normal"
+                app:layout_constraintStart_toEndOf="@id/civ_profile_image"
+                app:layout_constraintTop_toBottomOf="@id/tv_profile_username" />
 
             <Button
-                android:id="@+id/btn_add_review_upload_photos"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_borderless"
-                android:backgroundTint="@color/tertiary"
-                android:text="@string/edit_review_upload_photos_btn"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:id="@+id/btn_add_review_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="sans-serif-medium"
+                android:onClick="@{()->addReviewView.onClickPost()}"
+                android:text="@string/add_review_post_btn"
+                android:textAllCaps="true"
+                android:textColor="@color/secondary"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:typeface="normal" />
+                android:typeface="normal"
+                app:layout_constraintBottom_toBottomOf="@id/civ_profile_image"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-            <Button
-                android:id="@+id/btn_add_review_select_location"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_borderless"
-                android:backgroundTint="@color/secondary"
-                android:text="@string/add_review_select_location_btn"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:onClick="@{(view) -> addReviewView.onClickSelectLocation(view)}"
-                android:typeface="normal" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lnl_add_review_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_posting_publicly">
 
+                <ImageButton
+                    android:id="@+id/ib_add_review_rating1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{() -> addReviewView.onClickStar(1)}"
+                    android:scaleType="fitCenter"
+                    android:src="@{rating >= 1 ? @drawable/ic_toilet_review_starred : @drawable/ic_toilet_review_star}" />
+
+                <ImageButton
+                    android:id="@+id/ib_add_review_rating2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{() -> addReviewView.onClickStar(2)}"
+                    android:scaleType="fitCenter"
+                    android:src="@{rating >= 2 ? @drawable/ic_toilet_review_starred : @drawable/ic_toilet_review_star}" />
+
+                <ImageButton
+                    android:id="@+id/ib_add_review_rating3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{() -> addReviewView.onClickStar(3)}"
+                    android:scaleType="fitCenter"
+                    android:src="@{rating >= 3 ? @drawable/ic_toilet_review_starred : @drawable/ic_toilet_review_star}" />
+
+                <ImageButton
+                    android:id="@+id/ib_add_review_rating4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{() -> addReviewView.onClickStar(4)}"
+                    android:scaleType="fitCenter"
+                    android:src="@{rating >= 4 ? @drawable/ic_toilet_review_starred : @drawable/ic_toilet_review_star}" />
+
+                <ImageButton
+                    android:id="@+id/ib_add_review_rating5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/transparent"
+                    android:onClick="@{() -> addReviewView.onClickStar(5)}"
+                    android:scaleType="fitCenter"
+                    android:src="@{rating >= 5 ? @drawable/ic_toilet_review_starred : @drawable/ic_toilet_review_star}" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/add_review_comment"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="top"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:padding="20dp"
+
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/lnl_add_review_rating" />
+
+
+            <LinearLayout
+                android:id="@+id/lnl_add_review_actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_review_comment">
+
+                <Button
+                    android:id="@+id/btn_add_review_upload_photos"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_borderless"
+                    android:backgroundTint="@color/tertiary"
+                    android:text="@string/edit_review_upload_photos_btn"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <Button
+                    android:id="@+id/btn_add_review_select_location"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_borderless"
+                    android:backgroundTint="@color/secondary"
+                    android:text="@string/add_review_select_location_btn"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:onClick="@{(view) -> addReviewView.onClickSelectLocation(view)}"
+                    android:typeface="normal" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -83,6 +83,7 @@
     <string name="edit_review_save_btn">SAVE</string>
     <string name="add_review_post_btn">POST</string>
     <string name="edit_review_profile">Posting publicly</string>
+    <string name="edit_review_username">\@%s</string>
     <string name="edit_review_upload_photos_btn">Upload Photos</string>
     <string name="edit_review_delete_btn">Delete</string>
     <string name="add_review_select_location_btn">Select Location</string>

@@ -11,6 +11,7 @@ import com.example.loolah.model.enums.ToiletType;
 import com.example.loolah.util.NumberUtil;
 import com.firebase.geofire.GeoFireUtils;
 import com.firebase.geofire.GeoLocation;
+import com.google.firebase.firestore.Exclude;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -125,6 +126,7 @@ public class Toilet {
         return distance;
     }
 
+    @Exclude
     public String getDistanceStr() {
         return NumberUtil.format((long) distance);
     }
@@ -153,18 +155,22 @@ public class Toilet {
         return accessibility;
     }
 
+    @Exclude
     public boolean getFemaleAccessibility() {
         return Boolean.TRUE.equals(accessibility.get("female"));
     }
 
+    @Exclude
     public boolean getMaleAccessibility() {
         return Boolean.TRUE.equals(accessibility.get("male"));
     }
 
+    @Exclude
     public boolean getHandicapAccessibility() {
         return Boolean.TRUE.equals(accessibility.get("handicap"));
     }
 
+    @Exclude
     public boolean getChildAccessibility() {
         return Boolean.TRUE.equals(accessibility.get("child"));
     }
@@ -177,6 +183,7 @@ public class Toilet {
         return reviewCount;
     }
 
+    @Exclude
     public String getReviewCountStr() {
         return String.valueOf(reviewCount);
     }
@@ -189,6 +196,7 @@ public class Toilet {
         return rating;
     }
 
+    @Exclude
     public String getRatingStr() {
         return new DecimalFormat("0.0").format(rating);
     }
