@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         binding.btnLoginTogglePassword.setOnClickListener(v -> password_visible = togglePasswordVisibility(binding.etLoginPassword, binding.btnLoginTogglePassword, password_visible));
-        binding.btnLoginLogin.setOnClickListener(v -> {
+        binding.btnLoginSignUp.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             finish();
         });
