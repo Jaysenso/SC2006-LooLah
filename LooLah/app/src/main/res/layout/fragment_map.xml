@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+        <variable
+            name="mapView"
+            type="com.example.loolah.view.map.MapFragment" />
+    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -52,6 +60,7 @@
             android:backgroundTint="@color/secondary"
             android:contentDescription="@string/home_search_btn"
             android:src="@drawable/ic_search"
+            android:onClick="@{() -> mapView.onClickSearch()}"
             app:tint="@color/white" />
 
 
@@ -116,3 +125,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

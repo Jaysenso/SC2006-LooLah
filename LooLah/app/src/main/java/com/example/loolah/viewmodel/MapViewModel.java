@@ -1,12 +1,13 @@
 package com.example.loolah.viewmodel;
 
 import android.location.Location;
-import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.loolah.model.Toilet;
+import com.example.loolah.model.enums.ToiletDistrict;
+import com.example.loolah.model.enums.ToiletType;
 import com.example.loolah.util.LiveDataWrapper;
 import com.firebase.geofire.GeoFireUtils;
 import com.firebase.geofire.GeoLocation;
@@ -19,7 +20,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class MapViewModel extends ViewModel {
     private final CollectionReference tColRef;
@@ -27,47 +27,16 @@ public class MapViewModel extends ViewModel {
     private MutableLiveData<LiveDataWrapper<ArrayList<Toilet>>> filteredToiletListMutableLiveData = new MutableLiveData<>();
 
     public MapViewModel() {
-        tColRef = Objects.requireNonNull(FirebaseFirestore.getInstance().collection("toilets"));
+        tColRef = FirebaseFirestore.getInstance().collection("toilets");
     }
 
-    public MutableLiveData<LiveDataWrapper<ArrayList<Toilet>>> getToiletList() {
-        if (toiletListMutableLiveData == null) toiletListMutableLiveData = new MutableLiveData<>();
-        return toiletListMutableLiveData;
-    }
     public MutableLiveData<LiveDataWrapper<ArrayList<Toilet>>> getFilteredToiletList() {
-        if (filteredToiletListMutableLiveData == null) filteredToiletListMutableLiveData = new MutableLiveData<>();
+        if (filteredToiletListMutableLiveData == null)
+            filteredToiletListMutableLiveData = new MutableLiveData<>();
         return filteredToiletListMutableLiveData;
     }
 
-    public void getToilets() {
-        toiletListMutableLiveData.setValue(LiveDataWrapper.loading(null));
-        final ArrayList<Task<QuerySnapshot>> tasks = new ArrayList<>();
-
-        tasks.add(tColRef.orderBy("geoHash").get());
-
-        Tasks.whenAllComplete(tasks).addOnSuccessListener(completedTasks -> {
-            ArrayList<Toilet> toiletList = new ArrayList<>();
-
-            for (Task<QuerySnapshot> task : tasks) {
-                if(task.isSuccessful()) {
-                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                        Toilet toilet = documentSnapshot.toObject(Toilet.class);
-                        toiletList.add(toilet);
-                        Log.d("SUCCESSFUL QUERY",toilet.getName());
-                    }
-                }
-                else {
-                    Exception exception = task.getException();
-                    if (exception != null) {
-                        exception.printStackTrace();
-                    }
-                }
-            }
-            toiletListMutableLiveData.setValue(LiveDataWrapper.success(toiletList));
-        });
-    }
-
-    public void getFilteredToilets(Location location) {
+    public void getToilets(Location location) {
         filteredToiletListMutableLiveData.setValue(LiveDataWrapper.loading(null));
 
         final GeoLocation currentLocation = new GeoLocation(location.getLatitude(), location.getLongitude());
@@ -86,12 +55,31 @@ public class MapViewModel extends ViewModel {
                     if (toiletDistance <= distanceRadius) {
                         Toilet toilet = documentSnapshot.toObject(Toilet.class);
                         toilet.setDistance(toiletDistance);
-                        Log.d("IN MAPVIEW:", toilet.getName());
                         toiletList.add(toilet);
                     }
                 }
             }
+
+            toiletList.sort((toilet1, toilet2) -> (int) (toilet1.getDistance() - toilet2.getDistance()));
+            toiletListMutableLiveData.setValue(LiveDataWrapper.success(toiletList));
             filteredToiletListMutableLiveData.setValue(LiveDataWrapper.success(toiletList));
-        });
+        }).addOnFailureListener(e -> filteredToiletListMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
+    }
+
+    public void filterToilets(String keyword, ToiletType type, ToiletDistrict district, double distance, int rating) {
+        try {
+            ArrayList<Toilet> toiletList = toiletListMutableLiveData.getValue().getData();
+            ArrayList<Toilet> filteredToiletList = new ArrayList<>();
+
+            for (Toilet toilet : toiletList) {
+                if (toilet.getName().toLowerCase().contains(keyword.toLowerCase()) && toilet.getDistance() <= distance && toilet.getRating() >= rating && (type == null || toilet.getType() == type) && (district == null || toilet.getDistrict() == district)) {
+                    filteredToiletList.add(toilet);
+                }
+            }
+
+            filteredToiletListMutableLiveData.setValue(LiveDataWrapper.success(filteredToiletList));
+        } catch (Exception e) {
+            filteredToiletListMutableLiveData.setValue(LiveDataWrapper.error("Something went wrong when getting toilets", null));
+        }
     }
 }

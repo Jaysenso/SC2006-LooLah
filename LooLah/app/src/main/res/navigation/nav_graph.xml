@@ -25,20 +25,13 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.example.loolah.view.Map.MapFragment"
+        android:name="com.example.loolah.view.map.MapFragment"
         android:label="MapFragment">
-        <action
-            android:id="@+id/action_mapFragment_to_toiletRVMenu"
-            app:destination="@id/toiletRVMenu" />
         <action
             android:id="@+id/action_mapFragment_to_toiletDetailsFragment"
             app:destination="@id/toiletDetailsFragment" />
     </fragment>
 
-    <activity
-        android:id="@+id/toiletRVMenu"
-        android:name="com.example.loolah.ToiletRVMenu"
-        android:label="ToiletRVMenu" />
 
     <fragment
         android:id="@+id/reviewFragment"
