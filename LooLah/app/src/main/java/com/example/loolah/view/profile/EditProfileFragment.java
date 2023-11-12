@@ -26,8 +26,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
@@ -96,6 +99,7 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void saveUserProfile() {
+        boolean successful = true;
         if (currentUser == null) {
             Log.e(TAG, "currentUser is null in saveUserProfile()");
             return;
@@ -107,28 +111,30 @@ public class EditProfileFragment extends Fragment {
 
         // Check if the username has changed
         if (!newUsername.equals(currentUser.getUsername())) {
-            currentUser.setUsername(newUsername);
+            FirebaseFirestore.getInstance().collection("users").document(currentUser.getUserId()).update("username", newUsername).addOnSuccessListener(unused -> {
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(newUsername).build();
+                FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
+            });
         }
 
         // Check if the profile picture has changed
         if (selectedImageUri != null && !selectedImageUri.toString().equals(profilePictureUrl)) {
-            String updatedProfilePictureUrl = selectedImageUri.toString();
-            profilePictureUrl = updatedProfilePictureUrl;
-            currentUser.setProfilePicUrl(updatedProfilePictureUrl);
+            StorageReference profileImgUrlRef = FirebaseStorage.getInstance().getReference().child("images/profile/" + currentUser.getUserId());
+            profileImgUrlRef.putFile(selectedImageUri).addOnSuccessListener(taskSnapshot -> {
+                profileImgUrlRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    FirebaseFirestore.getInstance().collection("users").document(currentUser.getUserId()).update("profilePicUrl", uri).addOnSuccessListener(unused -> {
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setPhotoUri(uri).build();
+                        FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
+                    });
+                });
+            });
         }
 
         // Update only if changes were made
-        if (currentUser.isProfileChanged()) {
-            FirebaseFirestore.getInstance().collection("users").document(currentUser.getUserId()).set(currentUser).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    selectedImageUri = null;
-                    Toast.makeText(requireContext(), "Profile saved successfully", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(requireView()).navigate(R.id.action_editProfileFragment_to_profileFragment);
-                } else {
-                    Toast.makeText(requireContext(), "Failed to save profile", Toast.LENGTH_SHORT).show();
-                }
-            });
+        if (successful) {
+            Toast.makeText(requireContext(), "Profile saved successfully", Toast.LENGTH_SHORT).show();
         } else {
+            // TODO: Add failed
             Toast.makeText(requireContext(), "No changes made to the profile", Toast.LENGTH_SHORT).show();
         }
     }
