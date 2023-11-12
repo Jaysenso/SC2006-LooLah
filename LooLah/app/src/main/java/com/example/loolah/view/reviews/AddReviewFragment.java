@@ -22,12 +22,15 @@ public class AddReviewFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(ReviewViewModel.class);
-        String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
 
         binding = FragmentAddReviewBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getActivity());
         binding.setAddReviewView(this);
 
+        String toiletName = getArguments() != null ? getArguments().getString("toiletName") : null;
+        if (toiletName!=null){
+            binding.showLocation.setText(toiletName);
+        }
         // Observe the user LiveData
         viewModel.getProfile().observe(getViewLifecycleOwner(), userLiveDataWrapper -> {
             switch (userLiveDataWrapper.getStatus()) {
