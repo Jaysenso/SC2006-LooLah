@@ -56,7 +56,10 @@ public class EditProfileFragment extends Fragment {
             navHostFragment.getNavController().navigateUp();
         });
 
-        btn_save.setOnClickListener(v -> saveUserProfile());
+        btn_save.setOnClickListener(v -> {
+            saveUserProfile(v);
+
+        });
 
         btn_edit_profile_picture.setOnClickListener(v -> changeProfilePicture());
 
@@ -98,7 +101,7 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
-    private void saveUserProfile() {
+    private void saveUserProfile(View view) {
         boolean successful = true;
         if (currentUser == null) {
             Log.e(TAG, "currentUser is null in saveUserProfile()");
@@ -133,6 +136,7 @@ public class EditProfileFragment extends Fragment {
         // Update only if changes were made
         if (successful) {
             Toast.makeText(requireContext(), "Profile saved successfully", Toast.LENGTH_SHORT).show();
+            Navigation.findNavController(view).navigate(R.id.action_editProfileFragment_to_profileFragment);
         } else {
             // TODO: Add failed
             Toast.makeText(requireContext(), "No changes made to the profile", Toast.LENGTH_SHORT).show();
