@@ -63,42 +63,24 @@ public class ReviewViewModel extends ViewModel {
             review.setToiletId(toiletId);
             review.setRating(rating);
             review.setDescription(reviewDesc);
-            //review.setReviewId(newReviewRef.getId());
 
             rColRef.add(review)
                     .addOnSuccessListener(documentReference -> {
-                        // Update the review object with the generated reviewID
                         review.setReviewId(documentReference.getId());
-                        //to update the reviewId
                         rColRef.document(documentReference.getId())
                                 .set(review)
                                 .addOnSuccessListener(aVoid -> {
                                 })
                                 .addOnFailureListener(e -> {
-                                    // Handle the failure to update the review in Firestore
                                     Log.e("Firestore", "Error updating review", e);
                                 });
-                        // Update the LiveData with the success state containing the created Review object
                         reviewMutableLiveData.setValue(review);
                     })
                     .addOnFailureListener(e -> {
-                        // Update the LiveData with an error state if adding to Firestore fails
-                        // reviewMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null));
                     });
         }
     }
-    /*public void likeReview(String reviewId, String creatorId) {
-        rColRef.document(reviewId).update("likedBy", FieldValue.arrayUnion(user.getUid())).addOnSuccessListener(unused -> uColRef.document(creatorId).update("likesCount", FieldValue.increment(1)));
-    }
-    public void addFavoriteToilet(String toiletId) {
-        uColRef.document(user.getUid()).update("favorites", FieldValue.arrayUnion(toiletId)).addOnSuccessListener(aVoid -> {
-            ToiletDetails favoriteToilet = Objects.requireNonNull(toiletMutableLiveData.getValue()).getData();
-            if (favoriteToilet != null) {
-                favoriteToilet.setFavorited(true);
-                toiletMutableLiveData.setValue(LiveDataWrapper.success(favoriteToilet));
-            }
-        });
-    }*/
+    
     public void editReview(String reviewId,String reviewDesc,int rating,String toiletId){
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (user != null) {
