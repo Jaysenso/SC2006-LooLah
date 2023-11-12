@@ -12,14 +12,16 @@ public class Review {
     private String creatorId;
     private String toiletId;
 
-    public Review(){}
+    public Review() {
+        this.likedBy = new ArrayList<>();
+    }
 
-    public Review(String reviewID,int rating,String description,String creatorID,String toiletId){
-        this.reviewId=reviewID;
-        this.rating=rating;
-        this.description=description;
-        this.creatorId=creatorID;
-        this.toiletId=toiletId;
+    public Review(String reviewID, int rating, String description, String creatorID, String toiletId) {
+        this.reviewId = reviewID;
+        this.rating = rating;
+        this.description = description;
+        this.creatorId = creatorID;
+        this.toiletId = toiletId;
     }
 
     public String getReviewId() {

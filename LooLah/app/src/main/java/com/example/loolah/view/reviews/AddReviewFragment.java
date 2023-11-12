@@ -22,6 +22,7 @@ public class AddReviewFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(ReviewViewModel.class);
+        String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
 
         binding = FragmentAddReviewBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getActivity());
