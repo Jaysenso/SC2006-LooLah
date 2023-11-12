@@ -36,7 +36,7 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
-
+        String toiletName = getArguments() != null ? getArguments().getString("toiletName") : null;
         viewModel = new ViewModelProvider(requireActivity()).get(ToiletDetailsViewModel.class);
 
         binding = FragmentToiletDetailsBinding.inflate(inflater, container, false);
@@ -111,12 +111,14 @@ public class ToiletDetailsFragment extends Fragment implements ToiletReviewListA
     public void onClickAddReview(View view) {
         Bundle bundle = new Bundle();
         bundle.putString("toiletId", getArguments() != null ? getArguments().getString("toiletId") : null);
+        bundle.putString("toiletName",getArguments() != null ? getArguments().getString("toiletName") : null);
         Navigation.findNavController(view).navigate(R.id.action_toiletDetailsFragment_to_reviewFragment,bundle);
     }
 
     public void onClickEditReview(View view) {
         Bundle bundle = new Bundle();
         bundle.putString("toiletId", getArguments() != null ? getArguments().getString("toiletId") : null);
+        bundle.putString("toiletName",getArguments() != null ? getArguments().getString("toiletName") : null);
         Navigation.findNavController(view).navigate(R.id.action_toiletDetailsFragment_to_reviewFragment,bundle);
     }
 

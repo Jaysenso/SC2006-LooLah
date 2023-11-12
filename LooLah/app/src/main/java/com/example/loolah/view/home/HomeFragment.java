@@ -115,7 +115,7 @@ public class HomeFragment extends Fragment implements HomeToiletListAdapter.OnIt
     public void onSelectToilet(View view, Toilet toilet) {
         Bundle bundle = new Bundle();
         bundle.putString("toiletId", toilet.getToiletId());
-
+        bundle.putString("toiletName", toilet.getName());
         Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_toiletDetailsFragment, bundle);
     }
 
