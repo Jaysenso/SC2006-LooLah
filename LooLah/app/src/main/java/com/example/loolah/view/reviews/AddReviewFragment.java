@@ -7,15 +7,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.loolah.R;
 import com.example.loolah.databinding.FragmentAddReviewBinding;
+import com.example.loolah.model.ToiletDetails;
+import com.example.loolah.model.User;
+import com.example.loolah.view.home.ImageAdapter;
 import com.example.loolah.viewmodel.ReviewViewModel;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,7 +31,7 @@ public class AddReviewFragment extends Fragment{
     private int selectedRating = 0;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ReviewViewModel viewModel = new ViewModelProvider(requireActivity()).get(ReviewViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(ReviewViewModel.class);
         View addReview_fragment = inflater.inflate(R.layout.fragment_add_review, container, false);
 
         binding = FragmentAddReviewBinding.inflate(inflater, container, false);
@@ -35,8 +40,17 @@ public class AddReviewFragment extends Fragment{
 
         // Observe the user LiveData
         viewModel.getProfile().observe(getViewLifecycleOwner(), userLiveDataWrapper -> {
-            // Update the binding with the user data
-            binding.setUser(userLiveDataWrapper.getData());
+            switch (userLiveDataWrapper.getStatus()) {
+                case SUCCESS:
+                    if (userLiveDataWrapper.getData() != null)
+                        binding.setUser(userLiveDataWrapper.getData());
+                    break;
+                case ERROR:
+                    Toast.makeText(getContext(), "Unable to user information.", Toast.LENGTH_SHORT).show();
+                    break;
+                case LOADING:
+                    break;
+            }
         });
         viewModel.getUserProfile();
  
@@ -62,6 +76,10 @@ public class AddReviewFragment extends Fragment{
     public void onClickBack(){
         NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
         if (navHostFragment != null) navHostFragment.getNavController().navigateUp();
+    }
+
+    public void onClickSelectLocation(View view){
+        Navigation.findNavController(view).navigate((R.id.action_addReviewFragment_to_selectLocationFragment));
     }
 }
 
