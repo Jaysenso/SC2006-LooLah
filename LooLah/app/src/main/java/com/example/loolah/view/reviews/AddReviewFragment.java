@@ -72,5 +72,7 @@ public class AddReviewFragment extends Fragment{
     public void onClickSelectLocation(View view){
         Navigation.findNavController(view).navigate((R.id.action_addReviewFragment_to_selectLocationFragment));
     }
+
+    public void onClickUploadPhotos(){}
 }
 

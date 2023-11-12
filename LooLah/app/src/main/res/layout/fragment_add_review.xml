@@ -58,10 +58,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ctl_add_review"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp"
-
+            android:layout_height="0dp"
+            android:nestedScrollingEnabled="false"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="30dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_review_logo">
@@ -230,6 +233,7 @@
                     android:background="@drawable/bg_borderless"
                     android:backgroundTint="@color/tertiary"
                     android:text="@string/edit_review_upload_photos_btn"
+                    android:onClick="@{() -> addReviewView.onClickUploadPhotos()}"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -252,6 +256,21 @@
                     android:onClick="@{(view) -> addReviewView.onClickSelectLocation(view)}"
                     android:typeface="normal" />
             </LinearLayout>
+
+            <GridView
+                android:id="@+id/gv_uploaded_photos"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:horizontalSpacing="5dp"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lnl_add_review_actions" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
