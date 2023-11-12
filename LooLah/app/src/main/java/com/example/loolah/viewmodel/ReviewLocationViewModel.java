@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.loolah.model.Toilet;
 import com.example.loolah.util.LiveDataWrapper;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -24,6 +25,27 @@ public class ReviewLocationViewModel extends ViewModel {
             filteredToiletListMutableLiveData = new MutableLiveData<>();
         return filteredToiletListMutableLiveData;
     }
+    public void getToilets() {
+        filteredToiletListMutableLiveData.setValue(LiveDataWrapper.loading(null));
+
+        tColRef.orderBy("name")  // Assuming "toiletName" is the field to sort alphabetically
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    ArrayList<Toilet> toiletList = new ArrayList<>();
+
+                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        Toilet toilet = documentSnapshot.toObject(Toilet.class);
+                        if (toilet != null) {
+                            toiletList.add(toilet);
+                        }
+                    }
+
+                    toiletListMutableLiveData.setValue(LiveDataWrapper.success(toiletList));
+                    filteredToiletListMutableLiveData.setValue(LiveDataWrapper.success(toiletList));
+                })
+                .addOnFailureListener(e -> filteredToiletListMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
+    }
+
 
     public void filterToilets(String keyword) {
         try {

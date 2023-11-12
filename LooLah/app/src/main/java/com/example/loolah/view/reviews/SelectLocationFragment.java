@@ -53,6 +53,7 @@ public class SelectLocationFragment extends Fragment implements LocationListAdap
                     break;
             }
         });
+        viewModel.getToilets();
 
         return binding.getRoot();
     }
