@@ -41,6 +41,7 @@ public class AddReviewFragment extends Fragment{
         binding.setLifecycleOwner(getActivity());
         binding.setAddReviewView(this);
 
+        //why is the gridview still empty even after selecting image?
         photoGridAdapter = new PhotoGridAdapter(getContext(),selectedImageUris);
         GridView gvUploadedPhotos = binding.getRoot().findViewById(R.id.gv_uploaded_photos);
         gvUploadedPhotos.setAdapter(photoGridAdapter);
@@ -106,15 +107,11 @@ public class AddReviewFragment extends Fragment{
                 // Single image selected
                 Uri selectedImageUri = data.getData();
                 handleSelectedImage(selectedImageUri);
-                // You can use this URI to load the image or upload it to a server
             } else if (data.getClipData() != null) {
-                // Multiple images selected
                 ClipData clipData = data.getClipData();
                 for (int i = 0; i < clipData.getItemCount(); i++) {
                     Uri selectedImageUri = clipData.getItemAt(i).getUri();
                     handleSelectedImage(selectedImageUri);
-                    // Handle each selected image URI
-                    // You can use these URIs to load the images or upload them to a server
                 }
             }
         }
