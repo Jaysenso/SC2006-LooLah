@@ -10,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.loolah.R;
 import com.example.loolah.databinding.FragmentAddReviewBinding;
 import com.example.loolah.viewmodel.ReviewViewModel;
 public class AddReviewFragment extends Fragment{
@@ -29,10 +31,11 @@ public class AddReviewFragment extends Fragment{
         viewModel.getProfile().observe(getViewLifecycleOwner(), userLiveDataWrapper -> {
             switch (userLiveDataWrapper.getStatus()) {
                 case SUCCESS:
-                    if (userLiveDataWrapper.getData() != null) binding.setUser(userLiveDataWrapper.getData());
+                    if (userLiveDataWrapper.getData() != null)
+                        binding.setUser(userLiveDataWrapper.getData());
                     break;
                 case ERROR:
-                    Toast.makeText(getContext(), "User not found.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Unable to user information.", Toast.LENGTH_SHORT).show();
                     break;
                 case LOADING:
                     break;
@@ -59,6 +62,10 @@ public class AddReviewFragment extends Fragment{
     public void onClickBack(){
         NavHostFragment navHostFragment = (NavHostFragment) getParentFragment();
         if (navHostFragment != null) navHostFragment.getNavController().navigateUp();
+    }
+
+    public void onClickSelectLocation(View view){
+        Navigation.findNavController(view).navigate((R.id.action_addReviewFragment_to_selectLocationFragment));
     }
 }
 

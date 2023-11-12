@@ -231,6 +231,7 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    android:onClick="@{(view) -> addReviewView.onClickSelectLocation(view)}"
                     android:typeface="normal" />
             </LinearLayout>
 
