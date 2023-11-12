@@ -60,6 +60,7 @@ public class AddReviewFragment extends Fragment{
 
         String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
         viewModel.postReview(reviewDesc,rating,toiletId);
+        //Navigation.findNavController(view).navigate((R.id.action_addReviewFragment_to_toiletDetailsFragment));
         NavHostFragment.findNavController(this).navigateUp();
     }
 
