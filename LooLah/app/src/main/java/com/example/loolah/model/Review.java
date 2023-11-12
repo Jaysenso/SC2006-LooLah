@@ -1,5 +1,7 @@
 package com.example.loolah.model;
 
+import com.google.firebase.firestore.Exclude;
+
 import java.util.ArrayList;
 
 public class Review {
@@ -32,6 +34,7 @@ public class Review {
         return rating;
     }
 
+    @Exclude
     public String getRatingStr() {
         return String.valueOf(rating);
     }
