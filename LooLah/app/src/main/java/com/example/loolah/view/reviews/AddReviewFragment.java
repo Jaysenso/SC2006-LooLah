@@ -22,7 +22,10 @@ public class AddReviewFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(requireActivity()).get(ReviewViewModel.class);
-        String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
+        /*String toiletName = getArguments() != null ? getArguments().getString("name") : null;
+
+        if (toiletName!=null)
+            binding.showLocation.setText(toiletName);*/
 
         binding = FragmentAddReviewBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(getActivity());
@@ -43,6 +46,21 @@ public class AddReviewFragment extends Fragment{
             }
         });
         viewModel.getUserProfile();
+
+        /*viewModel.getToilet().observe(getViewLifecycleOwner(), toiletLiveDataWrapper -> {
+            switch (toiletLiveDataWrapper.getStatus()) {
+                case SUCCESS:
+                    if (toiletLiveDataWrapper.getData() != null)
+                        binding.setToilet(toiletLiveDataWrapper.getData());
+                    break;
+                case ERROR:
+                    Toast.makeText(getContext(), "Unable to toilet information.", Toast.LENGTH_SHORT).show();
+                    break;
+                case LOADING:
+                    break;
+            }
+        });
+        viewModel.getToiletData(toiletId);*/
  
         return binding.getRoot();
     }

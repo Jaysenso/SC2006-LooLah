@@ -64,7 +64,7 @@ public class SelectLocationFragment extends Fragment implements LocationListAdap
     @Override
     public void onSelectToilet(View view, Toilet toilet) {
         Bundle bundle = new Bundle();
-        bundle.putString("toiletId", toilet.getToiletId());
+        bundle.putString("name", toilet.getName());
 
         Navigation.findNavController(view).navigate(R.id.action_selectLocationFragment_to_addReviewFragment, bundle);
     }
