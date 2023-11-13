@@ -26,8 +26,8 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-
         viewModel.getCurrentUser();
+        //setupDatabase();
     }
 
     private void setupDatabase() {
