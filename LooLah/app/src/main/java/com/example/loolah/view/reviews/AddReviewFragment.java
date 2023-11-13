@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.loolah.R;
 import com.example.loolah.adapter.PhotoGridAdapter;
 import com.example.loolah.databinding.FragmentAddReviewBinding;
+import com.example.loolah.model.ToiletDetails;
 import com.example.loolah.view.home.ImageAdapter;
 import com.example.loolah.viewmodel.ReviewViewModel;
 
@@ -50,6 +52,7 @@ public class AddReviewFragment extends Fragment{
         if (toiletName!=null){
             binding.showLocation.setText(toiletName);
         }
+        String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
         // Observe the user LiveData
         viewModel.getProfile().observe(getViewLifecycleOwner(), userLiveDataWrapper -> {
             switch (userLiveDataWrapper.getStatus()) {
@@ -65,7 +68,22 @@ public class AddReviewFragment extends Fragment{
             }
         });
         viewModel.getUserProfile();
- 
+
+        viewModel.getToilet().observe(getViewLifecycleOwner(), toiletLiveDataWrapper -> {
+            switch (toiletLiveDataWrapper.getStatus()) {
+                case SUCCESS:
+                    ToiletDetails toilet = toiletLiveDataWrapper.getData();
+                    binding.setToilet(toilet);
+                    break;
+                case ERROR:
+                    Toast.makeText(getContext(), "Unable to retrieve toilet information.", Toast.LENGTH_SHORT).show();
+                    break;
+                case LOADING:
+                    break;
+            }
+        });
+        viewModel.getToiletData(getContext(), getResources(), toiletId);
+
         return binding.getRoot();
     }
 
@@ -73,14 +91,17 @@ public class AddReviewFragment extends Fragment{
         binding.setRating(rating);
     }
 
-    public void onClickPost(){
+    public void onClickPost(Boolean reviewed){
         String reviewDesc=binding.addReviewComment.getText().toString();
         int rating = binding.getRating();
-
         String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
-        viewModel.postReview(reviewDesc,rating,toiletId);
+        if(!reviewed)
+            viewModel.postReview(reviewDesc,rating,toiletId);
         //Navigation.findNavController(view).navigate((R.id.action_addReviewFragment_to_toiletDetailsFragment));
+        else
+            viewModel.editReview(reviewDesc,rating,toiletId);
         NavHostFragment.findNavController(this).navigateUp();
+
     }
 
     public void onClickBack(){
