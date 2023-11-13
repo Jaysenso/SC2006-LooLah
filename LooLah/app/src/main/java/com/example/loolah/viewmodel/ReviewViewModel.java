@@ -2,6 +2,7 @@ package com.example.loolah.viewmodel;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -18,9 +19,13 @@ import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -80,7 +85,7 @@ public class ReviewViewModel extends ViewModel {
         reviewMutableLiveData.setValue(review);
     }
 
-    public void postReview(String reviewDesc,int rating,String toiletId){
+    public void postReview(String reviewDesc,int rating,String toiletId, List<Uri> selectedImageUris){
 
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         // Check if the user is logged in
@@ -94,10 +99,23 @@ public class ReviewViewModel extends ViewModel {
 
             rColRef.add(review)
                     .addOnSuccessListener(documentReference -> {
-                        review.setReviewId(documentReference.getId());
                         rColRef.document(documentReference.getId())
-                                .set(review)
+                                .update("reviewId", documentReference.getId())
                                 .addOnSuccessListener(aVoid -> {
+                                    tColRef.document(toiletId).update("reviewCount", FieldValue.increment(1), "rating", FieldValue.increment(rating)).addOnSuccessListener(unused -> {
+                                        uColRef.document(user.getUid()).update("reviewCount", FieldValue.increment(1)).addOnSuccessListener(unused1 -> {
+                                            for (Uri selectedImageUri : selectedImageUris) {
+                                                StorageReference toiletImgUrlRef = FirebaseStorage.getInstance().getReference().child("images/toilet/" + selectedImageUri.getLastPathSegment());
+                                                toiletImgUrlRef.putFile(selectedImageUri).addOnSuccessListener(taskSnapshot -> {
+                                                    toiletImgUrlRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                                                        tColRef.document(toiletId).update("photoUrl", FieldValue.arrayUnion(uri)).addOnSuccessListener(unused2 -> {
+                                                            uColRef.document(user.getUid()).update("photoCount", FieldValue.increment(1));
+                                                        });
+                                                    });
+                                                });
+                                            }
+                                        });
+                                    });
                                 })
                                 .addOnFailureListener(e -> {
                                     Log.e("Firestore", "Error updating review", e);

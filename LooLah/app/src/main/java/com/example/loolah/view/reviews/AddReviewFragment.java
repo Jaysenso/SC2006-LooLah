@@ -82,7 +82,7 @@ public class AddReviewFragment extends Fragment{
                     break;
             }
         });
-        viewModel.getToiletData(getContext(), getResources(), toiletId);
+        if (toiletId != null) viewModel.getToiletData(getContext(), getResources(), toiletId);
 
         return binding.getRoot();
     }
@@ -96,7 +96,7 @@ public class AddReviewFragment extends Fragment{
         int rating = binding.getRating();
         String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
         if(!reviewed)
-            viewModel.postReview(reviewDesc,rating,toiletId);
+            viewModel.postReview(reviewDesc,rating,toiletId, selectedImageUris);
         //Navigation.findNavController(view).navigate((R.id.action_addReviewFragment_to_toiletDetailsFragment));
         else
             viewModel.editReview(reviewDesc,rating,toiletId);
