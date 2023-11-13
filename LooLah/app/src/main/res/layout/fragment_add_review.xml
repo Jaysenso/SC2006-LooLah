@@ -24,7 +24,7 @@
 
         <variable
             name="toilet"
-            type="com.example.loolah.model.Toilet" />
+            type="com.example.loolah.model.ToiletDetails" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:fontFamily="sans-serif-medium"
-                android:onClick="@{()->addReviewView.onClickPost()}"
+                android:onClick="@{()->addReviewView.onClickPost(toilet.reviewed)}"
                 android:text="@string/add_review_post_btn"
                 android:textAllCaps="true"
                 android:textColor="@color/secondary"

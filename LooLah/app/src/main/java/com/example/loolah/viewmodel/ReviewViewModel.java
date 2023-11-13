@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.loolah.model.Review;
+import com.example.loolah.model.ReviewDetails;
 import com.example.loolah.model.ToiletDetails;
 import com.example.loolah.model.User;
 import com.example.loolah.util.LiveDataWrapper;
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -51,6 +53,27 @@ public class ReviewViewModel extends ViewModel {
         if (reviewMutableLiveData == null) reviewMutableLiveData = new MutableLiveData<>();
         return reviewMutableLiveData;
     }
+    public MutableLiveData<LiveDataWrapper<ToiletDetails>> getToilet() {
+        if (toiletMutableLiveData == null) toiletMutableLiveData = new MutableLiveData<>();
+        return toiletMutableLiveData;
+    }
+
+    public void getToiletData(Context context, Resources resources, String toiletId) {
+        toiletMutableLiveData.setValue(LiveDataWrapper.loading(null));
+        tColRef.document(toiletId).get().addOnSuccessListener(documentSnapshot -> {
+            ToiletDetails toilet = documentSnapshot.toObject(ToiletDetails.class);
+
+            if (toilet != null) {
+                rColRef.whereEqualTo("toiletId", toilet.getToiletId()).whereEqualTo("creatorId", user.getUid()).count().get(AggregateSource.SERVER).addOnSuccessListener(aggregateQuerySnapshot -> {
+                    if (aggregateQuerySnapshot.getCount() == 1) toilet.setReviewed(true);
+                    toiletMutableLiveData.setValue(LiveDataWrapper.success(toilet));
+                }).addOnFailureListener(e -> toiletMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
+            } else
+                toiletMutableLiveData.setValue(LiveDataWrapper.error("Toilet does not exist", null));
+        }).addOnFailureListener(e -> toiletMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
+    }
+
+
 
     public void onPostClick(String toiletID){
         Review review = new Review(reviewMutableLiveData.getValue().getReviewId(),ratingMutableLiveData.getValue(),reviewDescMutableLiveData.getValue(),user.getUid(),toiletID);
@@ -85,22 +108,33 @@ public class ReviewViewModel extends ViewModel {
                     });
         }
     }
-    
-    public void editReview(String reviewId,String reviewDesc,int rating,String toiletId){
+
+    public void editReview(String reviewDesc,int rating,String toiletId){
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (user != null) {
-            DocumentReference reviewRef = rColRef.document(reviewId);
+            // Query for the review with the specified user ID and toilet ID
+            rColRef.whereEqualTo("creatorId", firebaseUser.getUid())
+                    .whereEqualTo("toiletId", toiletId)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
 
-            Map<String, Object> updates = new HashMap<>();
-            updates.put("description", reviewDesc);
-            updates.put("rating", rating);
-            updates.put("toiletId", toiletId);
+                            String reviewId = documentSnapshot.getId();
+                            DocumentReference reviewRef = rColRef.document(reviewId);
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("description", reviewDesc);
+                            updates.put("rating", rating);
+                            updates.put("toiletId", toiletId);
+                            reviewRef.update(updates)
+                                    .addOnSuccessListener(aVoid -> {})
+                                    .addOnFailureListener(e -> {});
+                            return;  // Assuming there is at most one review for a specific user and toilet
+                        }
 
-            reviewRef.update(updates)
-                    .addOnSuccessListener(aVoid -> {
-
+                        // If no matching review is found, you can handle it here
                     })
                     .addOnFailureListener(e -> {
+                        // Handle failure
                     });
         }
     }
@@ -113,11 +147,6 @@ public class ReviewViewModel extends ViewModel {
     public void getUserProfile() {
         profileMutableLiveData.setValue(LiveDataWrapper.loading(null));
         uColRef.document(user.getUid()).get().addOnSuccessListener(documentSnapshot -> profileMutableLiveData.setValue(LiveDataWrapper.success(Objects.requireNonNull(documentSnapshot.toObject(User.class))))).addOnFailureListener(e -> profileMutableLiveData.setValue(LiveDataWrapper.error(e.getMessage(), null)));
-    }
-
-    public MutableLiveData<LiveDataWrapper<ToiletDetails>> getToilet() {
-        if (toiletMutableLiveData == null) toiletMutableLiveData = new MutableLiveData<>();
-        return toiletMutableLiveData;
     }
     
 }
