@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_addReviewFragment_to_selectLocationFragment"
             app:destination="@+id/selectLocationFragment"/>
+        <action
+            android:id="@+id/action_addReviewFragment_to_toiletDetailsFragment"
+            app:destination="@+id/toiletDetailsFragment"/>
     </fragment>
 
     <fragment

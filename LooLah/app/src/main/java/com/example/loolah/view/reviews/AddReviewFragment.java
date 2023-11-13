@@ -91,7 +91,7 @@ public class AddReviewFragment extends Fragment{
         binding.setRating(rating);
     }
 
-    public void onClickPost(Boolean reviewed){
+    public void onClickPost(View view,Boolean reviewed){
         String reviewDesc=binding.addReviewComment.getText().toString();
         int rating = binding.getRating();
         String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
@@ -100,8 +100,9 @@ public class AddReviewFragment extends Fragment{
         //Navigation.findNavController(view).navigate((R.id.action_addReviewFragment_to_toiletDetailsFragment));
         else
             viewModel.editReview(reviewDesc,rating,toiletId);
-        NavHostFragment.findNavController(this).navigateUp();
-
+        Bundle bundle = new Bundle();
+        bundle.putString("toiletId",toiletId);
+        Navigation.findNavController(view).navigate((R.id.action_addReviewFragment_to_toiletDetailsFragment),bundle);
     }
 
     public void onClickBack(){
