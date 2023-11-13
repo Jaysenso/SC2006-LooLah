@@ -2,32 +2,34 @@ package com.example.loolah.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.loolah.R;
 
 import java.util.List;
 
 public class PhotoGridAdapter extends BaseAdapter {
     private Context context;
-    private List<Uri> imageUris;
+    private Uri[] imageUris;
 
-    public PhotoGridAdapter(Context context, List<Uri> imageUris) {
+    public PhotoGridAdapter(Context context, Uri[] imageUris) {
         this.context = context;
         this.imageUris = imageUris;
     }
 
     @Override
     public int getCount() {
-        return imageUris.size();
+        return imageUris.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return imageUris.get(position);
+        return imageUris[position];
     }
 
     @Override
@@ -37,21 +39,21 @@ public class PhotoGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        if (convertView == null) {
-            imageView = new ImageView(context);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        } else {
-            imageView = (ImageView) convertView;
-        }
+        ImageView imageView = new ImageView(context);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        // Load the image into the ImageView
-        Glide.with(context).load(imageUris.get(position)).into(imageView);
+        imageView.setLayoutParams(new ViewGroup.LayoutParams((parent.getWidth() - 50) / 3, (parent.getWidth() - 50) / 3));
+        Glide.with(imageView.getContext())
+                .load(imageUris[position])
+                .placeholder(R.drawable.img_placeholder)
+                .fallback(R.drawable.img_placeholder)
+                .into(imageView);
 
         return imageView;
+    }
+
+    public void setImageUris(Uri[] imageUris) {
+        this.imageUris = imageUris;
     }
 }
 

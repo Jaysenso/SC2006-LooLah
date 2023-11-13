@@ -42,7 +42,7 @@ public class AddReviewFragment extends Fragment{
         binding.setAddReviewView(this);
 
         //why is the gridview still empty even after selecting image?
-        photoGridAdapter = new PhotoGridAdapter(getContext(),selectedImageUris);
+        photoGridAdapter = new PhotoGridAdapter(getContext(), (Uri[]) selectedImageUris.toArray(new Uri[0]));
         GridView gvUploadedPhotos = binding.getRoot().findViewById(R.id.gv_uploaded_photos);
         gvUploadedPhotos.setAdapter(photoGridAdapter);
 
@@ -119,6 +119,7 @@ public class AddReviewFragment extends Fragment{
     private void handleSelectedImage(Uri selectedImageUri) {
         // Add the selected image URI to your list
         selectedImageUris.add(selectedImageUri);
+        photoGridAdapter.setImageUris((Uri[]) selectedImageUris.toArray(new Uri[0]));
         // Notify the adapter that the dataset has changed
         photoGridAdapter.notifyDataSetChanged();
     }
