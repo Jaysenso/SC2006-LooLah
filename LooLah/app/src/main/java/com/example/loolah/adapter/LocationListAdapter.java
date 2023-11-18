@@ -5,9 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.loolah.databinding.RowToiletBinding;
+import com.example.loolah.databinding.RowToiletLocationBinding;
 import com.example.loolah.model.Toilet;
 
 import java.util.ArrayList;
@@ -17,7 +19,8 @@ public class LocationListAdapter extends RecyclerView.Adapter<LocationListAdapte
     private LocationListAdapter.OnItemClickListener onItemClickListener;
     public LocationListAdapter.LocationListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        RowToiletBinding binding = RowToiletBinding.inflate(layoutInflater, parent, false);
+
+        RowToiletLocationBinding binding = RowToiletLocationBinding.inflate(layoutInflater, parent, false);
 
         return new LocationListAdapter.LocationListViewHolder(binding);
     }
@@ -38,13 +41,14 @@ public class LocationListAdapter extends RecyclerView.Adapter<LocationListAdapte
     public void setOnItemClickListener(LocationListAdapter.OnItemClickListener listener) {
         onItemClickListener = listener;
     }
+
     class LocationListViewHolder extends RecyclerView.ViewHolder {
-        RowToiletBinding binding;
-        public LocationListViewHolder(@NonNull RowToiletBinding binding) {
+        RowToiletLocationBinding binding;
+        public LocationListViewHolder(@NonNull RowToiletLocationBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 
-            binding.lnlToiletRow.setOnClickListener(v -> {
+            binding.lnlToiletLocation.setOnClickListener(v -> {
                 Toilet toilet = toiletList.get(getAdapterPosition());
                 onItemClickListener.onSelectToilet(v, toilet);
             });

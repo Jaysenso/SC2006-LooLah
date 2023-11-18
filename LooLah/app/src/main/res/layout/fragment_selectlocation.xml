@@ -26,6 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
             <EditText
                 android:id="@+id/et_location_search"
                 android:layout_width="0dp"
@@ -53,8 +54,8 @@
 
                 android:contentDescription="@string/home_search_btn"
                 android:onClick="@{() -> locationView.onClickSearch()}"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"
-                app:tint="@color/muted" />
+                android:src="@drawable/ic_search"
+                app:tint="@color/secondary" />
         </LinearLayout>
 
         <RelativeLayout
