@@ -43,7 +43,6 @@ public class AddReviewFragment extends Fragment{
         binding.setLifecycleOwner(getActivity());
         binding.setAddReviewView(this);
 
-        //why is the gridview still empty even after selecting image?
         photoGridAdapter = new PhotoGridAdapter(getContext(), (Uri[]) selectedImageUris.toArray(new Uri[0]));
         GridView gvUploadedPhotos = binding.getRoot().findViewById(R.id.gv_uploaded_photos);
         gvUploadedPhotos.setAdapter(photoGridAdapter);
@@ -82,7 +81,8 @@ public class AddReviewFragment extends Fragment{
                     break;
             }
         });
-        if (toiletId != null) viewModel.getToiletData(getContext(), getResources(), toiletId);
+
+        viewModel.getToiletData(getContext(), getResources(), toiletId);
 
         return binding.getRoot();
     }
@@ -96,7 +96,7 @@ public class AddReviewFragment extends Fragment{
         int rating = binding.getRating();
         String toiletId = getArguments() != null ? getArguments().getString("toiletId") : null;
         if(!reviewed)
-            viewModel.postReview(reviewDesc,rating,toiletId, selectedImageUris);
+            viewModel.postReview(reviewDesc,rating,toiletId);
         //Navigation.findNavController(view).navigate((R.id.action_addReviewFragment_to_toiletDetailsFragment));
         else
             viewModel.editReview(reviewDesc,rating,toiletId);
