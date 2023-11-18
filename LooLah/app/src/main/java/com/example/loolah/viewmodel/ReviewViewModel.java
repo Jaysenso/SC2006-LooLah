@@ -59,6 +59,9 @@ public class ReviewViewModel extends ViewModel {
     }
 
     public void getToiletData(Context context, Resources resources, String toiletId) {
+        if (toiletId==null){
+            return;
+        }
         toiletMutableLiveData.setValue(LiveDataWrapper.loading(null));
         tColRef.document(toiletId).get().addOnSuccessListener(documentSnapshot -> {
             ToiletDetails toilet = documentSnapshot.toObject(ToiletDetails.class);

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="toilet"
+            type="com.example.loolah.model.Toilet" />
+
+        <variable
+            name="locationView"
+            type="com.example.loolah.view.reviews.SelectLocationFragment" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lnl_toilet_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/bg_borderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_toilet_location_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="1"
+                android:text="@{toilet.name}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:typeface="normal"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toTopOf="@id/tv_toilet_address"
+                app:layout_constraintStart_toEndOf="@id/iv_toilet_review_verified"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="wrap" />
+
+            <TextView
+                android:id="@+id/tv_toilet_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill"
+                android:fontFamily="sans-serif-medium"
+                android:paddingVertical="2dp"
+                android:text="@{toilet.address}"
+                android:textColor="@color/muted"
+                android:textSize="12sp"
+                android:typeface="normal"
+                app:layout_constraintTop_toBottomOf="@id/tv_toilet_location_name"
+                app:layout_constraintLeft_toLeftOf="@id/tv_toilet_location_name" />
+
+            <ImageView
+                android:id="@+id/iv_toilet_review_verified"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="15dp"
+                android:contentDescription="@string/toilet_verified"
+                android:src="@drawable/ic_toilet_verified"
+                android:visibility="@{toilet.verified ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_toilet_location_name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>
