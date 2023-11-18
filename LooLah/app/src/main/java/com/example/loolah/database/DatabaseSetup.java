@@ -30,9 +30,9 @@ public class DatabaseSetup {
     public void setup(Context context) {
         setupCentral(context);
         setUpNorthWest(context);
-        setupSouthWest();
-        setupNorthEast(context);
+        //setupNorthEast(context);
         setupSouthEast(context);
+        setupSouthWest();
     }
 
     public void setupCentral(Context context) {
@@ -131,6 +131,21 @@ public class DatabaseSetup {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
             uploadToiletImagesFromUrl(documentReference.getId(), "Choa Chu Kang Centre", new ArrayList<>(Arrays.asList("https://www.toilet.org.sg/photos/4S_CCKCentre_7.jpg", "https://www.toilet.org.sg/photos/3S_CKRContract_6.jpg")));
         });
+
+        toiletColRef.add(new Toilet("Pioneer Mall", "638 Jurong West Street 61, S(640638)", 103.6974327, 1.3418568, ToiletType.SHOPPING_CENTRE, ToiletDistrict.SOUTH_WEST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromUrl(documentReference.getId(), "Pioneer Mall", new ArrayList<>(Arrays.asList("https://www.toilet.org.sg/photos/5S_PioneerMall_9.jpg", "https://www.toilet.org.sg/photos/5S_PioneerMall_19.jpg","https://www.toilet.org.sg/photos/5S_PioneerMall_16.jpg")));
+        });
+
+        toiletColRef.add(new Toilet("Gek Poh Shopping Centre", "Blk 762, Jurong West Street 75, S(640762)", 103.6976086, 1.3489162, ToiletType.SHOPPING_CENTRE, ToiletDistrict.SOUTH_WEST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromUrl(documentReference.getId(), "Gek Poh Shopping Centre", new ArrayList<>(Arrays.asList("https://www.toilet.org.sg/photos/5S-GekPohShoppingCentre_7.jpg", "https://www.toilet.org.sg/photos/5S-GekPohShoppingCentre_15.jpg","https://www.toilet.org.sg/photos/5S-GekPohShoppingCentre_8.jpg")));
+        });
+
+        toiletColRef.add(new Toilet("Jurong Point Shopping Centre", "1 Jurong West Central 2, #03-07, Jurong Point Shopping Centre, S(648886)",103.7070614, 1.3396612, ToiletType.SHOPPING_CENTRE, ToiletDistrict.SOUTH_WEST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+            toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
+            uploadToiletImagesFromUrl(documentReference.getId(), "Jurong Point Shopping Centre", new ArrayList<>(Arrays.asList("https://www.toilet.org.sg/photos/5sjurongptsc_2.jpg", "https://www.toilet.org.sg/photos/5sjurongptsc_4.jpg","https://www.toilet.org.sg/photos/5sjurongptsc_7.jpg")));
+        });
     }
 
     public void setUpNorthWest(Context context) {
@@ -197,37 +212,37 @@ public class DatabaseSetup {
     }
 
     public void setupSouthEast(Context context){
-        toiletColRef.add(new Toilet("Hearbeat@Bedok", "11 Bedok North Street 1, S(469662)", 1.3270, 103.9321, ToiletType.GOVERNMENT_OFFICE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+        toiletColRef.add(new Toilet("Heartbeat@Bedok", "11 Bedok North Street 1, S(469662)", 103.9321493,1.3269753,  ToiletType.GOVERNMENT_OFFICE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
-            uploadToiletImagesFromFile(context, documentReference.getId(), "Hearbeat@Bedok", 5);
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Bedok Heartbeat", 5);
         });
 
-        toiletColRef.add(new Toilet("Changi Business Park 15", "15 Changi Business Park Central 1, S(486057)", 1.336466, 103.968533, ToiletType.PRIVATE_OFFICE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+        toiletColRef.add(new Toilet("Changi Business Park 15", "15 Changi Business Park Central 1, S(486057)", 103.968533,1.336466,  ToiletType.PRIVATE_OFFICE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
-            uploadToiletImagesFromFile(context, documentReference.getId(), "Changi Business Park 15", 5);
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Changi Biz Park15", 5);
         });
 
-        toiletColRef.add(new Toilet("Kopitiam @ 248 Simei Street 3", "238 Simei Street 3, #01-136, S(520248)", 1.341699, 103.952998, ToiletType.COFFEESHOP, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+        toiletColRef.add(new Toilet("Kopitiam @ 248 Simei Street 3", "238 Simei Street 3, #01-136, S(520248)", 103.952998, 1.341699, ToiletType.COFFEESHOP, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
-            uploadToiletImagesFromFile(context, documentReference.getId(), "Kopitiam @ 248 Simei Street 3", 5);
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Simei 248 Kopitiam", 5);
         });
 
-        toiletColRef.add(new Toilet("Kopitiam Corner", "152A Bedok South Road, S(461152)", 1.317732, 103.947769, ToiletType.FOOD_COURT, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+        toiletColRef.add(new Toilet("Kopitiam Corner", "152A Bedok South Road, S(461152)",103.947769, 1.317732,  ToiletType.FOOD_COURT, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
-            uploadToiletImagesFromFile(context, documentReference.getId(), " Kopitiam Corner", 1);
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Kopitiam Corner", 1);
         });
 
-        toiletColRef.add(new Toilet("Eunos Bus Interchange", "409 Eunos Road 2, S(409388)", 1.319421, 103.902488, ToiletType.BUS_INTERCHANGE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+        toiletColRef.add(new Toilet("Eunos Bus Interchange", "409 Eunos Road 2, S(409388)", 103.902488,1.319421,  ToiletType.BUS_INTERCHANGE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
             uploadToiletImagesFromFile(context, documentReference.getId(), "Eunos Bus Interchange", 5);
         });
 
-        toiletColRef.add(new Toilet("Changi Village Hawker Centre", "2 Changi Village Road, S(500002)", 1.389146, 103.988316, ToiletType.MARKET_FOOD_CENTRE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+        toiletColRef.add(new Toilet("Changi Village Hawker Centre", "2 Changi Village Road, S(500002)", 103.988316,1.389146,  ToiletType.MARKET_FOOD_CENTRE, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
-            uploadToiletImagesFromFile(context, documentReference.getId(), "Changi Village Hawker Centre", 5);
+            uploadToiletImagesFromFile(context, documentReference.getId(), "Changi Village Market Food Centre", 5);
         });
 
-        toiletColRef.add(new Toilet("Paya Lebar MRT Station", "30 Paya Lebar Road, S(409006)", 1.318271, 103.893283, ToiletType.MRT_STATION, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
+        toiletColRef.add(new Toilet("Paya Lebar MRT Station", "30 Paya Lebar Road, S(409006)",103.893283, 1.318271,  ToiletType.MRT_STATION, ToiletDistrict.SOUTH_EAST, true, true, true, true)).addOnSuccessListener(documentReference -> {
             toiletColRef.document(documentReference.getId()).update("toiletId", documentReference.getId());
             uploadToiletImagesFromFile(context, documentReference.getId(), "Paya Lebar MRT Station", 5);
         });
