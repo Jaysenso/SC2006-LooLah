@@ -64,7 +64,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private FusedLocationProviderClient fusedLocationClient;
     private Location userLocation;
     private Location currentLocation;
-    private LatLng searchedLocation_LATLNG;
     private FloatingActionButton fab;
     private AutocompleteSupportFragment autocompleteFragment;
     private FragmentMapBinding binding;
@@ -110,7 +109,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
 
           sv_map = getView().findViewById(R.id.sv_map_search);
-//        ImageButton search_button = getView().findViewById(R.id.btn_home_search);
           fab = getView().findViewById(R.id.btn_get_current_location);
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -145,7 +143,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         LatLng currentLocation_LATLNG = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
         google_map.addMarker(new MarkerOptions().position(currentLocation_LATLNG).title("Current Location"));
-        google_map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation_LATLNG, 14));
+        google_map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation_LATLNG, 13));
 
         viewModel.getFilteredToiletList().observe(getViewLifecycleOwner(), LiveDataWrapper -> {
             switch (LiveDataWrapper.getStatus()) {
@@ -193,7 +191,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                     viewModel.getToilets(searchedLocation);
                                     userLocation = searchedLocation;
                                     LatLng searchView_LATLNG = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
-                                    google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(searchView_LATLNG, 14));
+                                    google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(searchView_LATLNG, 13));
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -212,7 +210,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         google_map.addMarker(new MarkerOptions()
                                 .position(user_location)
                                 .title("Current Location"));
-                        google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(user_location, 14));
+                        google_map.animateCamera(CameraUpdateFactory.newLatLngZoom(user_location, 13));
                         viewModel.getToilets(currentLocation);
                         userLocation = currentLocation;
                     }
