@@ -52,10 +52,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 A toilet-finding community app that users can not only use to navigate to nearby toilets but also rate toilets so that other users will get more information about the toilet that they are going to, to guide users to better toilets. Our solution not only tackles our primary problem of people not being able to locate toilets near them but also provides users with a rating system to help other users find toilets better suited to their needs.
-### Built With
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
