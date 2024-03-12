@@ -3,6 +3,13 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+
+def keysPropertiesFile = rootProject.file("keys.properties")
+def keysProperties = new Properties()
+if (keysPropertiesFile.exists()) {
+    keysProperties.load(new FileInputStream(keysPropertiesFile))
+}
+
 android {
     namespace = "com.example.loolah"
     compileSdk = 34
@@ -14,7 +21,11 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "GOOGLE_MAPS_API_KEY", "\"${keysProperties['GOOGLE_MAPS_API_KEY']}\""
+
+        manifestPlaceholders = [
+            GOOGLE_MAPS_API_KEY: "${keysProperties['GOOGLE_MAPS_API_KEY']}",
+        ]
     }
 
     buildTypes {
