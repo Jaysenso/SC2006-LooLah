@@ -53,16 +53,6 @@
 ## About The Project
 A toilet-finding community app that users can not only use to navigate to nearby toilets but also rate toilets so that other users will get more information about the toilet that they are going to, to guide users to better toilets. Our solution not only tackles our primary problem of people not being able to locate toilets near them but also provides users with a rating system to help other users find toilets better suited to their needs.
 ### Built With
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
