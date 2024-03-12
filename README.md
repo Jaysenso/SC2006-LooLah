@@ -51,7 +51,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-A mobile application that displays nearby toilets on a map, allowing users to easily find, rate, and review toilets near them.
+A toilet-finding community app that users can not only use to navigate to nearby toilets but also rate toilets so that other users will get more information about the toilet that they are going to, to guide users to better toilets. Our solution not only tackles our primary problem of people not being able to locate toilets near them but also provides users with a rating system to help other users find toilets better suited to their needs.
 ### Built With
 
 * [![Next][Next.js]][Next-url]
